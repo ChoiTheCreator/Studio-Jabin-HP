@@ -4,6 +4,8 @@ import { ArrowDownIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import { brand } from "@/config/brand";
+
 export function HeroSection() {
   const imageRef = useRef<HTMLDivElement>(null);
 
@@ -27,10 +29,11 @@ export function HeroSection() {
     <section className="hero" id="top" aria-labelledby="hero-title">
       <div className="hero__media" ref={imageRef}>
         <Image
-          src="/images/jabo-studio-hero.png"
-          alt="디지털 인터페이스와 디자인 샘플이 놓인 Studio JABO 작업 공간"
+          src={brand.assets.hero}
+          alt="디지털 인터페이스와 디자인 샘플이 놓인 Jabin 작업 공간"
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           sizes="100vw"
         />
       </div>

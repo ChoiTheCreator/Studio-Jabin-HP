@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { brand } from "@/config/brand";
+
 type ProjectVisualProps = {
   variant: "studio" | "archive" | "common";
   title: string;
@@ -10,12 +12,13 @@ export function ProjectVisual({ variant, title }: ProjectVisualProps) {
     return (
       <div className="project-visual project-visual--studio">
         <Image
-          src="/images/jabo-studio-hero.png"
+          src={brand.assets.hero}
           alt={`${title} 콘셉트 이미지`}
           fill
+          loading="eager"
           sizes="(min-width: 1024px) 62vw, 100vw"
         />
-        <span className="project-visual__badge">JABO / 01</span>
+        <span className="project-visual__badge">JABIN / 01</span>
       </div>
     );
   }

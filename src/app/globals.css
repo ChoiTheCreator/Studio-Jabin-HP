@@ -165,21 +165,21 @@ img {
 }
 
 .wordmark {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 5px;
+  width: 84px;
   min-height: 44px;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
-.wordmark__slash {
-  color: var(--lime);
+.wordmark__image {
+  width: 84px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  transition: filter 300ms ease-out;
 }
 
-.site-header.is-scrolled .wordmark__slash {
-  color: var(--blue);
+.site-header.is-scrolled .wordmark__image {
+  filter: none;
 }
 
 .site-nav {
@@ -1069,10 +1069,14 @@ img {
 }
 
 .footer-wordmark {
-  font-size: 46px;
-  font-weight: 700;
-  line-height: 0.9;
-  overflow-wrap: anywhere;
+  width: 160px;
+  display: block;
+}
+
+.footer-wordmark img {
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1);
 }
 
 .site-footer__meta {
@@ -1194,7 +1198,7 @@ img {
   }
 
   .footer-wordmark {
-    font-size: 78px;
+    width: 200px;
   }
 
   .site-footer__meta {
@@ -1391,7 +1395,7 @@ img {
   }
 
   .footer-wordmark {
-    font-size: 112px;
+    width: 220px;
   }
 }
 

@@ -1,9 +1,11 @@
 "use client";
 
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { brand } from "@/config/brand";
 import { navigation } from "../home.content";
 
 export function SiteHeader() {
@@ -33,10 +35,16 @@ export function SiteHeader() {
     <>
       <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
         <div className="site-header__inner">
-          <Link href="#top" className="wordmark" aria-label="Studio JABO 홈">
-            <span>JABO</span>
-            <span className="wordmark__slash">/</span>
-            <span>STUDIO</span>
+          <Link href="#top" className="wordmark" aria-label={`${brand.name} 홈`}>
+            <Image
+              className="wordmark__image"
+              src={brand.assets.logoWord}
+              alt=""
+              width={446}
+              height={233}
+              priority
+              sizes="84px"
+            />
           </Link>
 
           <nav className="site-nav" aria-label="주요 메뉴">
