@@ -11,6 +11,7 @@ Jabin-Studio-HP/
 │   ├── app/                   # 라우트, 레이아웃, 메타데이터, API 어댑터
 │   │   └── api/               # HTTP 요청/응답만 책임지는 얇은 계층
 │   ├── components/            # 여러 기능에서 재사용하는 UI와 모션
+│   │   └── ui/tailwind.ts     # 공통 Tailwind 클래스 상수
 │   ├── features/              # 페이지 또는 비즈니스 기능 단위 UI
 │   │   └── home/              # 홈페이지 콘텐츠와 섹션 컴포넌트
 │   └── server/                # 서버 전용 검증, 서비스, 외부 연동
@@ -48,3 +49,11 @@ Jabin-Studio-HP/
 ## 환경 변수
 
 환경 변수 이름과 용도는 `.env.example`에 먼저 추가한다. 비밀값은 저장소에 커밋하지 않는다. 브라우저에서 필요한 값만 `NEXT_PUBLIC_` 접두사를 사용한다.
+
+## 스타일 규칙
+
+- 화면과 컴포넌트 스타일은 Tailwind utility class를 기본으로 사용한다.
+- 반복되는 레이아웃 utility는 `src/components/ui/tailwind.ts`의 정적 문자열로 관리한다.
+- `src/app/globals.css`에는 폰트 선언, Tailwind `@theme` 토큰, 공통 keyframe, 전역 접근성 규칙만 둔다.
+- 특정 페이지·섹션·컴포넌트 이름을 가진 CSS selector는 `globals.css`에 추가하지 않는다.
+- 동적 상태는 조건부 Tailwind class로 표현하고, 런타임 계산이 필요한 CSS 변수만 inline style을 허용한다.
