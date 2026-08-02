@@ -1,6 +1,6 @@
-# Studio JABO
+# Jabin
 
-Studio JABO의 공식 홈페이지와 문의 API를 함께 운영하는 Next.js 풀스택 프로젝트입니다.
+Jabin의 공식 홈페이지와 문의 API를 함께 운영하는 Next.js 풀스택 프로젝트입니다.
 
 ## 실행
 
