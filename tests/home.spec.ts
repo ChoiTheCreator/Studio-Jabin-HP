@@ -26,6 +26,7 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
 
+  await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: /생각을 작동하게 만듭니다/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Ideas in motion." })).toBeVisible();
   await expect(page.getByRole("heading", { name: /다음 장면을 같이 만듭시다/ })).toBeVisible();
@@ -38,6 +39,7 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
+  await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: /생각을 작동하게 만듭니다/ })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
