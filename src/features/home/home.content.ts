@@ -7,7 +7,7 @@ export const navigation = [
 export const projects = [
   {
     number: "01",
-    title: "JABO SYSTEM",
+    title: "JABIN SYSTEM",
     summary: "스튜디오의 전략과 제작 방식을 하나의 디지털 언어로 정리한 브랜드 시스템",
     services: "Brand strategy · Web design · Development",
     year: "2026",

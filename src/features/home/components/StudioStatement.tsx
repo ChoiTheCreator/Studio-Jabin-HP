@@ -28,7 +28,7 @@ export function StudioStatement() {
         <Reveal className="statement__foot" delay={180}>
           <span>(01 — APPROACH)</span>
           <p>
-            JABO는 전략부터 디자인과 개발까지 한 팀으로 움직입니다. 의도를 잃지 않고
+            Jabin은 전략부터 디자인과 개발까지 한 팀으로 움직입니다. 의도를 잃지 않고
             실제 작동하는 결과물까지 연결합니다.
           </p>
         </Reveal>

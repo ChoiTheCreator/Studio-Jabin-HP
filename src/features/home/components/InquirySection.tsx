@@ -4,6 +4,7 @@ import { ArrowRightIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { FormEvent, useState } from "react";
 
 import { Reveal } from "@/components/motion/Reveal";
+import { brand } from "@/config/brand";
 import type { ApiResponse } from "@/server/shared/api-response";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
@@ -64,7 +65,7 @@ export function InquirySection() {
           </Reveal>
           <Reveal delay={150} className="inquiry__contact-meta">
             <p>새로운 브랜드, 웹사이트, 디지털 제품에 관해 편하게 이야기해 주세요.</p>
-            <a href="mailto:hello@studiojabo.com">hello@studiojabo.com</a>
+            <a href={`mailto:${brand.contactEmail}`}>{brand.contactEmail}</a>
           </Reveal>
         </div>
 
