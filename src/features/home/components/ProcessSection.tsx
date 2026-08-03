@@ -1,37 +1,43 @@
 import { Reveal } from "@/components/motion/Reveal";
-import { eyebrow, pageShell } from "@/components/ui/tailwind";
+import { contentShell, eyebrow } from "@/components/ui/tailwind";
 import { processSteps } from "../home.content";
 
 export function ProcessSection() {
   return (
-    <section className="bg-white py-[88px] sm:py-28 lg:py-36" id="process" aria-labelledby="process-title">
-      <div className={pageShell}>
+    <section className="bg-white py-[88px] text-navy-ink sm:py-28 lg:py-32" id="process" aria-labelledby="process-title">
+      <div className={contentShell}>
         <Reveal className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
-          <p className={eyebrow}>PROCESS</p>
-          <h2 className="m-0 text-[46px] leading-[0.98] font-bold [word-break:keep-all] sm:text-[62px] lg:text-[78px]" id="process-title">
-            명확하게 듣고,
+          <p className={`${eyebrow} text-navy-primary`}>PROCESS</p>
+          <h2 className="m-0 text-[38px] leading-[1.08] font-bold [word-break:keep-all] sm:text-[46px] lg:text-[54px]" id="process-title">
+            진단부터 운영까지,
             <br />
-            빠르게 구체화합니다.
+            같은 기준으로 이어갑니다.
           </h2>
         </Reveal>
 
-        <ol className="mt-[72px] grid list-none border-t border-ink p-0 sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
+        <ol className="mt-[72px] grid list-none border-t border-navy-line p-0 sm:grid-cols-2 lg:mt-24 lg:grid-cols-5">
           {processSteps.map((step, index) => (
             <Reveal
               as="li"
-              className="flex min-h-[300px] flex-col border-b border-ink py-[22px] pb-7 sm:odd:border-r sm:odd:pr-6 sm:even:pl-6 lg:min-h-[420px] lg:border-r lg:px-[26px] lg:pt-6 lg:pb-[30px] lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0"
+              className={`grid grid-cols-[42px_1fr] gap-y-3 border-b border-navy-line py-6 lg:col-span-1 lg:flex lg:min-h-[340px] lg:flex-col lg:border-r lg:px-[22px] lg:pt-6 lg:pb-[30px] lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0 ${
+                index === processSteps.length - 1
+                  ? "sm:col-span-2 sm:border-r-0 sm:px-0 lg:col-span-1"
+                  : index % 2 === 0
+                    ? "sm:border-r sm:pr-6"
+                    : "sm:pl-6"
+              }`}
               key={step.number}
               delay={index * 90}
             >
-              <div className="flex items-center gap-3 text-[12px] font-bold text-red">
+              <div className="row-span-3 flex items-start gap-3 pt-1 text-[12px] font-bold text-navy-primary lg:row-auto lg:items-center lg:pt-0">
                 <span>{step.number}</span>
                 <i className="size-[7px] rounded-full bg-current" aria-hidden="true" />
               </div>
-              <h3 className="mt-[54px] mb-[18px] text-[32px]">{step.title}</h3>
-              <p className="m-0 max-w-[370px] text-[15px] leading-[1.6] text-muted [word-break:keep-all]">
+              <h3 className="m-0 text-[27px] lg:mt-[54px] lg:mb-[18px] lg:text-[32px]">{step.title}</h3>
+              <p className="col-start-2 m-0 max-w-[370px] text-[14px] leading-[1.65] text-navy-muted [word-break:keep-all] lg:col-auto lg:text-[15px]">
                 {step.description}
               </p>
-              <small className="mt-auto pt-7 text-[11px] font-bold">{step.output}</small>
+              <small className="col-start-2 mt-2 text-[12px] font-bold lg:col-auto lg:mt-auto lg:pt-7">{step.output}</small>
             </Reveal>
           ))}
         </ol>
