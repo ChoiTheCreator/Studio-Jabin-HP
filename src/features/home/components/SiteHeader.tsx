@@ -35,15 +35,15 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`pointer-events-none fixed top-0 left-0 z-[100] w-full px-5 pb-4 text-white transition-[padding] duration-[550ms] sm:px-8 lg:px-12 ${easeOut} ${
+        className={`pointer-events-none fixed top-0 left-0 z-[100] w-full animate-header-enter px-5 pb-4 text-white transition-[padding] duration-[550ms] motion-reduce:animate-none sm:px-8 lg:px-12 ${easeOut} ${
           scrolled ? "pt-2.5" : "pt-4 lg:pt-[22px]"
         }`}
       >
         <div
           className={`pointer-events-auto mx-auto flex items-center justify-between border transition-[width,height,padding,border-color,background-color,box-shadow,color] duration-[550ms] ${easeOut} ${
             scrolled
-              ? "h-[50px] w-full max-w-[920px] rounded-full border-white/60 bg-white/[0.88] pr-2 pl-[18px] text-ink shadow-[0_16px_48px_rgba(17,17,15,0.14)] backdrop-blur-2xl"
-              : "h-[52px] w-full max-w-[1440px] border-transparent px-0.5 lg:h-[58px]"
+              ? "h-[48px] w-full max-w-[900px] rounded-full border-white/70 bg-white/[0.92] pr-1.5 pl-[18px] text-navy-ink shadow-[0_16px_48px_rgba(7,39,108,0.16)] backdrop-blur-2xl"
+              : "h-[52px] w-full max-w-[1164px] border-transparent px-0.5 lg:h-[58px]"
           }`}
         >
           <Link
@@ -80,8 +80,8 @@ export function SiteHeader() {
             <Link
               className={`inline-flex min-h-10 items-center justify-center rounded-full px-[15px] text-[12px] font-bold transition-[transform,background-color] duration-200 lg:min-h-11 lg:px-5 ${easeOut} ${
                 scrolled
-                  ? "bg-ink text-white hover:-translate-y-0.5"
-                  : "bg-lime text-ink hover:-translate-y-0.5 hover:bg-white"
+                  ? "bg-navy-primary text-white hover:-translate-y-0.5 hover:bg-navy-deep"
+                  : "bg-white text-navy-deep hover:-translate-y-0.5 hover:bg-navy-tint"
               }`}
               href="#contact"
             >
@@ -111,7 +111,7 @@ export function SiteHeader() {
         aria-hidden={!menuOpen}
       >
         <button
-          className={`absolute inset-0 size-full cursor-default bg-ink/55 transition-opacity duration-[350ms] ${
+          className={`absolute inset-0 size-full cursor-default bg-navy-night/65 transition-opacity duration-[350ms] ${
             menuOpen ? "opacity-100" : "opacity-0"
           }`}
           type="button"
@@ -120,7 +120,7 @@ export function SiteHeader() {
           onClick={() => setMenuOpen(false)}
         />
         <nav
-          className={`absolute top-0 right-0 flex h-full w-[min(88vw,390px)] flex-col bg-ink px-6 pt-28 pb-7 text-white transition-transform duration-[450ms] ${easeOut} ${
+          className={`absolute top-0 right-0 flex h-full w-[min(88vw,360px)] flex-col bg-navy-night px-6 pt-28 pb-7 text-white transition-transform duration-[450ms] ${easeOut} ${
             menuOpen ? "translate-x-0" : "translate-x-full"
           }`}
           aria-label="모바일 메뉴"
@@ -133,12 +133,12 @@ export function SiteHeader() {
               className="flex min-h-[68px] items-center gap-[18px] border-b border-white/20 text-[28px] font-bold"
               onClick={() => setMenuOpen(false)}
             >
-              <span className="text-[11px] text-lime">0{index + 1}</span>
+              <span className="text-[11px] text-navy-signal">0{index + 1}</span>
               {item.label}
             </Link>
           ))}
           <Link
-            className="mt-auto grid min-h-[52px] place-items-center rounded-full bg-lime font-bold text-ink"
+            className="mt-auto grid min-h-[52px] place-items-center rounded-full bg-white font-bold text-navy-deep"
             href="#contact"
             onClick={() => setMenuOpen(false)}
           >
