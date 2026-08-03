@@ -1,24 +1,29 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
+import { brand } from "@/config/brand";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Studio JABO | 생각을 작동하게 만드는 디지털 스튜디오",
-  description: "전략, 브랜드, 디지털 경험과 개발을 하나의 관점으로 연결하는 Studio JABO입니다.",
-  applicationName: "Studio JABO",
+  title: `${brand.name} | ${brand.tagline}`,
+  description: brand.description,
+  applicationName: brand.name,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Studio JABO",
-    description: "생각을 작동하게 만드는 디지털 스튜디오",
+    title: brand.name,
+    description: brand.tagline,
     url: "/",
-    siteName: "Studio JABO",
+    siteName: brand.name,
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/images/jabo-studio-hero.png", width: 1680, height: 945 }],
+    images: [{ url: brand.assets.hero, width: 1680, height: 945 }],
+  },
+  icons: {
+    icon: [{ url: brand.assets.favicon, type: "image/png", sizes: "512x512" }],
+    apple: [{ url: brand.assets.favicon, type: "image/png", sizes: "512x512" }],
   },
 };
 
@@ -31,8 +36,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="ko">
-      <body>{children}</body>
+    <html lang="ko" className="scroll-smooth scroll-pt-[88px] motion-reduce:scroll-auto">
+      <body className="overflow-x-hidden bg-paper font-sans font-medium tracking-[0] text-ink antialiased selection:bg-lime selection:text-ink">
+        {children}
+      </body>
     </html>
   );
 }

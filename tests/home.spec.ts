@@ -26,9 +26,16 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: /생각을 작동하게 만듭니다/ })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Ideas in motion." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /다음 장면을 같이 만듭시다/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Jabin", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "문제에서 시작한 설계." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /출시가 끝이 되지 않도록, 운영까지 설계합니다/ })).toBeAttached();
+  await expect(page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ })).toBeAttached();
+  await expect(page.getByRole("link", { name: "최원빈 GitHub 새 창에서 열기" })).toBeAttached();
+  await expect(page.getByRole("heading", { name: /진단부터 운영까지, 같은 기준으로 이어갑니다/ })).toBeAttached();
+  await expect(page.getByRole("heading", { name: /필요한 시스템을, 함께 정의합시다/ })).toBeVisible();
+  await expect(page.getByLabel("프로젝트 유형 *")).toBeAttached();
+  await expect(page.getByRole("link", { name: "내용 보기" })).toBeAttached();
   await expectNoHorizontalOverflow(page);
   await revealFullPage(page);
   await page.screenshot({ path: "test-results/home-desktop.png", fullPage: true });
@@ -38,15 +45,79 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: /생각을 작동하게 만듭니다/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Jabin", exact: true })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
   await page.getByRole("button", { name: "메뉴 열기" }).click();
   await expect(page.getByRole("navigation", { name: "모바일 메뉴" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /TEAM$/ })).toBeVisible();
   await expectNoHorizontalOverflow(page);
   await page.getByRole("button", { name: "메뉴 닫기", exact: true }).first().click();
   await expect(page.locator("#mobile-menu")).toBeHidden();
 
   await revealFullPage(page);
   await page.screenshot({ path: "test-results/home-mobile.png", fullPage: true });
+});
+
+test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/privacy");
+
+  await expect(page.getByRole("heading", { name: "개인정보 처리 안내" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "3. 보유 기간과 파기" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+});
+
+test("문의 API가 잘못된 요청을 거절하고 유효한 요청을 접수한다", async ({ request }) => {
+  const clientAddress = `test-${crypto.randomUUID()}`;
+  const headers = { "x-forwarded-for": clientAddress };
+
+  const invalidResponse = await request.post("/api/inquiries", {
+    headers,
+    data: { name: "A" },
+  });
+  expect(invalidResponse.status()).toBe(422);
+
+  const validResponse = await request.post("/api/inquiries", {
+    headers,
+    data: {
+      name: "테스트 담당자",
+      email: "test@example.com",
+      company: "Jabin Test",
+      phone: "",
+      projectType: "신규 구축",
+      services: ["기획", "백엔드 API"],
+      schedule: "협의 필요",
+      budget: "협의 필요",
+      project: "신규 서비스의 기획과 API 구축 범위를 함께 검토하고 싶습니다.",
+      privacyConsent: true,
+      website: "",
+    },
+  });
+  expect(validResponse.status()).toBe(201);
+  await expect(validResponse.json()).resolves.toMatchObject({ ok: true });
+});
+
+test("문의 폼이 선택 항목과 동의를 포함해 접수된다", async ({ page }) => {
+  await page.setExtraHTTPHeaders({ "x-forwarded-for": `form-${crypto.randomUUID()}` });
+  await page.goto("/#contact");
+
+  await page.getByLabel("이름 *").fill("테스트 담당자");
+  await page.getByLabel("회사 / 브랜드").fill("Jabin Test");
+  await page.getByLabel("이메일 *").fill("form@example.com");
+  await page.getByLabel("프로젝트 유형 *").selectOption("신규 구축");
+  await page.getByLabel("기획", { exact: true }).check();
+  await page.getByLabel("백엔드 API", { exact: true }).check();
+  await page.getByLabel("예상 일정").selectOption("협의 필요");
+  await page.getByLabel("예산 구간").selectOption("협의 필요");
+  await page
+    .getByLabel("프로젝트에 대해 알려주세요 *")
+    .fill("신규 서비스의 기획과 API 구축 범위를 함께 검토하고 싶습니다.");
+  await page.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
+  await page.getByRole("button", { name: "문의 보내기" }).click();
+
+  await expect(page.getByText("문의가 접수되었습니다.", { exact: false })).toBeVisible();
+  await expect(page.getByRole("button", { name: "접수 완료" })).toBeVisible();
 });

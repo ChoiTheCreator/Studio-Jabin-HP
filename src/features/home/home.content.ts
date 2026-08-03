@@ -1,38 +1,62 @@
+import type { ProjectSummary } from "@/features/projects/project.types";
+
 export const navigation = [
-  { href: "#work", label: "WORK" },
-  { href: "#services", label: "SERVICES" },
+  { href: "#work", label: "PROJECTS" },
+  { href: "#engineering", label: "SYSTEM" },
+  { href: "#team", label: "TEAM" },
   { href: "#process", label: "PROCESS" },
 ] as const;
 
 export const projects = [
   {
+    slug: "jabin-system",
     number: "01",
-    title: "JABO SYSTEM",
+    title: "JABIN SYSTEM",
+    industry: "Digital Studio",
     summary: "스튜디오의 전략과 제작 방식을 하나의 디지털 언어로 정리한 브랜드 시스템",
+    challenge: "기획, 디자인, 개발의 판단 기준을 하나의 운영 가능한 시스템으로 연결합니다.",
     services: "Brand strategy · Web design · Development",
+    scope: ["Brand strategy", "UX/UI", "Frontend"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
     year: "2026",
     status: "Studio concept",
+    kind: "concept",
+    visibility: "public",
     visual: "studio",
   },
   {
+    slug: "orbital-archive",
     number: "02",
     title: "ORBITAL ARCHIVE",
+    industry: "Culture & Archive",
     summary: "자료가 쌓일수록 탐색이 쉬워지는 문화 아카이브 인터페이스",
+    challenge: "서로 다른 형식의 기록을 일관된 탐색 경험 안에서 연결합니다.",
     services: "Product design · Interaction · Frontend",
+    scope: ["Information architecture", "Interaction", "Prototype"],
+    technologies: [],
     year: "2026",
     status: "Studio concept",
+    kind: "concept",
+    visibility: "public",
     visual: "archive",
   },
   {
+    slug: "common-ground",
     number: "03",
     title: "COMMON GROUND",
+    industry: "Local Community",
     summary: "지역과 사람의 이야기를 빠르게 연결하는 모바일 중심 콘텐츠 플랫폼",
+    challenge: "지역의 다양한 소식을 모바일에서 빠르게 발견하고 참여하도록 구조화합니다.",
     services: "UX strategy · Design system · Prototype",
+    scope: ["UX strategy", "Design system", "Mobile prototype"],
+    technologies: [],
     year: "2026",
     status: "Studio concept",
+    kind: "concept",
+    visibility: "public",
     visual: "common",
   },
-] as const;
+] as const satisfies readonly ProjectSummary[];
 
 export const capabilities = [
   {
@@ -57,29 +81,107 @@ export const capabilities = [
   },
 ] as const;
 
-export const processSteps = [
+export const engineeringFlow = [
+  { number: "01", title: "Users", detail: "Customer · Operator", icon: "users" },
+  { number: "02", title: "Web / App", detail: "Responsive Experience", icon: "window" },
+  { number: "03", title: "API", detail: "Auth · Business Logic", icon: "code" },
+  { number: "04", title: "Data", detail: "Database · Storage", icon: "database" },
+  { number: "05", title: "Cloud", detail: "Delivery · Runtime", icon: "cloud" },
+  { number: "06", title: "Monitoring", detail: "Logs · Alerts · Backup", icon: "chart" },
+] as const;
+
+export const operationCapabilities = [
   {
     number: "01",
-    title: "Discover",
-    description: "목표와 맥락을 듣고, 해결해야 할 진짜 문제를 함께 찾습니다.",
-    output: "Brief · Research",
+    title: "Application",
+    description: "고객용 서비스와 운영자 도구가 같은 업무 흐름 안에서 연결되도록 구축합니다.",
+    practices: ["Web & App", "Admin", "API Integration"],
   },
   {
     number: "02",
-    title: "Define",
-    description: "우선순위와 성공 기준을 정해 모두가 같은 방향을 보게 합니다.",
-    output: "Scope · Direction",
+    title: "Infrastructure",
+    description: "서비스 규모와 운영 인력에 맞는 배포 환경과 데이터 구조를 설계합니다.",
+    practices: ["Cloud Runtime", "Database", "CI/CD"],
   },
   {
     number: "03",
-    title: "Design",
-    description: "브랜드와 사용성이 한 언어로 이어지는 경험을 설계합니다.",
-    output: "System · Prototype",
+    title: "Reliability",
+    description: "문제를 빠르게 발견하고 복구할 수 있도록 로그, 알림, 백업 기준을 만듭니다.",
+    practices: ["Monitoring", "Logging", "Backup"],
   },
   {
     number: "04",
-    title: "Deliver",
-    description: "실제 환경에서 빠르고 안정적으로 작동하도록 만들고 검증합니다.",
-    output: "Product · Handoff",
+    title: "Security",
+    description: "필요한 사람에게 필요한 권한만 제공하고 민감 정보의 경계를 분명히 합니다.",
+    practices: ["Access Control", "Secret Management", "Audit Trail"],
+  },
+] as const;
+
+export const team = {
+  total: 3,
+  members: [
+    {
+      number: "01",
+      name: "최원빈",
+      nameEn: "Wonbin Choi",
+      initials: "WB",
+      role: "CEO",
+      responsibility:
+        "고객의 목표를 제품 방향으로 구체화하고, 프로젝트의 우선순위와 실행 과정을 책임집니다.",
+      specialties: ["Business Strategy", "Product Direction", "Client Partnership"],
+      links: [
+        { label: "LinkedIn", href: null },
+        { label: "GitHub", href: "https://github.com/ChoiTheCreator" },
+        { label: "Portfolio", href: "https://wonbin109.tistory.com" },
+      ],
+    },
+    {
+      number: "02",
+      name: "박재욱",
+      nameEn: "Jaewook Park",
+      initials: "JW",
+      role: "CTO",
+      responsibility:
+        "서비스 구조와 기술 의사결정을 이끌고, 구축부터 배포와 운영까지의 품질을 책임집니다.",
+      specialties: ["System Architecture", "Full-stack Engineering", "Cloud Operations"],
+      links: [
+        { label: "LinkedIn", href: null },
+        { label: "GitHub", href: null },
+        { label: "Portfolio", href: null },
+      ],
+    },
+  ],
+} as const;
+
+export const processSteps = [
+  {
+    number: "01",
+    title: "Diagnose",
+    description: "목표, 사용자, 기존 시스템과 제약을 확인해 해결해야 할 문제를 구체화합니다.",
+    output: "Diagnosis · Questions",
+  },
+  {
+    number: "02",
+    title: "Scope",
+    description: "기능과 우선순위, 일정, 책임 범위를 합의해 실행 가능한 계획을 만듭니다.",
+    output: "Scope · Estimate",
+  },
+  {
+    number: "03",
+    title: "Build",
+    description: "설계, 디자인, 개발을 짧은 주기로 연결하고 실제 화면으로 검토합니다.",
+    output: "Prototype · Build",
+  },
+  {
+    number: "04",
+    title: "Launch",
+    description: "테스트와 데이터 이전, 배포 점검을 거쳐 운영 가능한 서비스로 전환합니다.",
+    output: "QA · Release",
+  },
+  {
+    number: "05",
+    title: "Operate",
+    description: "로그와 운영 피드백을 확인하고 장애 대응과 개선 이력을 지속해서 관리합니다.",
+    output: "Monitoring · Iteration",
   },
 ] as const;
