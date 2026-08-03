@@ -14,6 +14,8 @@ npm run dev
 ## 문서
 
 - [DESIGN.md](./DESIGN.md): 색상, 타이포그래피, 레이아웃, 반응형, 모션의 단일 기준
+- [DESIGN_NAVY.md](./DESIGN_NAVY.md): 네이비 레퍼런스를 역추적한 별도 디자인 사양과 적용 기준
+- [HOMEPAGE_PLAN.md](./HOMEPAGE_PLAN.md): SI 홈페이지의 정보 구조, 콘텐츠 규격, 구현 우선순위
 - [ARCHITECTURE.md](./ARCHITECTURE.md): 프론트엔드와 백엔드 폴더의 책임 경계
 - [COMMIT_CONVENTION.md](./COMMIT_CONVENTION.md): `<Type> 한국어 설명` 커밋 규칙
 
