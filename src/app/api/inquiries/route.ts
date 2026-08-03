@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { consumeInquiryRequest } from "@/server/inquiries/inquiry.rate-limit";
 import { submitInquiry } from "@/server/inquiries/inquiry.service";
 import { validateInquiry } from "@/server/inquiries/inquiry.schema";
 import type { ApiResponse } from "@/server/shared/api-response";
@@ -7,6 +8,26 @@ import type { ApiResponse } from "@/server/shared/api-response";
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
+  const forwardedFor = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const clientAddress = forwardedFor || request.headers.get("x-real-ip");
+  const rateLimit = consumeInquiryRequest(clientAddress);
+
+  if (!rateLimit.allowed) {
+    return NextResponse.json<ApiResponse<never>>(
+      {
+        ok: false,
+        error: {
+          code: "RATE_LIMITED",
+          message: "문의 요청이 많습니다. 잠시 후 다시 시도해 주세요.",
+        },
+      },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },
+      },
+    );
+  }
+
   let payload: unknown;
 
   try {
