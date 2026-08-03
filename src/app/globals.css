@@ -25,8 +25,23 @@
   --color-lime: #c9ff3d;
   --color-muted: #6f706b;
   --color-line: rgba(17, 17, 15, 0.16);
+  --color-navy-primary: #184bba;
+  --color-navy-action: #1a4fd6;
+  --color-navy-deep: #07276c;
+  --color-navy-night: #0a0f1e;
+  --color-navy-surface-dark: #1a1f2e;
+  --color-navy-ink: #111111;
+  --color-navy-paper: #ffffff;
+  --color-navy-surface: #f6f6f6;
+  --color-navy-tint: #eff1ff;
+  --color-navy-line: #dddddd;
+  --color-navy-muted: #767676;
+  --color-navy-signal: #b6ff4e;
   --font-sans: "Freesentation", Arial, Helvetica, sans-serif;
+  --animate-page-enter: page-enter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-header-enter: header-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
   --animate-hero-enter: hero-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-hero-line: hero-line 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-scroll-nudge: scroll-nudge 1.6s ease-in-out infinite;
   --animate-marquee: marquee 32s linear infinite;
 }
@@ -39,8 +54,40 @@
 
   button,
   input,
+  select,
   textarea {
     letter-spacing: 0;
+  }
+
+  html {
+    scroll-padding-top: 84px;
+  }
+
+  body {
+    background: var(--color-navy-paper);
+    color: var(--color-navy-ink);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes header-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -48,6 +95,17 @@
   from {
     opacity: 0;
     transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-line {
+  from {
+    opacity: 0;
+    transform: translateY(110%);
   }
   to {
     opacity: 1;
