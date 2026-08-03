@@ -1,43 +1,60 @@
 import { Reveal } from "@/components/motion/Reveal";
-import { eyebrow, pageShell } from "@/components/ui/tailwind";
+import { contentShell, eyebrow } from "@/components/ui/tailwind";
+
+const studioFacts = [
+  { value: "03", label: "Core team" },
+  { value: "05", label: "Delivery phases" },
+  { value: "01", label: "Integrated partner" },
+] as const;
 
 export function StudioStatement() {
   return (
-    <section className="relative z-[2] overflow-hidden bg-lime" aria-labelledby="statement-title">
-      <div className="overflow-hidden border-b border-ink" aria-hidden="true">
-        <div className="flex w-max animate-marquee items-center gap-6 py-3 text-[14px] font-bold whitespace-nowrap motion-reduce:animate-none">
-          <span>STRATEGY INTO FORM</span>
-          <i className="text-[8px] not-italic text-red">●</i>
-          <span>FORM INTO FUNCTION</span>
-          <i className="text-[8px] not-italic text-red">●</i>
-          <span>STRATEGY INTO FORM</span>
-          <i className="text-[8px] not-italic text-red">●</i>
-          <span>FORM INTO FUNCTION</span>
-          <i className="text-[8px] not-italic text-red">●</i>
+    <section className="bg-white text-navy-ink" id="approach" aria-labelledby="statement-title">
+      <div className="overflow-hidden bg-navy-primary text-white" aria-hidden="true">
+        <div className="flex w-max animate-marquee items-center gap-8 py-3 text-[12px] font-bold whitespace-nowrap motion-reduce:animate-none">
+          <span>STRATEGY TO OPERATION</span>
+          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
+          <span>WEB · APP · API · CLOUD</span>
+          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
+          <span>STRATEGY TO OPERATION</span>
+          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
+          <span>WEB · APP · API · CLOUD</span>
+          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
         </div>
       </div>
-      <div className={`${pageShell} py-[88px] sm:py-28 lg:py-36`}>
-        <Reveal>
-          <p className={eyebrow}>WHAT WE BELIEVE</p>
+
+      <div className={`${contentShell} py-[88px] sm:py-28 lg:py-32`}>
+        <Reveal className="grid gap-9 lg:grid-cols-[0.75fr_2.25fr] lg:gap-16">
+          <p className="m-0 text-[12px] font-bold text-navy-primary">WHAT WE BELIEVE</p>
+          <div>
+            <h2
+              className="m-0 max-w-[880px] text-[34px] leading-[1.18] font-bold [word-break:keep-all] sm:text-[44px] lg:text-[52px]"
+              id="statement-title"
+            >
+              좋은 서비스는 보기 좋은 화면을 넘어, 실제 업무와 운영 안에서 오래 작동해야 합니다.
+            </h2>
+            <p className="mt-7 mb-0 max-w-[680px] text-[16px] leading-[1.7] text-navy-muted [word-break:keep-all] sm:text-[17px]">
+              Jabin은 전략, 디자인, 개발을 따로 넘기지 않습니다. 고객의 목표를 구조로
+              바꾸고, 같은 판단 기준으로 구축과 운영까지 이어갑니다.
+            </p>
+          </div>
         </Reveal>
-        <Reveal delay={100}>
-          <h2
-            className="mt-[54px] mb-0 max-w-[1250px] text-[38px] leading-[1.06] font-bold [word-break:keep-all] sm:text-[54px] lg:mt-[72px] lg:text-[74px] min-[1440px]:!text-[82px]"
-            id="statement-title"
-          >
-            좋은 아이디어는 보기 좋은 화면에 머물지 않습니다. 브랜드의 언어가 되고,
-            사용자의 행동이 되고, 오래 운영할 수 있는 제품이 되어야 합니다.
-          </h2>
-        </Reveal>
+
         <Reveal
-          className="mt-[72px] grid gap-7 border-t border-ink pt-[18px] sm:grid-cols-[1fr_2fr] lg:mt-28 lg:grid-cols-2"
-          delay={180}
+          className="mt-16 grid grid-cols-3 border-t border-navy-line lg:mt-24"
+          delay={120}
         >
-          <span className="text-[11px] font-bold">(01 — APPROACH)</span>
-          <p className="m-0 max-w-[600px] text-[17px] leading-[1.6] [word-break:keep-all] lg:justify-self-end">
-            Jabin은 전략부터 디자인과 개발까지 한 팀으로 움직입니다. 의도를 잃지 않고
-            실제 작동하는 결과물까지 연결합니다.
-          </p>
+          {studioFacts.map((fact, index) => (
+            <div
+              className={`flex min-h-[132px] flex-col items-start justify-between border-r border-b border-navy-line px-3 py-5 last:border-r-0 sm:min-h-[164px] sm:px-6 sm:first:pl-0 ${
+                index === studioFacts.length - 1 ? "sm:pr-0" : ""
+              }`}
+              key={fact.label}
+            >
+              <span className="text-[48px] leading-none font-bold text-navy-deep">{fact.value}</span>
+              <span className={`${eyebrow} text-[11px] text-navy-muted sm:text-[12px]`}>{fact.label}</span>
+            </div>
+          ))}
         </Reveal>
       </div>
     </section>
