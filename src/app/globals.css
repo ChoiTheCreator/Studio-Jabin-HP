@@ -129,6 +129,10 @@
   }
 }
 
+.service-marquee-track:hover {
+  animation-play-state: paused;
+}
+
 .jabin-intro {
   animation: jabin-intro-exit 720ms cubic-bezier(0.76, 0, 0.24, 1) 2100ms forwards;
 }

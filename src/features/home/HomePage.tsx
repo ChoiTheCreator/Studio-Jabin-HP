@@ -5,6 +5,7 @@ import { InquirySection } from "./components/InquirySection";
 import { JabinIntro } from "./components/JabinIntro";
 import { ProcessSection } from "./components/ProcessSection";
 import { ProjectsSection } from "./components/ProjectsSection";
+import { ServiceMarquee } from "./components/ServiceMarquee";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
 import { StudioStatement } from "./components/StudioStatement";
@@ -17,6 +18,7 @@ export function HomePage() {
       <SiteHeader />
       <main className="animate-page-enter origin-top motion-reduce:animate-none">
         <HeroSection />
+        <ServiceMarquee />
         <StudioStatement />
         <ProjectsSection />
         <EngineeringSection />
