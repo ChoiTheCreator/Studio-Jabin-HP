@@ -74,20 +74,20 @@ export function HeroSection() {
         >
           <span className="block overflow-hidden pb-[0.08em]">
             <span className="animate-hero-line block opacity-0 [animation-delay:240ms] motion-reduce:translate-y-0 motion-reduce:animate-none motion-reduce:opacity-100">
-              Jabin
+              JABIN
             </span>
           </span>
         </h1>
 
         <div className="animate-hero-enter mt-5 grid gap-6 border-t border-white/35 pt-5 opacity-0 [animation-delay:520ms] motion-reduce:animate-none motion-reduce:opacity-100 sm:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)] sm:items-end lg:mt-7 lg:pt-6">
-          <p className="m-0 max-w-[760px] text-[27px] leading-[1.12] font-semibold [word-break:keep-all] sm:text-[34px] lg:text-[44px]">
-            복잡한 요구를,
-            <br />
-            작동하는 시스템으로.
+          <p className="m-0 max-w-[760px] text-[30px] leading-[1.04] font-semibold sm:text-[38px] lg:text-[48px]">
+            <span className="block">Just Ask.</span>
+            <span className="mt-1 block text-white/62">Build It Now.</span>
           </p>
           <div className="flex items-end justify-between gap-6 sm:block">
             <p className="m-0 max-w-[390px] text-[14px] leading-[1.6] text-white/72 [word-break:keep-all] sm:text-[15px]">
-              기획, UX/UI, 프론트엔드와 백엔드, 배포와 운영까지 한 팀이 연결합니다.
+              복잡한 요구를 작동하는 시스템으로. 기획, UX/UI, 프론트엔드와 백엔드,
+              배포와 운영까지 한 팀이 연결합니다.
             </p>
             <a
               className="mt-5 inline-flex min-h-11 shrink-0 items-center gap-2 border-b border-white/70 text-[13px] font-bold transition-colors hover:border-navy-signal hover:text-navy-signal"
