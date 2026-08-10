@@ -4,21 +4,30 @@ import { capabilities } from "../home.content";
 
 export function CapabilitiesSection() {
   return (
-    <section className="bg-white py-[88px] text-navy-ink sm:py-28 lg:py-32" id="services" aria-labelledby="capabilities-title">
-      <div className={`${contentShell} grid gap-[72px] lg:grid-cols-[minmax(0,0.9fr)_minmax(520px,1.1fr)] lg:gap-24`}>
-        <div className="lg:sticky lg:top-[120px] lg:self-start">
+    <section
+      className="bg-white py-22 text-navy-ink sm:py-28 lg:py-32"
+      id="services"
+      aria-labelledby="capabilities-title"
+    >
+      <div
+        className={`${contentShell} grid gap-18 lg:grid-cols-[minmax(0,0.9fr)_minmax(520px,1.1fr)] lg:gap-24`}
+      >
+        <div className="lg:sticky lg:top-30 lg:self-start">
           <Reveal>
             <p className={`${eyebrow} text-navy-primary`}>CAPABILITIES</p>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="mt-8 mb-6 max-w-[640px] text-[36px] leading-[1.08] font-bold [word-break:keep-all] sm:text-[44px] lg:text-[52px]" id="capabilities-title">
+            <h2
+              className="mt-8 mb-6 max-w-160 text-[36px] leading-[1.08] font-bold break-keep sm:text-[44px] lg:text-[52px]"
+              id="capabilities-title"
+            >
               하나의 관점으로 처음부터 끝까지.
             </h2>
           </Reveal>
           <Reveal delay={140}>
-            <p className="m-0 max-w-[550px] text-[16px] leading-[1.68] text-navy-muted [word-break:keep-all]">
-              전략에서 시작한 의도가 화면과 코드에서 흐려지지 않도록, 필요한 역량을
-              프로젝트 안에서 긴밀하게 연결합니다.
+            <p className="m-0 max-w-137.5 text-[16px] leading-[1.68] break-keep text-navy-muted">
+              기획 의도가 디자인과 개발 과정을 거치며 흐려지지 않도록, 처음부터 끝까지 하나의 팀이
+              책임집니다.
             </p>
           </Reveal>
         </div>
@@ -27,7 +36,7 @@ export function CapabilitiesSection() {
           {capabilities.map((capability, index) => (
             <Reveal
               as="li"
-              className="grid min-h-[124px] grid-cols-[42px_1fr] items-start gap-2 border-b border-navy-line py-[22px] sm:min-h-[100px] sm:grid-cols-[48px_0.75fr_1fr] sm:items-center lg:min-h-[132px]"
+              className="grid min-h-31 grid-cols-[42px_1fr] items-start gap-2 border-b border-navy-line py-5.5 sm:min-h-25 sm:grid-cols-[48px_0.75fr_1fr] sm:items-center lg:min-h-33"
               key={capability.number}
               delay={index * 80}
             >

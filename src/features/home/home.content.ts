@@ -61,32 +61,32 @@ export const projects = [
 export const capabilities = [
   {
     number: "01",
-    title: "Strategy",
-    description: "문제 정의, 사용자 흐름, 콘텐츠 구조, 제품 로드맵",
+    title: "Planning",
+    description: "요구사항 정리, 기능 우선순위 설정, 화면 설계",
   },
   {
     number: "02",
-    title: "Identity",
-    description: "브랜드 방향, 비주얼 시스템, 디지털 가이드라인",
+    title: "Design",
+    description: "UI 디자인, 프로토타입, 스타일 가이드",
   },
   {
     number: "03",
-    title: "Experience",
-    description: "웹·앱 UX/UI, 프로토타입, 인터랙션과 모션",
+    title: "Development",
+    description: "웹, 앱, 서버, 데이터 연동",
   },
   {
     number: "04",
-    title: "Engineering",
-    description: "프론트엔드, 백엔드 API, CMS와 운영 환경",
+    title: "Operations",
+    description: "배포, 안정화, 유지보수",
   },
 ] as const;
 
 export const engineeringFlow = [
   { number: "01", title: "Users", detail: "Customer · Operator", icon: "users" },
   { number: "02", title: "Web / App", detail: "Responsive Experience", icon: "window" },
-  { number: "03", title: "API", detail: "Auth · Business Logic", icon: "code" },
+  { number: "03", title: "Server", detail: "Security · Business Logic", icon: "code" },
   { number: "04", title: "Data", detail: "Database · Storage", icon: "database" },
-  { number: "05", title: "Cloud", detail: "Delivery · Runtime", icon: "cloud" },
+  { number: "05", title: "Cloud", detail: "Hosting · Operations", icon: "cloud" },
   { number: "06", title: "Monitoring", detail: "Logs · Alerts · Backup", icon: "chart" },
 ] as const;
 
@@ -94,13 +94,13 @@ export const operationCapabilities = [
   {
     number: "01",
     title: "Application",
-    description: "고객용 서비스와 운영자 도구가 같은 업무 흐름 안에서 연결되도록 구축합니다.",
+    description: "말로 설명하기 어려운 부분까지 파악해서, 필요한 서비스를 명확하게 구현합니다.",
     practices: ["Web & App", "Admin", "API Integration"],
   },
   {
     number: "02",
     title: "Infrastructure",
-    description: "서비스 규모와 운영 인력에 맞는 배포 환경과 데이터 구조를 설계합니다.",
+    description: "서비스 규모에 맞게, 과하지 않은 서버와 데이터 구조로 설계합니다.",
     practices: ["Cloud Runtime", "Database", "CI/CD"],
   },
   {
@@ -112,7 +112,7 @@ export const operationCapabilities = [
   {
     number: "04",
     title: "Security",
-    description: "필요한 사람에게 필요한 권한만 제공하고 민감 정보의 경계를 분명히 합니다.",
+    description: "필요한 사람에게 필요한 권한만 제공하고 민감 정보의 경계를 명확히 나눕니다.",
     practices: ["Access Control", "Secret Management", "Audit Trail"],
   },
 ] as const;
@@ -130,9 +130,12 @@ export const team = {
         "고객의 목표를 제품 방향으로 구체화하고, 프로젝트의 우선순위와 실행 과정을 책임집니다.",
       specialties: ["Business Strategy", "Product Direction", "Client Partnership"],
       links: [
-        { label: "LinkedIn", href: null },
+        {
+          label: "LinkedIn",
+          href: "https://kr.linkedin.com/in/%EC%9B%90%EB%B9%88-%EC%B5%9C-a90451366",
+        },
         { label: "GitHub", href: "https://github.com/ChoiTheCreator" },
-        { label: "Portfolio", href: "https://wonbin109.tistory.com" },
+        { label: "Portfolio", href: "https://www.wonbinchoi.com/" },
       ],
     },
     {
@@ -145,9 +148,12 @@ export const team = {
         "서비스 구조와 기술 의사결정을 이끌고, 구축부터 배포와 운영까지의 품질을 책임집니다.",
       specialties: ["System Architecture", "Full-stack Engineering", "Cloud Operations"],
       links: [
-        { label: "LinkedIn", href: null },
-        { label: "GitHub", href: null },
-        { label: "Portfolio", href: null },
+        {
+          label: "LinkedIn",
+          href: "https://au.linkedin.com/in/jaewook-park-a5a032385",
+        },
+        { label: "GitHub", href: "https://github.com/wooooooooook" },
+        { label: "Portfolio", href: "https://wooooooooook.com/" },
       ],
     },
   ],
