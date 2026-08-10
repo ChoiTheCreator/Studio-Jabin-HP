@@ -117,7 +117,29 @@ export const operationCapabilities = [
   },
 ] as const;
 
-export const team = {
+type TeamLink = {
+  label: string;
+  // URL이 확인되지 않은 구성원은 href를 비워 두고 비활성 링크로 표시한다.
+  href?: string;
+};
+
+type TeamMember = {
+  number: string;
+  name: string;
+  nameEn: string;
+  initials: string;
+  role: string;
+  responsibility: string;
+  specialties: readonly string[];
+  links: readonly TeamLink[];
+};
+
+type Team = {
+  total: number;
+  members: readonly TeamMember[];
+};
+
+export const team: Team = {
   total: 3,
   members: [
     {
@@ -157,7 +179,7 @@ export const team = {
       ],
     },
   ],
-} as const;
+};
 
 export const processSteps = [
   {
