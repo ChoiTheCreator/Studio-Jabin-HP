@@ -27,7 +27,7 @@ const flowIcons: Record<(typeof engineeringFlow)[number]["icon"], FlowIcon> = {
 export function EngineeringSection() {
   return (
     <section
-      className="bg-navy-night py-[88px] text-white sm:py-28 lg:py-32"
+      className="overflow-hidden bg-navy-night py-[88px] text-white sm:py-28 lg:py-32"
       id="engineering"
       aria-labelledby="engineering-title"
     >

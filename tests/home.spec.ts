@@ -9,6 +9,10 @@ async function expectNoHorizontalOverflow(page: Page) {
   expect(dimensions.content).toBeLessThanOrEqual(dimensions.viewport);
 }
 
+async function disableIntro(page: Page) {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+}
+
 async function revealFullPage(page: Page) {
   await page.evaluate(async () => {
     document.documentElement.style.scrollBehavior = "auto";
@@ -24,10 +28,11 @@ async function revealFullPage(page: Page) {
 
 test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
+  await disableIntro(page);
   await page.goto("/");
 
   await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Jabin", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "문제에서 시작한 설계." })).toBeVisible();
   await expect(page.getByRole("heading", { name: /출시가 끝이 되지 않도록, 운영까지 설계합니다/ })).toBeAttached();
   await expect(page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ })).toBeAttached();
@@ -43,10 +48,11 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
 
 test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  await disableIntro(page);
   await page.goto("/");
 
   await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Jabin", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
   await page.getByRole("button", { name: "메뉴 열기" }).click();
@@ -56,8 +62,52 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
   await page.getByRole("button", { name: "메뉴 닫기", exact: true }).first().click();
   await expect(page.locator("#mobile-menu")).toBeHidden();
 
+  await page.setViewportSize({ width: 320, height: 568 });
+  await expectNoHorizontalOverflow(page);
+
   await revealFullPage(page);
   await page.screenshot({ path: "test-results/home-mobile.png", fullPage: true });
+});
+
+test("첫 방문에서 JABIN 인트로가 재생되고 자동 종료된다", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const intro = page.getByTestId("jabin-intro");
+  await expect(intro).toBeVisible();
+  await expect(intro.getByText("Just Ask.")).toBeVisible();
+  await expect(intro.getByText("Build It Now.")).toBeVisible();
+  await expect(intro).toBeHidden({ timeout: 4_000 });
+  await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
+});
+
+test("서비스 띠가 세 언어 문구를 빈 구간 없이 반복한다", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
+
+  const marquee = page.getByTestId("service-marquee");
+  await expect(marquee).toBeVisible();
+  await expect(marquee.locator("ul li")).toHaveCount(3);
+
+  const trackMetrics = await marquee.locator(".service-marquee-track").evaluate((track) => {
+    const groups = Array.from(track.children) as HTMLElement[];
+    const style = window.getComputedStyle(track);
+
+    return {
+      animationName: style.animationName,
+      animationDuration: style.animationDuration,
+      viewportWidth: track.parentElement?.getBoundingClientRect().width ?? 0,
+      firstGroupWidth: groups[0]?.getBoundingClientRect().width ?? 0,
+      secondGroupWidth: groups[1]?.getBoundingClientRect().width ?? 0,
+    };
+  });
+
+  expect(trackMetrics.animationName).toBe("marquee");
+  expect(trackMetrics.animationDuration).toBe("32s");
+  expect(trackMetrics.firstGroupWidth).toBeGreaterThanOrEqual(trackMetrics.viewportWidth);
+  expect(Math.abs(trackMetrics.firstGroupWidth - trackMetrics.secondGroupWidth)).toBeLessThan(1);
+  await expectNoHorizontalOverflow(page);
 });
 
 test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", async ({ page }) => {
@@ -102,6 +152,7 @@ test("문의 API가 잘못된 요청을 거절하고 유효한 요청을 접수�
 
 test("문의 폼이 선택 항목과 동의를 포함해 접수된다", async ({ page }) => {
   await page.setExtraHTTPHeaders({ "x-forwarded-for": `form-${crypto.randomUUID()}` });
+  await disableIntro(page);
   await page.goto("/#contact");
 
   await page.getByLabel("이름 *").fill("테스트 담당자");

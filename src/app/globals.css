@@ -128,3 +128,80 @@
     transform: translateX(-50%);
   }
 }
+
+.service-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.jabin-intro {
+  animation: jabin-intro-exit 720ms cubic-bezier(0.76, 0, 0.24, 1) 2100ms forwards;
+}
+
+.jabin-intro__meta,
+.jabin-intro__footer {
+  opacity: 0;
+  animation: jabin-intro-fade 520ms ease-out 160ms forwards;
+}
+
+.jabin-intro__letter {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(112%) scale(0.94);
+  animation: jabin-intro-letter 760ms cubic-bezier(0.22, 1, 0.36, 1)
+    var(--intro-delay) forwards;
+}
+
+.jabin-intro__phrase {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: jabin-intro-phrase 660ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.jabin-intro__progress {
+  transform: scaleX(0);
+  animation: jabin-intro-progress 1750ms cubic-bezier(0.22, 1, 0.36, 1) 360ms
+    forwards;
+}
+
+@keyframes jabin-intro-letter {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes jabin-intro-phrase {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes jabin-intro-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes jabin-intro-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes jabin-intro-exit {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jabin-intro {
+    display: none;
+  }
+}

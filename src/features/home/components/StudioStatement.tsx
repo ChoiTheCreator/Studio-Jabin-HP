@@ -10,19 +10,6 @@ const studioFacts = [
 export function StudioStatement() {
   return (
     <section className="bg-white text-navy-ink" id="approach" aria-labelledby="statement-title">
-      <div className="overflow-hidden bg-navy-primary text-white" aria-hidden="true">
-        <div className="flex w-max animate-marquee items-center gap-8 py-3 text-[12px] font-bold whitespace-nowrap motion-reduce:animate-none">
-          <span>STRATEGY TO OPERATION</span>
-          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
-          <span>WEB · APP · API · CLOUD</span>
-          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
-          <span>STRATEGY TO OPERATION</span>
-          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
-          <span>WEB · APP · API · CLOUD</span>
-          <i className="size-1.5 rounded-full bg-navy-signal not-italic" />
-        </div>
-      </div>
-
       <div className={`${contentShell} py-[88px] sm:py-28 lg:py-32`}>
         <Reveal className="grid gap-9 lg:grid-cols-[0.75fr_2.25fr] lg:gap-16">
           <p className="m-0 text-[12px] font-bold text-navy-primary">WHAT WE BELIEVE</p>

@@ -281,6 +281,8 @@ Jabin 적용 규칙:
 
 White, Soft Gray, Navy를 교대로 사용한다. 모든 섹션을 중앙 정렬하지 않고, 선언은 중앙 정렬, 실제 사례와 서비스는 좌측 정렬로 분리한다.
 
+Hero 다음의 Blue ticker는 기존의 낮은 한 줄 높이를 유지하며 서비스 범위를 압축해 보여준다. 영어, 한국어, 일본어 문구를 한 트랙 안에서 순서대로 반복하고 JABIN STUDIO만 Signal Lime으로 강조한다. 세로 3행 ticker로 확장하지 않는다.
+
 ### Service: Catalogue
 
 권장 순서:
@@ -348,6 +350,23 @@ Mobile 터치 영역은 최소 44×44px이며 작은 radio와 checkbox에도 충
 3. 헤드라인은 200ms, 400ms, 600ms 지연으로 줄별 진입한다.
 4. 스크롤 힌트는 본문 진입 이후 시작한다.
 5. Mobile 미디어는 IntersectionObserver로 필요 시점을 늦춘다.
+
+### JABIN 첫 진입 시퀀스
+
+기능 브랜치 feat/4-jabin-intro-motion에서는 첫 방문 시 약 2.8초 동안 브랜드 인트로를 재생한다.
+
+1. 0–600ms: J, A, B, I, N이 90ms 간격으로 아래에서 올라오며 blur가 제거된다.
+2. 760ms: Just Ask.가 나타난다.
+3. 1,040ms: Build It Now.가 두 번째 문장으로 나타난다.
+4. 360–2,110ms: 하단 진행선이 좌측에서 우측으로 채워진다.
+5. 2,100–2,820ms: Navy 화면이 위로 걷히며 실제 Hero를 드러낸다.
+
+- 홈페이지를 새로 열거나 새로고침할 때마다 재생한다.
+- 화면을 누르면 즉시 종료할 수 있다.
+- 재생 중에는 배경 스크롤을 잠근다.
+- reduced motion에서는 인트로를 생략하고 Hero를 즉시 표시한다.
+- Mobile 글자 크기는 64px, Tablet은 112px, Desktop은 164px 고정값을 사용한다.
+- Hero 본문에서도 JABIN, Just Ask., Build It Now.를 유지해 인트로와 본문 의미를 연결한다.
 
 ### Scroll Reveal
 
