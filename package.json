@@ -18,9 +18,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "@react-email/components": "^1.0.12",
     "next": "16.2.12",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "resend": "^6.19.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

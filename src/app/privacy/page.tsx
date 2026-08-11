@@ -20,11 +20,27 @@ export default function PrivacyPage() {
   return (
     <>
       <main className="bg-paper" id="top">
-        <header className={`${pageShell} flex h-24 items-center justify-between border-b border-ink/20`}>
-          <Link className="inline-flex min-h-11 w-[84px] items-center" href="/" aria-label={`${brand.name} 홈`}>
-            <Image src={brand.assets.logoWord} alt="" width={446} height={233} className="h-auto w-[84px]" priority sizes="84px" />
+        <header
+          className={`${pageShell} flex h-24 items-center justify-between border-b border-ink/20`}
+        >
+          <Link
+            className="inline-flex min-h-11 w-[84px] items-center"
+            href="/"
+            aria-label={`${brand.name} 홈`}
+          >
+            <Image
+              src={brand.assets.logoWord}
+              alt=""
+              width={446}
+              height={233}
+              className="h-auto w-[84px]"
+              priority
+              sizes="84px"
+            />
           </Link>
-          <Link className="text-[12px] font-bold" href="/">홈으로</Link>
+          <Link className="text-[12px] font-bold" href="/">
+            홈으로
+          </Link>
         </header>
 
         <article className={`${pageShell} py-[72px] sm:py-24 lg:py-32`}>
@@ -60,8 +76,8 @@ export default function PrivacyPage() {
               <section className={sectionClass}>
                 <h2 className={headingClass}>3. 보유 기간과 파기</h2>
                 <p className={bodyClass}>
-                  문의 정보는 접수일로부터 1년간 보관한 뒤 복구할 수 없는 방식으로 파기합니다.
-                  보유 기간 중 삭제를 요청하거나 수집 목적이 사라진 경우 필요한 확인을 거쳐 지체 없이
+                  문의 정보는 접수일로부터 1년간 보관한 뒤 복구할 수 없는 방식으로 파기합니다. 보유
+                  기간 중 삭제를 요청하거나 수집 목적이 사라진 경우 필요한 확인을 거쳐 지체 없이
                   파기합니다.
                 </p>
               </section>
@@ -78,17 +94,20 @@ export default function PrivacyPage() {
               <section className={sectionClass}>
                 <h2 className={headingClass}>5. 외부 서비스와 처리 위탁</h2>
                 <p className={bodyClass}>
-                  현재 홈페이지 문의 정보의 외부 처리 수탁사를 확정하지 않았습니다. 이메일, 협업 도구,
-                  저장 서비스 등 외부 처리 수탁사를 도입하는 경우 업체명, 목적과 보유 기준을 이 문서에
-                  반영합니다.
+                  현재 홈페이지 문의 정보의 외부 처리 수탁사를 확정하지 않았습니다. 이메일, 협업
+                  도구, 저장 서비스 등 외부 처리 수탁사를 도입하는 경우 업체명, 목적과 보유 기준을
+                  이 문서에 반영합니다.
                 </p>
               </section>
 
               <section className={sectionClass}>
                 <h2 className={headingClass}>6. 문의와 권리 행사</h2>
                 <p className={bodyClass}>
-                  본인의 문의 정보에 대한 열람, 정정 또는 삭제는 {" "}
-                  <a className="border-b border-current font-bold text-ink" href={`mailto:${brand.contactEmail}`}>
+                  본인의 문의 정보에 대한 열람, 정정 또는 삭제는{" "}
+                  <a
+                    className="border-b border-current font-bold text-ink"
+                    href={`mailto:${brand.contactEmail}`}
+                  >
                     {brand.contactEmail}
                   </a>
                   로 요청할 수 있습니다. 요청자 확인이 필요한 경우 최소한의 추가 정보를 요청할 수
