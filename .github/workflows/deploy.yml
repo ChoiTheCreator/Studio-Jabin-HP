@@ -1,0 +1,54 @@
+name: Deploy to Cloud Run
+
+# main에 머지(= main으로의 push)될 때 배포한다.
+on:
+  push:
+    branches: [main]
+  # 필요할 때 Actions 탭에서 수동 실행할 수 있게 열어 둔다.
+  workflow_dispatch:
+
+env:
+  SERVICE: jabin-studio-hp
+  REGION: asia-northeast1
+
+# 배포가 겹치지 않도록 직전 실행을 취소한다.
+concurrency:
+  group: deploy-cloud-run
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Workload Identity Federation용 OIDC 토큰 발급에 필요하다.
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 컨테이너 설정은 플래그로 지정하지 않는다.
+      # 콘솔에서 조정한 CPU/메모리/동시성 등은 재배포해도 그대로 유지된다.
+      - name: Deploy
+        run: |
+          gcloud run deploy "$SERVICE" \
+            --source . \
+            --region "$REGION" \
+            --quiet
+
+      - name: Show service URL
+        run: |
+          gcloud run services describe "$SERVICE" \
+            --region "$REGION" \
+            --format='value(status.url)'
