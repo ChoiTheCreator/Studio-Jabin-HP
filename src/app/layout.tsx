@@ -34,7 +34,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="ko" className="scroll-smooth scroll-pt-[88px] motion-reduce:scroll-auto">
+    <html lang="ko" className="scroll-pt-[88px] scroll-smooth motion-reduce:scroll-auto">
       <body className="overflow-x-hidden bg-paper font-sans font-medium tracking-[0] text-ink antialiased selection:bg-lime selection:text-ink">
         {children}
       </body>

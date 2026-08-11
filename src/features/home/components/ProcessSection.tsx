@@ -4,11 +4,18 @@ import { processSteps } from "../home.content";
 
 export function ProcessSection() {
   return (
-    <section className="bg-white py-[88px] text-navy-ink sm:py-28 lg:py-32" id="process" aria-labelledby="process-title">
+    <section
+      className="bg-white py-[88px] text-navy-ink sm:py-28 lg:py-32"
+      id="process"
+      aria-labelledby="process-title"
+    >
       <div className={contentShell}>
         <Reveal className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
           <p className={`${eyebrow} text-navy-primary`}>PROCESS</p>
-          <h2 className="m-0 text-[38px] leading-[1.08] font-bold [word-break:keep-all] sm:text-[46px] lg:text-[54px]" id="process-title">
+          <h2
+            className="m-0 text-[38px] leading-[1.08] font-bold [word-break:keep-all] sm:text-[46px] lg:text-[54px]"
+            id="process-title"
+          >
             진단부터 운영까지,
             <br />
             같은 기준으로 이어갑니다.
@@ -33,11 +40,15 @@ export function ProcessSection() {
                 <span>{step.number}</span>
                 <i className="size-[7px] rounded-full bg-current" aria-hidden="true" />
               </div>
-              <h3 className="m-0 text-[27px] lg:mt-[54px] lg:mb-[18px] lg:text-[32px]">{step.title}</h3>
-              <p className="col-start-2 m-0 max-w-[370px] text-[14px] leading-[1.65] text-navy-muted [word-break:keep-all] lg:col-auto lg:text-[15px]">
+              <h3 className="m-0 text-[27px] lg:mt-[54px] lg:mb-[18px] lg:text-[32px]">
+                {step.title}
+              </h3>
+              <p className="col-start-2 m-0 max-w-[370px] text-[14px] leading-[1.65] [word-break:keep-all] text-navy-muted lg:col-auto lg:text-[15px]">
                 {step.description}
               </p>
-              <small className="col-start-2 mt-2 text-[12px] font-bold lg:col-auto lg:mt-auto lg:pt-7">{step.output}</small>
+              <small className="col-start-2 mt-2 text-[12px] font-bold lg:col-auto lg:mt-auto lg:pt-7">
+                {step.output}
+              </small>
             </Reveal>
           ))}
         </ol>
