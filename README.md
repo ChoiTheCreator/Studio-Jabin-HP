@@ -13,6 +13,7 @@ npm run dev
 
 ## 문서
 
+- [COLLABORATION_HARNESS.md](./COLLABORATION_HARNESS.md): 공동 작업 브랜치, PR, 인수인계 운영 기준
 - [DESIGN.md](./DESIGN.md): 색상, 타이포그래피, 레이아웃, 반응형, 모션의 단일 기준
 - [DESIGN_NAVY.md](./DESIGN_NAVY.md): 네이비 레퍼런스를 역추적한 별도 디자인 사양과 적용 기준
 - [HOMEPAGE_PLAN.md](./HOMEPAGE_PLAN.md): SI 홈페이지의 정보 구조, 콘텐츠 규격, 구현 우선순위
