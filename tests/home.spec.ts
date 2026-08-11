@@ -35,7 +35,7 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "문제에서 시작한 설계." })).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: /출시가 끝이 되지 않도록, 운영까지 설계합니다/ }),
+    page.getByRole("heading", { name: /코드만 넘기고 끝내지 않습니다\. 운영까지 설계합니다/ }),
   ).toBeAttached();
   await expect(
     page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ }),
@@ -47,7 +47,7 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await expect(
     page.getByRole("heading", { name: /필요한 시스템을, 함께 정의합시다/ }),
   ).toBeVisible();
-  await expect(page.getByLabel("프로젝트 유형 *")).toBeAttached();
+  await expect(page.getByLabel("프로젝트에 대해 알려주세요 *")).toBeAttached();
   await expect(page.getByRole("link", { name: "내용 보기" })).toBeAttached();
   await expectNoHorizontalOverflow(page);
   await revealFullPage(page);
@@ -128,49 +128,15 @@ test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", as
   await expectNoHorizontalOverflow(page);
 });
 
-test("문의 API가 잘못된 요청을 거절하고 유효한 요청을 접수한다", async ({ request }) => {
-  const clientAddress = `test-${crypto.randomUUID()}`;
-  const headers = { "x-forwarded-for": clientAddress };
-
-  const invalidResponse = await request.post("/api/inquiries", {
-    headers,
-    data: { name: "A" },
-  });
-  expect(invalidResponse.status()).toBe(422);
-
-  const validResponse = await request.post("/api/inquiries", {
-    headers,
-    data: {
-      name: "테스트 담당자",
-      email: "test@example.com",
-      company: "Jabin Test",
-      phone: "",
-      projectType: "신규 구축",
-      services: ["기획", "백엔드 API"],
-      schedule: "협의 필요",
-      budget: "협의 필요",
-      project: "신규 서비스의 기획과 API 구축 범위를 함께 검토하고 싶습니다.",
-      privacyConsent: true,
-      website: "",
-    },
-  });
-  expect(validResponse.status()).toBe(201);
-  await expect(validResponse.json()).resolves.toMatchObject({ ok: true });
-});
-
 test("문의 폼이 선택 항목과 동의를 포함해 접수된다", async ({ page }) => {
-  await page.setExtraHTTPHeaders({ "x-forwarded-for": `form-${crypto.randomUUID()}` });
   await disableIntro(page);
   await page.goto("/#contact");
 
   await page.getByLabel("이름 *").fill("테스트 담당자");
   await page.getByLabel("회사 / 브랜드").fill("Jabin Test");
   await page.getByLabel("이메일 *").fill("form@example.com");
-  await page.getByLabel("프로젝트 유형 *").selectOption("신규 구축");
   await page.getByLabel("기획", { exact: true }).check();
-  await page.getByLabel("백엔드 API", { exact: true }).check();
-  await page.getByLabel("예상 일정").selectOption("협의 필요");
-  await page.getByLabel("예산 구간").selectOption("협의 필요");
+  await page.getByLabel("웹 개발", { exact: true }).check();
   await page
     .getByLabel("프로젝트에 대해 알려주세요 *")
     .fill("신규 서비스의 기획과 API 구축 범위를 함께 검토하고 싶습니다.");
@@ -179,4 +145,23 @@ test("문의 폼이 선택 항목과 동의를 포함해 접수된다", async ({
 
   await expect(page.getByText("문의가 접수되었습니다.", { exact: false })).toBeVisible();
   await expect(page.getByRole("button", { name: "접수 완료" })).toBeVisible();
+});
+
+test("문의 폼이 서버 검증에 걸린 항목을 알려준다", async ({ page }) => {
+  await disableIntro(page);
+  await page.goto("/#contact");
+
+  // 브라우저 기본 검증을 건너뛰고 서버 액션의 응답만 확인한다.
+  await page.locator("#contact form").evaluate((form) => form.setAttribute("novalidate", ""));
+  await page.getByLabel("이름 *").fill("김");
+  await page.getByLabel("이메일 *").fill("form@example.com");
+  await page.getByLabel("기획", { exact: true }).check();
+  await page
+    .getByLabel("프로젝트에 대해 알려주세요 *")
+    .fill("신규 서비스의 기획과 API 구축 범위를 함께 검토하고 싶습니다.");
+  await page.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
+  await page.getByRole("button", { name: "문의 보내기" }).click();
+
+  await expect(page.getByText("이름을 2~40자로 입력해 주세요.")).toBeVisible();
+  await expect(page.getByRole("button", { name: "문의 보내기" })).toBeEnabled();
 });
