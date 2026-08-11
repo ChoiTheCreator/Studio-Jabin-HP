@@ -50,7 +50,7 @@ export function EngineeringSection() {
               운영까지 설계합니다.
             </h2>
             <p className="mt-7 mb-0 max-w-167.5 text-[16px] leading-[1.65] break-keep text-white/70 sm:text-[18px]">
-              고객이 보는 화면부터, 그 뒤에서 움직이는 서버와 데이터 베이스까지 하나의 시스템으로
+              고객이 보는 화면부터, 그 뒤에서 움직이는 서버와 데이터베이스까지 하나의 시스템으로
               바라봅니다. 중간 관리자 없이 개발자와 직접, 빠르게 소통하며 운영과 관리까지 대응할 수
               있는 기준을 함께 만듭니다.
             </p>
