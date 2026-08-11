@@ -24,8 +24,7 @@ export type InquiryInput = {
 };
 
 type ValidationResult =
-  | { success: true; data: InquiryInput }
-  | { success: false; fields: Record<string, string> };
+  { success: true; data: InquiryInput } | { success: false; fields: Record<string, string> };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -96,7 +95,5 @@ export function validateInquiry(payload: unknown): ValidationResult {
     fields.privacyConsent = "개인정보 수집 및 이용에 동의해 주세요.";
   }
 
-  return Object.keys(fields).length > 0
-    ? { success: false, fields }
-    : { success: true, data };
+  return Object.keys(fields).length > 0 ? { success: false, fields } : { success: true, data };
 }

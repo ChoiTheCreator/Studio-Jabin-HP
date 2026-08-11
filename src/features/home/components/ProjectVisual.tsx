@@ -40,7 +40,7 @@ export function ProjectVisual({ variant, title, className = "" }: ProjectVisualP
           <span className="mt-1 text-[11px]">ARCHIVE</span>
           <b className="mt-auto text-[54px] leading-[0.8] sm:text-[86px]">O/A</b>
         </div>
-        <div className="self-center rotate-3 bg-white p-4 shadow-[0_18px_38px_rgba(7,39,108,0.14)] sm:p-[22px]">
+        <div className="rotate-3 self-center bg-white p-4 shadow-[0_18px_38px_rgba(7,39,108,0.14)] sm:p-[22px]">
           <span className="mb-3 block text-[7px]">INDEX / 024</span>
           <div className="aspect-[4/3] border-[10px] border-navy-surface bg-navy-night" />
           <p className="mt-[11px] mb-0 text-[8px] leading-[1.4]">
@@ -57,16 +57,23 @@ export function ProjectVisual({ variant, title, className = "" }: ProjectVisualP
       aria-label={`${title} 모바일 인터페이스 콘셉트`}
     >
       <div className="absolute top-6 left-5 text-[34px] leading-[0.82] font-bold text-white sm:top-[42px] sm:left-10 sm:text-[60px]">
-        COMMON<br />GROUND
+        COMMON
+        <br />
+        GROUND
       </div>
       <div className="absolute top-[10%] right-[10%] aspect-[9/17] w-[46%] rotate-[7deg] rounded-[22px] border-[5px] border-navy-night bg-white p-3 text-navy-ink shadow-[12px_16px_0_#0a0f1e] sm:right-[14%] sm:w-[38%] sm:p-[18px]">
-        <div className="flex justify-between text-[7px] font-bold"><span>CG</span><span>MENU</span></div>
+        <div className="flex justify-between text-[7px] font-bold">
+          <span>CG</span>
+          <span>MENU</span>
+        </div>
         <div className="mt-3 h-[42%] rounded-[2px] bg-navy-primary" />
         <p className="my-3.5 text-[11px] font-bold">오늘의 동네 이야기</p>
         <div className="mb-1.5 h-[5px] w-full bg-navy-ink/20" />
         <div className="mb-1.5 h-[5px] w-[58%] bg-navy-ink/20" />
       </div>
-      <span className="absolute bottom-[18px] left-5 text-[12px] font-bold text-navy-signal sm:bottom-8 sm:left-10">C/G</span>
+      <span className="absolute bottom-[18px] left-5 text-[12px] font-bold text-navy-signal sm:bottom-8 sm:left-10">
+        C/G
+      </span>
     </div>
   );
 }

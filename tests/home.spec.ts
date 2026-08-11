@@ -34,11 +34,19 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "문제에서 시작한 설계." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /출시가 끝이 되지 않도록, 운영까지 설계합니다/ })).toBeAttached();
-  await expect(page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ })).toBeAttached();
+  await expect(
+    page.getByRole("heading", { name: /출시가 끝이 되지 않도록, 운영까지 설계합니다/ }),
+  ).toBeAttached();
+  await expect(
+    page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ }),
+  ).toBeAttached();
   await expect(page.getByRole("link", { name: "최원빈 GitHub 새 창에서 열기" })).toBeAttached();
-  await expect(page.getByRole("heading", { name: /진단부터 운영까지, 같은 기준으로 이어갑니다/ })).toBeAttached();
-  await expect(page.getByRole("heading", { name: /필요한 시스템을, 함께 정의합시다/ })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: /진단부터 운영까지, 같은 기준으로 이어갑니다/ }),
+  ).toBeAttached();
+  await expect(
+    page.getByRole("heading", { name: /필요한 시스템을, 함께 정의합시다/ }),
+  ).toBeVisible();
   await expect(page.getByLabel("프로젝트 유형 *")).toBeAttached();
   await expect(page.getByRole("link", { name: "내용 보기" })).toBeAttached();
   await expectNoHorizontalOverflow(page);

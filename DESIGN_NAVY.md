@@ -8,13 +8,13 @@
 
 ### 조사한 화면
 
-| 화면 유형 | Desktop 높이 | Mobile 높이 | 핵심 역할 |
-| --- | ---: | ---: | --- |
-| Home | 7,764px | 6,542px | 브랜드 서사, 신뢰, 프로세스, 전환 |
-| Service | 6,825px | 7,843px | 서비스 분류, 성과, 원칙, 사례 |
-| About | 5,235px | 5,623px | 회사 관점, 방법론, 조직 |
-| Column | 1,359px | 1,563px | 콘텐츠 탐색, 탭, 빈 상태 |
-| Diagnosis | 2,030px | 1,784px | 실제 입력과 제출을 위한 업무형 폼 |
+| 화면 유형 | Desktop 높이 | Mobile 높이 | 핵심 역할                         |
+| --------- | -----------: | ----------: | --------------------------------- |
+| Home      |      7,764px |     6,542px | 브랜드 서사, 신뢰, 프로세스, 전환 |
+| Service   |      6,825px |     7,843px | 서비스 분류, 성과, 원칙, 사례     |
+| About     |      5,235px |     5,623px | 회사 관점, 방법론, 조직           |
+| Column    |      1,359px |     1,563px | 콘텐츠 탐색, 탭, 빈 상태          |
+| Diagnosis |      2,030px |     1,784px | 실제 입력과 제출을 위한 업무형 폼 |
 
 Desktop은 1440×900, Mobile은 390×844 뷰포트에서 확인했다. 모든 화면은 문서 전체 너비가 뷰포트 너비와 같았으며 문서 단위의 가로 스크롤은 발생하지 않았다.
 
@@ -68,30 +68,30 @@ DESIGN NAVY의 핵심은 다음 다섯 문장으로 요약한다.
 
 ### 관찰 팔레트
 
-| 역할 | 값 | 용도 |
-| --- | --- | --- |
-| Primary Navy Blue | #184BBA | CTA, 링크, 활성 상태, 강조 |
-| Action Blue | #1A4FD6 | 버튼 변형, 그래픽 |
-| Deep Navy | #07276C | 네이비 섹션과 그래픽 |
-| Night | #0A0F1E | 모바일 메뉴, 가장 어두운 배경 |
-| Dark Surface | #1A1F2E | 어두운 카드, 보조 배경 |
-| Ink | #111111 | 기본 본문 |
-| White | #FFFFFF | 기본 배경, 반전 텍스트 |
-| Soft Gray | #F6F6F6 | 섹션 전환 배경, Footer |
-| Blue Tint | #EFF1FF | 선택, 약한 정보 강조 |
-| Line | #DDDDDD | 입력과 목록 구분선 |
-| Text Sub 1 | #505050 | 본문 보조 |
-| Text Sub 2 | #767676 | 설명, 메타 정보 |
-| Text Sub 3 | #999999 | 비활성, 캡션 |
-| Signal Lime | #B6FF4E | 제한적인 상태 강조 |
-| Success | #22C55E | 온라인, 완료 상태 |
-| Danger | #EF4444 | 오류 상태 |
+| 역할              | 값      | 용도                          |
+| ----------------- | ------- | ----------------------------- |
+| Primary Navy Blue | #184BBA | CTA, 링크, 활성 상태, 강조    |
+| Action Blue       | #1A4FD6 | 버튼 변형, 그래픽             |
+| Deep Navy         | #07276C | 네이비 섹션과 그래픽          |
+| Night             | #0A0F1E | 모바일 메뉴, 가장 어두운 배경 |
+| Dark Surface      | #1A1F2E | 어두운 카드, 보조 배경        |
+| Ink               | #111111 | 기본 본문                     |
+| White             | #FFFFFF | 기본 배경, 반전 텍스트        |
+| Soft Gray         | #F6F6F6 | 섹션 전환 배경, Footer        |
+| Blue Tint         | #EFF1FF | 선택, 약한 정보 강조          |
+| Line              | #DDDDDD | 입력과 목록 구분선            |
+| Text Sub 1        | #505050 | 본문 보조                     |
+| Text Sub 2        | #767676 | 설명, 메타 정보               |
+| Text Sub 3        | #999999 | 비활성, 캡션                  |
+| Signal Lime       | #B6FF4E | 제한적인 상태 강조            |
+| Success           | #22C55E | 온라인, 완료 상태             |
+| Danger            | #EF4444 | 오류 상태                     |
 
 ### 정규화 토큰
 
 관찰된 일회성 파란색을 모두 유지하지 않는다. 구현에서는 아래 역할 토큰만 허용한다.
 
-~~~css
+```css
 @theme inline {
   --color-navy-primary: #184bba;
   --color-navy-action: #1a4fd6;
@@ -106,7 +106,7 @@ DESIGN NAVY의 핵심은 다음 다섯 문장으로 요약한다.
   --color-navy-muted: #767676;
   --color-navy-signal: #b6ff4e;
 }
-~~~
+```
 
 ### 색상 사용 규칙
 
@@ -124,19 +124,19 @@ DESIGN NAVY의 핵심은 다음 다섯 문장으로 요약한다.
 
 기본 서체는 Freesentation이다. 관찰된 굵기는 500, 600, 700, 800, 900이다.
 
-| 역할 | Desktop | Mobile | 굵기 | 권장 행간 |
-| --- | ---: | ---: | ---: | ---: |
-| Hero Display | 64px | 34px | 800 | 1.08 |
-| Page Hero | 40–48px | 30–32px | 700–800 | 1.15 |
-| Section Display | 40–52px | 28–34px | 700–800 | 1.18 |
-| H1 | 48px | 32px | 700 | 1.2 |
-| H2 | 36px | 28px | 700 | 1.25 |
-| H3 | 24px | 20–22px | 600 | 1.35 |
-| H4 | 20px | 18px | 500–600 | 1.4 |
-| Lead | 18px | 16px | 500 | 1.6 |
-| Body | 16px | 14–15px | 500 | 1.65 |
-| Body Small | 14px | 13px | 500 | 1.55 |
-| Caption | 12px | 11–12px | 500–600 | 1.45 |
+| 역할            | Desktop |  Mobile |    굵기 | 권장 행간 |
+| --------------- | ------: | ------: | ------: | --------: |
+| Hero Display    |    64px |    34px |     800 |      1.08 |
+| Page Hero       | 40–48px | 30–32px | 700–800 |      1.15 |
+| Section Display | 40–52px | 28–34px | 700–800 |      1.18 |
+| H1              |    48px |    32px |     700 |       1.2 |
+| H2              |    36px |    28px |     700 |      1.25 |
+| H3              |    24px | 20–22px |     600 |      1.35 |
+| H4              |    20px |    18px | 500–600 |       1.4 |
+| Lead            |    18px |    16px |     500 |       1.6 |
+| Body            |    16px | 14–15px |     500 |      1.65 |
+| Body Small      |    14px |    13px |     500 |      1.55 |
+| Caption         |    12px | 11–12px | 500–600 |      1.45 |
 
 ### 관찰과 교정
 
@@ -154,32 +154,32 @@ DESIGN NAVY의 핵심은 다음 다섯 문장으로 요약한다.
 
 ### 컨테이너
 
-| 레벨 | 최대 폭 | 역할 |
-| --- | ---: | --- |
-| Page Outer | 1,440px | 헤더, Footer, 전체 페이지 정렬 |
-| Content | 1,163–1,164px | 본문, 카드, 폼, 목록 |
-| Reading | 680–760px | 긴 문장, 정책, 설명 |
+| 레벨       |       최대 폭 | 역할                           |
+| ---------- | ------------: | ------------------------------ |
+| Page Outer |       1,440px | 헤더, Footer, 전체 페이지 정렬 |
+| Content    | 1,163–1,164px | 본문, 카드, 폼, 목록           |
+| Reading    |     680–760px | 긴 문장, 정책, 설명            |
 
 ### 좌우 여백
 
-| 구간 | 여백 |
-| --- | ---: |
-| Mobile | 16px |
+| 구간         | 여백 |
+| ------------ | ---: |
+| Mobile       | 16px |
 | Small Tablet | 24px |
-| Desktop | 40px |
+| Desktop      | 40px |
 | Wide Desktop | 60px |
 
 Jabin에 적용할 때는 기존 DESIGN.md의 Mobile 20px, Desktop 48px 기준을 우선한다. 이 문서의 수치는 레퍼런스 재현 값이며 운영 토큰으로 자동 승격되지 않는다.
 
 ### 브레이크포인트
 
-| 이름 | 시작 | 변화 |
-| --- | ---: | --- |
-| sm | 640px | 패딩, 타입, 일부 2열 |
-| md | 768px | 콘텐츠 정렬과 카드 열 전환 |
-| lg | 1,024px | 데스크톱 내비게이션, 가로 레이아웃 |
-| xl | 1,280px | 넓은 간격 |
-| desktop | 1,440px | 외부 컨테이너 고정 |
+| 이름    |    시작 | 변화                               |
+| ------- | ------: | ---------------------------------- |
+| sm      |   640px | 패딩, 타입, 일부 2열               |
+| md      |   768px | 콘텐츠 정렬과 카드 열 전환         |
+| lg      | 1,024px | 데스크톱 내비게이션, 가로 레이아웃 |
+| xl      | 1,280px | 넓은 간격                          |
+| desktop | 1,440px | 외부 컨테이너 고정                 |
 
 ### 섹션 리듬
 
@@ -208,16 +208,16 @@ Secondary Mobile의 726px 고정값은 정보량에 비해 지나치게 크다. 
 
 ### DESIGN NAVY 규칙
 
-| 요소 | 반경 |
-| --- | ---: |
-| 일반 콘텐츠 블록 | 0–8px |
-| 이미지 | 6–8px |
-| 반복 카드 | 8px |
-| 큰 사례 미디어 | 12px |
-| 입력 필드 | 0–4px |
-| 플로팅 헤더 | 999px |
-| 주 CTA | 999px 허용 |
-| 모달 | 8px |
+| 요소             |       반경 |
+| ---------------- | ---------: |
+| 일반 콘텐츠 블록 |      0–8px |
+| 이미지           |      6–8px |
+| 반복 카드        |        8px |
+| 큰 사례 미디어   |       12px |
+| 입력 필드        |      0–4px |
+| 플로팅 헤더      |      999px |
+| 주 CTA           | 999px 허용 |
+| 모달             |        8px |
 
 - 카드 안에 다시 장식 카드를 넣지 않는다.
 - 페이지 섹션 전체를 떠 있는 카드로 만들지 않는다.
@@ -331,17 +331,17 @@ Mobile 터치 영역은 최소 44×44px이며 작은 radio와 checkbox에도 충
 
 ### 모션 계층
 
-| 이름 | 시간 | 시작 상태 | 사용 |
-| --- | ---: | --- | --- |
-| Fast | 180–240ms | 색상 또는 2px 이동 | 아이콘, hover, press |
-| Page Enter | 400ms | opacity 0, scale .98 | 라우트 진입 |
-| Reveal | 600–800ms | opacity 0, translateY 30–50px | 섹션 진입 |
-| Hero Line | 800ms | opacity 0, translateY 30px | 히어로 문장 |
-| Header Morph | 500–600ms | 폭, 높이, 배경 변화 | 스크롤 헤더 |
-| Media Ready | 700ms | opacity 0 | 영상 로드 완료 |
-| Scroll Hint | 1.5s infinite | translateY | 히어로 화살표 |
-| Platform Marquee | 12s linear infinite | translateX | 로고 흐름 |
-| Review Marquee | 25s linear infinite | translateX | 후기 흐름 |
+| 이름             |                시간 | 시작 상태                     | 사용                 |
+| ---------------- | ------------------: | ----------------------------- | -------------------- |
+| Fast             |           180–240ms | 색상 또는 2px 이동            | 아이콘, hover, press |
+| Page Enter       |               400ms | opacity 0, scale .98          | 라우트 진입          |
+| Reveal           |           600–800ms | opacity 0, translateY 30–50px | 섹션 진입            |
+| Hero Line        |               800ms | opacity 0, translateY 30px    | 히어로 문장          |
+| Header Morph     |           500–600ms | 폭, 높이, 배경 변화           | 스크롤 헤더          |
+| Media Ready      |               700ms | opacity 0                     | 영상 로드 완료       |
+| Scroll Hint      |       1.5s infinite | translateY                    | 히어로 화살표        |
+| Platform Marquee | 12s linear infinite | translateX                    | 로고 흐름            |
+| Review Marquee   | 25s linear infinite | translateX                    | 후기 흐름            |
 
 ### Hero 시퀀스
 
@@ -390,7 +390,7 @@ Mobile 터치 영역은 최소 44×44px이며 작은 radio와 checkbox에도 충
 
 ### Reduced Motion
 
-~~~css
+```css
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -401,7 +401,7 @@ Mobile 터치 영역은 최소 44×44px이며 작은 radio와 checkbox에도 충
     transition-duration: 0.01ms !important;
   }
 }
-~~~
+```
 
 마키는 정지된 목록으로, reveal은 최종 상태로, 패럴랙스는 0으로 표시한다. 상태 이해에 필요한 색상 변화는 유지한다.
 
@@ -567,15 +567,15 @@ Mobile 터치 영역은 최소 44×44px이며 작은 radio와 checkbox에도 충
 
 ## 17. 현재 결정 상태
 
-| 항목 | 상태 |
-| --- | --- |
-| 역추적 완료 | Yes |
-| DESIGN NAVY 토큰 정규화 | Draft |
-| Jabin 운영 팔레트 교체 | Pilot on feat/3-design-navy-home |
-| Header motion 이식 | Implemented on feature branch |
-| Hero media 방향 | Existing concept asset applied; final asset required |
-| Floating CTA 이식 | Rejected as-is |
-| 공통 Reveal primitive | Implemented |
-| DESIGN.md 병합 | Not approved |
+| 항목                    | 상태                                                 |
+| ----------------------- | ---------------------------------------------------- |
+| 역추적 완료             | Yes                                                  |
+| DESIGN NAVY 토큰 정규화 | Draft                                                |
+| Jabin 운영 팔레트 교체  | Pilot on feat/3-design-navy-home                     |
+| Header motion 이식      | Implemented on feature branch                        |
+| Hero media 방향         | Existing concept asset applied; final asset required |
+| Floating CTA 이식       | Rejected as-is                                       |
+| 공통 Reveal primitive   | Implemented                                          |
+| DESIGN.md 병합          | Not approved                                         |
 
 현재 기능 브랜치에서는 Header morph, 공통 Reveal, Navy 역할 토큰, Hero 미디어와 전체 페이지 밴드 구성을 적용했다. 다음 단계는 실제 프로젝트 이미지와 세 번째 구성원 정보를 확보하고, 화면 비교 검토 후 이 방향을 DESIGN.md의 운영 기준으로 승격할지 결정하는 것이다.

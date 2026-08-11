@@ -44,10 +44,16 @@ function ServicePhraseGroup() {
     <span className="flex shrink-0 items-center">
       {phraseCopies.map((phraseCopy) =>
         servicePhrases.map((phrase) => (
-          <span className="flex shrink-0 items-center" lang={phrase.language} key={`${phraseCopy}-${phrase.language}`}>
+          <span
+            className="flex shrink-0 items-center"
+            lang={phrase.language}
+            key={`${phraseCopy}-${phrase.language}`}
+          >
             {phrase.items.map((item) => (
               <span className="flex shrink-0 items-center" key={item}>
-                <span className={item === "JABIN STUDIO" ? "font-bold text-navy-signal" : "font-bold"}>
+                <span
+                  className={item === "JABIN STUDIO" ? "font-bold text-navy-signal" : "font-bold"}
+                >
                   {item}
                 </span>
                 <span className="mx-3 text-white/55 sm:mx-4">·</span>

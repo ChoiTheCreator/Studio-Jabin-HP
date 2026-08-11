@@ -16,7 +16,7 @@ export function HomePage() {
     <>
       <JabinIntro />
       <SiteHeader />
-      <main className="animate-page-enter origin-top motion-reduce:animate-none">
+      <main className="origin-top animate-page-enter motion-reduce:animate-none">
         <HeroSection />
         <ServiceMarquee />
         <StudioStatement />

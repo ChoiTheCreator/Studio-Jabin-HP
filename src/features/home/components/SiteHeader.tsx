@@ -64,7 +64,10 @@ export function SiteHeader() {
             />
           </Link>
 
-          <nav className="mr-[42px] ml-auto hidden items-center gap-[34px] lg:flex" aria-label="주요 메뉴">
+          <nav
+            className="mr-[42px] ml-auto hidden items-center gap-[34px] lg:flex"
+            aria-label="주요 메뉴"
+          >
             {navigation.map((item) => (
               <Link
                 key={item.href}
@@ -104,8 +107,8 @@ export function SiteHeader() {
       <div
         className={`fixed inset-0 z-[90] transition-[visibility] ${
           menuOpen
-            ? "visible pointer-events-auto delay-0"
-            : "invisible pointer-events-none delay-[450ms]"
+            ? "pointer-events-auto visible delay-0"
+            : "pointer-events-none invisible delay-[450ms]"
         }`}
         id="mobile-menu"
         aria-hidden={!menuOpen}
@@ -125,7 +128,7 @@ export function SiteHeader() {
           }`}
           aria-label="모바일 메뉴"
         >
-          <p className="mb-8 text-[12px] font-bold leading-[1.2] text-white/50">NAVIGATION</p>
+          <p className="mb-8 text-[12px] leading-[1.2] font-bold text-white/50">NAVIGATION</p>
           {navigation.map((item, index) => (
             <Link
               key={item.href}
