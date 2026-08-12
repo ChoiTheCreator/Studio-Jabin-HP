@@ -37,6 +37,7 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await expect(
     page.getByRole("heading", { name: /코드만 넘기고 끝내지 않습니다\. 운영까지 설계합니다/ }),
   ).toBeAttached();
+  await expect(page.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
   await expect(
     page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ }),
   ).toBeAttached();
@@ -65,6 +66,7 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
 
   await page.getByRole("button", { name: "메뉴 열기" }).click();
   await expect(page.getByRole("navigation", { name: "모바일 메뉴" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "03 INFRA" })).toBeVisible();
   await expect(page.getByRole("link", { name: /TEAM$/ })).toBeVisible();
   await expectNoHorizontalOverflow(page);
   await page.getByRole("button", { name: "메뉴 닫기", exact: true }).first().click();
@@ -116,6 +118,39 @@ test("서비스 띠가 세 언어 문구를 빈 구간 없이 반복한다", asy
   expect(trackMetrics.firstGroupWidth).toBeGreaterThanOrEqual(trackMetrics.viewportWidth);
   expect(Math.abs(trackMetrics.firstGroupWidth - trackMetrics.secondGroupWidth)).toBeLessThan(1);
   await expectNoHorizontalOverflow(page);
+});
+
+test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공한다", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
+
+  const infrastructure = page.locator("#infrastructure");
+  await expect(infrastructure.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
+  await expect(infrastructure.getByText("02 REGIONS")).toBeAttached();
+  await expect(infrastructure.getByText("SEOUL", { exact: true })).toBeAttached();
+  await expect(infrastructure.getByText("GWANGJU", { exact: true })).toBeAttached();
+  await expect(infrastructure.getByText("RTX A4500 × 2")).toBeHidden();
+  await infrastructure.getByText("기술 사양 자세히 보기").click();
+  await expect(infrastructure.getByText("RTX A4500 × 2")).toBeVisible();
+  await expect(infrastructure.getByText("Tenstorrent p150a")).toBeVisible();
+  await expect(infrastructure.getByText("Dedicated Compute")).toBeVisible();
+  await expect(
+    infrastructure.getByRole("heading", { name: /서버를 계속 빌리는 대신/ }),
+  ).toBeAttached();
+  await expect(infrastructure.getByText("Cloud for the peaks.")).toBeAttached();
+  await expect(infrastructure.getByRole("link", { name: "프로젝트 문의" })).toHaveAttribute(
+    "href",
+    "#contact",
+  );
+
+  const signal = infrastructure.locator(".infrastructure-region__signal");
+  await expect(signal).toHaveCSS("animation-name", "infrastructure-region-signal");
+  await expect(signal).toHaveCSS("animation-duration", "8s");
+  await expectNoHorizontalOverflow(page);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(signal).toHaveCSS("display", "none");
 });
 
 test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", async ({ page }) => {
