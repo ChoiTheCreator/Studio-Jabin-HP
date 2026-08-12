@@ -25,6 +25,13 @@ Eternal FE에서 가져오는 것은 브랜드 표현이 아니라 다음 시스
 
 Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인 레이아웃 수치는 복제하지 않는다.
 
+### Taste Skill 적용
+
+- 범용 Taste Skill은 `.agents/skills/design-taste-frontend/SKILL.md`에 프로젝트 로컬로 보관한다.
+- 실제 적용 시 `.agents/skills/design-taste-frontend/JABIN_PROFILE.md`를 함께 읽고 이 문서의 확정된 브랜드 기준을 우선한다.
+- 현재 기본 다이얼은 `DESIGN_VARIANCE 6`, `MOTION_INTENSITY 4`, `VISUAL_DENSITY 4`다.
+- 원본 Skill을 수정해 프로젝트 예외를 섞지 않는다. Jabin 전용 결정은 프로필과 이 문서에 기록한다.
+
 ## 2. 디자인 토큰
 
 ### 색상
@@ -157,6 +164,21 @@ Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인
 - 운영 역량은 Application, Infrastructure, Reliability, Security 네 축으로 고정한다.
 - 실제로 검증되지 않은 기술명, 가동률, 응답 시간은 노출하지 않는다.
 - reveal 애니메이션은 시스템 흐름 순서대로 90ms 간격을 사용하고 reduced motion에서는 즉시 표시한다.
+
+### Owned Infrastructure
+
+- Engineering & Operations 다음에 배치해 운영 역량을 실제 보유 자원으로 증명한다.
+- 첫 인상은 `02 REGIONS`, `Seoul ↔ Gwangju`, 자체 운영 메시지로 제한한다. 서버 부품명은 기본 화면에 노출하지 않는다.
+- 서울은 AI Compute, 광주는 Core Compute로 역할을 분리하되 두 거점을 우열 관계로 표현하지 않는다.
+- 두 지역 사이의 긴 여백과 1px 연결선을 핵심 시각 요소로 사용한다. 연결 신호 외의 노드, 아이콘, 지도 그래픽은 만들지 않는다.
+- 서버랙 사진이나 콘솔 화면을 사용하지 않고 큰 타이포그래피, 여백, 정렬, 얇은 선으로 구성한다.
+- 서버 사양은 영업 판단에 필요한 수준만 공개한다. 자산 식별 정보, IP, 네트워크 구성, 상세 보안 설정은 노출하지 않는다.
+- GPU는 `20GB per GPU`, `40GB Total`로 표기하며 하나의 40GB 통합 메모리처럼 표현하지 않는다.
+- 상세 사양은 네이티브 disclosure가 열린 뒤에만 보이며 카드가 아닌 typography list로 표현한다.
+- Cloud와 Owned Infrastructure는 대체 관계가 아니라 baseline과 peak 요구사항에 따라 조합하는 선택지로 설명한다.
+- 지역 연결 신호는 8초 동안 천천히 이동하고 reduced motion에서는 숨긴다.
+- 모바일에서도 `Seoul ↔ Gwangju` 관계를 가로로 유지하되 타입을 축소하고 상세 사양은 한 열로 전환한다.
+- CTA는 별도 상세 페이지가 생기기 전까지 문의 섹션으로 연결한다.
 
 ### Capabilities
 
