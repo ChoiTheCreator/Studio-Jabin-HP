@@ -3,6 +3,7 @@ import type { ProjectSummary } from "@/features/projects/project.types";
 export const navigation = [
   { href: "#work", label: "PROJECTS" },
   { href: "#engineering", label: "SYSTEM" },
+  { href: "#infrastructure", label: "INFRA" },
   { href: "#team", label: "TEAM" },
   { href: "#process", label: "PROCESS" },
 ] as const;
@@ -114,6 +115,43 @@ export const operationCapabilities = [
     title: "Security",
     description: "필요한 사람에게 필요한 권한만 제공하고 민감 정보의 경계를 명확히 나눕니다.",
     practices: ["Access Control", "Secret Management", "Audit Trail"],
+  },
+] as const;
+
+export const coreInfrastructureFeatures = [
+  "Dedicated Compute",
+  "SAS Storage",
+  "RAID 10",
+  "Database Infrastructure",
+  "CI/CD",
+  "Daily Backup",
+] as const;
+
+export const aiInfrastructureSpecs = [
+  {
+    label: "GPU",
+    value: "RTX A4500 × 2",
+    detail: "20GB per GPU",
+  },
+  {
+    label: "GPU MEMORY",
+    value: "40GB Total",
+    detail: "두 GPU의 장착 메모리 합계",
+  },
+  {
+    label: "CPU",
+    value: "Threadripper PRO",
+    detail: "3955WX / 16C / 32T",
+  },
+  {
+    label: "MEMORY",
+    value: "128GB ECC",
+    detail: "System Memory",
+  },
+  {
+    label: "AI ACCELERATOR",
+    value: "Tenstorrent p150a",
+    detail: "32GB",
   },
 ] as const;
 
