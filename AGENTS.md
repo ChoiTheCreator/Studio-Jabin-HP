@@ -2,6 +2,13 @@
 
 이 파일의 규칙은 이 저장소에서 수행하는 모든 작업에 적용한다.
 
+## 디자인 작업
+
+- 프론트엔드 작업 전 `DESIGN.md`, `DESIGN_NAVY.md`, `.agents/skills/design-taste-frontend/SKILL.md`, `.agents/skills/design-taste-frontend/JABIN_PROFILE.md`를 확인한다.
+- 디자인 기준의 우선순위는 사용자 요구사항, `DESIGN.md`, `DESIGN_NAVY.md`, `JABIN_PROFILE.md`, 범용 `SKILL.md` 순서다.
+- 구현 전에 대상 사용자, 시각 방향, `DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY`를 한 줄의 Design Read로 선언한다.
+- 완료 전 `JABIN_PROFILE.md`의 Preflight와 반응형 시각 검증을 수행한다.
+
 ## 공동 작업
 
 - 작업 전 `COLLABORATION_HARNESS.md`를 읽고 브랜치 흐름, 작업 범위 공유, 인수인계 규칙을 따른다.

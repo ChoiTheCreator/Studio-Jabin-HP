@@ -3,6 +3,7 @@ import { EngineeringSection } from "./components/EngineeringSection";
 import { HeroSection } from "./components/HeroSection";
 import { InquirySection } from "./components/InquirySection";
 import { JabinIntro } from "./components/JabinIntro";
+import { OwnedInfrastructureSection } from "./components/OwnedInfrastructureSection";
 import { ProcessSection } from "./components/ProcessSection";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { ServiceMarquee } from "./components/ServiceMarquee";
@@ -22,6 +23,7 @@ export function HomePage() {
         <StudioStatement />
         <ProjectsSection />
         <EngineeringSection />
+        <OwnedInfrastructureSection />
         <CapabilitiesSection />
         <TeamSection />
         <ProcessSection />

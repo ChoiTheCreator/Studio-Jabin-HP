@@ -128,12 +128,12 @@ export function SiteHeader() {
           }`}
           aria-label="모바일 메뉴"
         >
-          <p className="mb-8 text-[12px] leading-[1.2] font-bold text-white/50">NAVIGATION</p>
+          <p className="mb-4 text-[12px] leading-[1.2] font-bold text-white/50">NAVIGATION</p>
           {navigation.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex min-h-[68px] items-center gap-[18px] border-b border-white/20 text-[28px] font-bold"
+              className="flex min-h-14 items-center gap-[18px] border-b border-white/20 text-[24px] font-bold sm:min-h-[68px] sm:text-[28px]"
               onClick={() => setMenuOpen(false)}
             >
               <span className="text-[11px] text-navy-signal">0{index + 1}</span>
