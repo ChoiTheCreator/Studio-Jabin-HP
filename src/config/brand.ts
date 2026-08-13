@@ -11,6 +11,7 @@ export const brand = {
     logoLockup: "/images/brand/jabin-logo-lockup.png",
     logoMark: "/images/brand/jabin-logo-mark.png",
     favicon: "/images/brand/jabin-favicon.png",
+    socialPreview: "/images/brand/jabin-social-preview.png",
     hero: "/images/work/jabin-studio-hero.png",
   },
 } as const;
