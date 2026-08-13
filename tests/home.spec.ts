@@ -130,8 +130,44 @@ test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공
   await expect(infrastructure.getByText("02 REGIONS")).toBeAttached();
   await expect(infrastructure.getByText("SEOUL", { exact: true })).toBeAttached();
   await expect(infrastructure.getByText("GWANGJU", { exact: true })).toBeAttached();
+  await expect(infrastructure.getByText("자체 인프라", { exact: true })).toHaveCSS(
+    "background-color",
+    "rgb(201, 255, 61)",
+  );
+  await expect(
+    infrastructure.getByText(/서울 AI Compute와 광주 Core Compute의 서비스 범위/),
+  ).toBeVisible();
   await expect(infrastructure.getByText("RTX A4500 × 2")).toBeHidden();
+
+  const details = infrastructure.getByTestId("infrastructure-details");
+  const detailsContent = details.locator(".infrastructure-details__content");
+  const detailsIndicator = infrastructure.getByTestId("infrastructure-details-indicator");
+  const detailsIndicatorVertical = infrastructure.getByTestId(
+    "infrastructure-details-indicator-vertical",
+  );
+  await expect(details).not.toHaveAttribute("open", "");
+  await expect(detailsIndicator).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  await expect(detailsIndicatorVertical).toHaveCSS("scale", "none");
   await infrastructure.getByText("기술 사양 자세히 보기").click();
+  await expect(details).toHaveAttribute("open", "");
+  await expect(detailsIndicator).toHaveCSS("background-color", "rgb(24, 75, 186)");
+  await expect(detailsIndicatorVertical).toHaveCSS("scale", "1 0");
+  await expect(detailsContent).toHaveCSS("animation-name", "infrastructure-details-enter");
+  await expect(
+    infrastructure.getByText(/사내 데이터 기반 RAG 및 문서 검색, OCR, 이미지·언어 처리/),
+  ).toBeVisible();
+  for (const keyword of [
+    "챗봇",
+    "업무 자동화",
+    "AI API 연동",
+    "데이터베이스 운영",
+    "CI/CD 배포",
+    "일일 백업 환경",
+  ]) {
+    const highlight = infrastructure.getByText(keyword, { exact: true });
+    await expect(highlight).toBeVisible();
+    await expect(highlight).toHaveCSS("background-color", "rgb(201, 255, 61)");
+  }
   await expect(infrastructure.getByText("RTX A4500 × 2")).toBeVisible();
   await expect(infrastructure.getByText("Tenstorrent p150a")).toBeVisible();
   await expect(infrastructure.getByText("Dedicated Compute")).toBeVisible();
@@ -151,6 +187,7 @@ test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(signal).toHaveCSS("display", "none");
+  await expect(detailsContent).toHaveCSS("animation-name", "none");
 });
 
 test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", async ({ page }) => {
