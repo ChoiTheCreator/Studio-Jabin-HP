@@ -127,6 +127,29 @@ export const coreInfrastructureFeatures = [
   "Daily Backup",
 ] as const;
 
+export const infrastructureRegionServices = {
+  seoul: [
+    {
+      text: "SI 프로젝트에 필요한 AI 모델 추론과 경량 학습, 사내 데이터 기반 RAG 및 문서 검색, OCR, 이미지·언어 처리를 지원합니다. ",
+    },
+    { text: "챗봇", highlight: true },
+    { text: "과 " },
+    { text: "업무 자동화", highlight: true },
+    { text: ", " },
+    { text: "AI API 연동", highlight: true },
+    { text: ", 기능 검증 및 운영 환경까지 구성합니다." },
+  ],
+  gwangju: [
+    { text: "웹·앱 호스팅, API와 " },
+    { text: "데이터베이스 운영", highlight: true },
+    { text: ", " },
+    { text: "CI/CD 배포", highlight: true },
+    { text: ", 스토리지와 " },
+    { text: "일일 백업 환경", highlight: true },
+    { text: "을 제공합니다." },
+  ],
+} as const;
+
 export const aiInfrastructureSpecs = [
   {
     label: "GPU",

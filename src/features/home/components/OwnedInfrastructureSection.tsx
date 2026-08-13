@@ -2,7 +2,29 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 import { Reveal } from "@/components/motion/Reveal";
 import { contentShell, eyebrow } from "@/components/ui/tailwind";
-import { aiInfrastructureSpecs, coreInfrastructureFeatures } from "../home.content";
+import { TextHighlight } from "@/components/ui/TextHighlight";
+import {
+  aiInfrastructureSpecs,
+  coreInfrastructureFeatures,
+  infrastructureRegionServices,
+} from "../home.content";
+
+type RegionServiceSegment = {
+  text: string;
+  highlight?: boolean;
+};
+
+function RegionServiceCopy({ segments }: { segments: readonly RegionServiceSegment[] }) {
+  return segments.map((segment, index) =>
+    segment.highlight ? (
+      <TextHighlight className="font-bold !text-navy-ink" key={`${index}-${segment.text}`}>
+        {segment.text}
+      </TextHighlight>
+    ) : (
+      segment.text
+    ),
+  );
+}
 
 export function OwnedInfrastructureSection() {
   return (
@@ -29,7 +51,7 @@ export function OwnedInfrastructureSection() {
 
             <div className="mt-14 grid gap-8 sm:mt-18 lg:grid-cols-[minmax(0,1.14fr)_minmax(320px,0.86fr)] lg:items-end lg:gap-24">
               <p className="m-0 max-w-190 text-[34px] leading-[1.08] font-bold break-keep sm:text-[46px] lg:text-[58px]">
-                자체 인프라로
+                <TextHighlight>자체 인프라</TextHighlight>로
                 <br />
                 서비스를 직접 운영합니다.
               </p>
@@ -77,17 +99,29 @@ export function OwnedInfrastructureSection() {
               className="group border-b border-navy-line"
               data-testid="infrastructure-details"
             >
-              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-4 text-[15px] font-bold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary [&::-webkit-details-marker]:hidden">
-                <span>기술 사양 자세히 보기</span>
+              <summary className="infrastructure-details__summary grid min-h-24 cursor-pointer list-none grid-cols-[minmax(0,1fr)_44px] items-center gap-5 py-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary sm:min-h-28 sm:grid-cols-[minmax(0,1fr)_48px] sm:gap-8 sm:py-7 [&::-webkit-details-marker]:hidden">
+                <span className="min-w-0">
+                  <span className="block text-[16px] leading-tight font-bold sm:text-[18px]">
+                    기술 사양 자세히 보기
+                  </span>
+                  <span className="mt-2 block max-w-150 text-[12px] leading-[1.55] font-medium break-keep text-navy-muted sm:text-[14px]">
+                    서울 AI Compute와 광주 Core Compute의 서비스 범위와 장비 구성을 확인합니다.
+                  </span>
+                </span>
                 <span
-                  className="text-[24px] leading-none font-normal transition-transform duration-300 group-open:rotate-45 motion-reduce:transition-none"
+                  className="infrastructure-details__indicator relative grid size-11 shrink-0 place-items-center border border-navy-ink transition-[background-color,border-color,transform] duration-300 group-open:border-navy-primary group-open:bg-navy-primary motion-reduce:transition-none sm:size-12"
+                  data-testid="infrastructure-details-indicator"
                   aria-hidden="true"
                 >
-                  +
+                  <span className="absolute h-px w-4 bg-navy-ink transition-colors duration-300 group-open:bg-white motion-reduce:transition-none" />
+                  <span
+                    className="absolute h-4 w-px bg-navy-ink transition-[transform,background-color] duration-300 group-open:scale-y-0 group-open:bg-white motion-reduce:transition-none"
+                    data-testid="infrastructure-details-indicator-vertical"
+                  />
                 </span>
               </summary>
 
-              <div className="grid gap-14 border-t border-navy-line py-10 sm:py-14 lg:grid-cols-2 lg:gap-0">
+              <div className="infrastructure-details__content grid gap-14 border-t border-navy-line py-10 sm:py-14 lg:grid-cols-2 lg:gap-0">
                 <section className="lg:pr-14" aria-labelledby="seoul-specs-title">
                   <p className="m-0 text-[11px] font-bold text-navy-primary">SEOUL / AI COMPUTE</p>
                   <h3
@@ -96,7 +130,10 @@ export function OwnedInfrastructureSection() {
                   >
                     Seoul
                   </h3>
-                  <dl className="mt-9 space-y-5">
+                  <p className="mt-6 mb-0 max-w-120 text-[15px] leading-[1.68] font-medium break-keep text-navy-muted sm:text-[16px]">
+                    <RegionServiceCopy segments={infrastructureRegionServices.seoul} />
+                  </p>
+                  <dl className="mt-10 space-y-5">
                     {aiInfrastructureSpecs.map((spec) => (
                       <div
                         className="grid gap-1 sm:grid-cols-[140px_1fr] sm:gap-6"
@@ -129,7 +166,10 @@ export function OwnedInfrastructureSection() {
                   >
                     Gwangju
                   </h3>
-                  <ul className="mt-9 list-none space-y-3 p-0">
+                  <p className="mt-6 mb-0 max-w-120 text-[15px] leading-[1.68] font-medium break-keep text-navy-muted sm:text-[16px]">
+                    <RegionServiceCopy segments={infrastructureRegionServices.gwangju} />
+                  </p>
+                  <ul className="mt-10 list-none space-y-3 p-0">
                     {coreInfrastructureFeatures.map((feature) => (
                       <li className="text-[18px] leading-[1.35] font-bold" key={feature}>
                         {feature}
