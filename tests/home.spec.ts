@@ -26,6 +26,24 @@ async function revealFullPage(page: Page) {
   await page.waitForTimeout(250);
 }
 
+test("링크 공유 메타데이터가 Jabin 로고 대표 이미지를 사용한다", async ({ page }) => {
+  await page.goto("/");
+
+  const socialPreview = "https://jabinstudio.com/images/brand/jabin-social-preview.png";
+
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", socialPreview);
+  await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", "1200");
+  await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", "630");
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+    "content",
+    "summary_large_image",
+  );
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+    "content",
+    socialPreview,
+  );
+});
+
 test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await disableIntro(page);

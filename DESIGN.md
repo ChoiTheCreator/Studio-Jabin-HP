@@ -297,12 +297,15 @@ public/images/
 │   ├── jabin-logo-lockup.png  # 심볼과 워드마크 세로 조합
 │   ├── jabin-logo-word.png    # 헤더용 워드마크
 │   ├── jabin-logo-mark.png    # 단독 심볼
-│   └── jabin-favicon.png      # 정사각형 파비콘
+│   ├── jabin-favicon.png      # 정사각형 파비콘
+│   └── jabin-social-preview.png # 링크 공유용 1200×630 대표 이미지
 └── work/                      # 프로젝트와 콘셉트 이미지
     └── jabin-studio-hero.png
 ```
 
 현재 `jabin-studio-hero.png`는 imagegen으로 생성한 초기 콘셉트 에셋이다. 실제 스튜디오 또는 프로젝트 촬영본을 확보하면 같은 파일명으로 덮지 말고 새 파일을 추가한 뒤 콘텐츠 참조를 변경해 변경 이력을 남긴다.
+
+링크 공유 대표 이미지는 `jabin-social-preview.png`를 사용한다. Open Graph와 X/Twitter 모두 1200×630 크기의 같은 파일을 참조하며, 작은 미리보기에서도 식별할 수 있도록 Navy 단색 배경과 흰색 로고만 사용한다.
 
 ## 8. 컴포넌트 규칙
 
