@@ -3,6 +3,7 @@ import type { ProjectSummary } from "@/features/projects/project.types";
 export const navigation = [
   { href: "#work", label: "PROJECTS" },
   { href: "#engineering", label: "SYSTEM" },
+  { href: "#infrastructure", label: "INFRA" },
   { href: "#team", label: "TEAM" },
   { href: "#process", label: "PROCESS" },
 ] as const;
@@ -114,6 +115,66 @@ export const operationCapabilities = [
     title: "Security",
     description: "필요한 사람에게 필요한 권한만 제공하고 민감 정보의 경계를 명확히 나눕니다.",
     practices: ["Access Control", "Secret Management", "Audit Trail"],
+  },
+] as const;
+
+export const coreInfrastructureFeatures = [
+  "Dedicated Compute",
+  "SAS Storage",
+  "RAID 10",
+  "Database Infrastructure",
+  "CI/CD",
+  "Daily Backup",
+] as const;
+
+export const infrastructureRegionServices = {
+  seoul: [
+    {
+      text: "SI 프로젝트에 필요한 AI 모델 추론과 경량 학습, 사내 데이터 기반 RAG 및 문서 검색, OCR, 이미지·언어 처리를 지원합니다. ",
+    },
+    { text: "챗봇", highlight: true },
+    { text: "과 " },
+    { text: "업무 자동화", highlight: true },
+    { text: ", " },
+    { text: "AI API 연동", highlight: true },
+    { text: ", 기능 검증 및 운영 환경까지 구성합니다." },
+  ],
+  gwangju: [
+    { text: "웹·앱 호스팅, API와 " },
+    { text: "데이터베이스 운영", highlight: true },
+    { text: ", " },
+    { text: "CI/CD 배포", highlight: true },
+    { text: ", 스토리지와 " },
+    { text: "일일 백업 환경", highlight: true },
+    { text: "을 제공합니다." },
+  ],
+} as const;
+
+export const aiInfrastructureSpecs = [
+  {
+    label: "GPU",
+    value: "RTX A4500 × 2",
+    detail: "20GB per GPU",
+  },
+  {
+    label: "GPU MEMORY",
+    value: "40GB Total",
+    detail: "두 GPU의 장착 메모리 합계",
+  },
+  {
+    label: "CPU",
+    value: "Threadripper PRO",
+    detail: "3955WX / 16C / 32T",
+  },
+  {
+    label: "MEMORY",
+    value: "128GB ECC",
+    detail: "System Memory",
+  },
+  {
+    label: "AI ACCELERATOR",
+    value: "Tenstorrent p150a",
+    detail: "32GB",
   },
 ] as const;
 

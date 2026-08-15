@@ -17,7 +17,20 @@ export const metadata: Metadata = {
     siteName: brand.name,
     locale: "ko_KR",
     type: "website",
-    images: [{ url: brand.assets.hero, width: 1680, height: 945 }],
+    images: [
+      {
+        url: brand.assets.socialPreview,
+        width: 1200,
+        height: 630,
+        alt: "Jabin Studio 로고",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: brand.name,
+    description: brand.tagline,
+    images: [brand.assets.socialPreview],
   },
   icons: {
     icon: [{ url: brand.assets.favicon, type: "image/png", sizes: "512x512" }],

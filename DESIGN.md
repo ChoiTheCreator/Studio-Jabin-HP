@@ -25,6 +25,13 @@ Eternal FE에서 가져오는 것은 브랜드 표현이 아니라 다음 시스
 
 Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인 레이아웃 수치는 복제하지 않는다.
 
+### Taste Skill 적용
+
+- 범용 Taste Skill은 `.agents/skills/design-taste-frontend/SKILL.md`에 프로젝트 로컬로 보관한다.
+- 실제 적용 시 `.agents/skills/design-taste-frontend/JABIN_PROFILE.md`를 함께 읽고 이 문서의 확정된 브랜드 기준을 우선한다.
+- 현재 기본 다이얼은 `DESIGN_VARIANCE 6`, `MOTION_INTENSITY 4`, `VISUAL_DENSITY 4`다.
+- 원본 Skill을 수정해 프로젝트 예외를 섞지 않는다. Jabin 전용 결정은 프로필과 이 문서에 기록한다.
+
 ## 2. 디자인 토큰
 
 ### 색상
@@ -41,6 +48,13 @@ Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인
 | Line  | `--color-line`  | `rgba(17,17,15,.16)` | 구분선                     |
 
 팔레트는 한 가지 색에 잠기지 않는다. 한 섹션 안에서 강조색은 하나를 우선하고, Blue·Red·Lime을 같은 강도로 동시에 사용하지 않는다. 본문 텍스트는 색상으로 위계를 만들기보다 크기와 굵기를 먼저 사용한다.
+
+### 형광펜 강조
+
+- `src/components/ui/TextHighlight.tsx`의 `TextHighlight`를 사용해 메시지에서 정말 중요한 1개 구절만 강조한다.
+- 강조색은 `--color-lime`을 사용하며, 둥근 모서리, 그림자, gradient, 자동 애니메이션을 추가하지 않는다.
+- 기본 메시지는 한 문장에 한 번만 사용한다. 인프라 disclosure처럼 두 거점의 제공 범위를 비교하는 경우에는 지역별 핵심 서비스 키워드를 최대 3개까지 강조할 수 있다.
+- 형광펜은 위계 보조 수단이며 제목 크기와 여백을 대체하지 않는다. 본문에서 사용할 때는 강조어만 Ink 색상과 Bold로 전환한다.
 
 ### 타이포그래피
 
@@ -158,6 +172,24 @@ Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인
 - 실제로 검증되지 않은 기술명, 가동률, 응답 시간은 노출하지 않는다.
 - reveal 애니메이션은 시스템 흐름 순서대로 90ms 간격을 사용하고 reduced motion에서는 즉시 표시한다.
 
+### Owned Infrastructure
+
+- Engineering & Operations 다음에 배치해 운영 역량을 실제 보유 자원으로 증명한다.
+- 첫 인상은 `02 REGIONS`, `Seoul ↔ Gwangju`, 자체 운영 메시지로 제한한다. 서버 부품명은 기본 화면에 노출하지 않는다.
+- 서울은 AI Compute, 광주는 Core Compute로 역할을 분리하되 두 거점을 우열 관계로 표현하지 않는다.
+- 두 지역 사이의 긴 여백과 1px 연결선을 핵심 시각 요소로 사용한다. 연결 신호 외의 노드, 아이콘, 지도 그래픽은 만들지 않는다.
+- 서버랙 사진이나 콘솔 화면을 사용하지 않고 큰 타이포그래피, 여백, 정렬, 얇은 선으로 구성한다.
+- 서버 사양은 영업 판단에 필요한 수준만 공개한다. 자산 식별 정보, IP, 네트워크 구성, 상세 보안 설정은 노출하지 않는다.
+- GPU는 `20GB per GPU`, `40GB Total`로 표기하며 하나의 40GB 통합 메모리처럼 표현하지 않는다.
+- 상세 사양은 네이티브 disclosure가 열린 뒤에만 보이며 카드가 아닌 typography list로 표현한다.
+- disclosure 헤더는 제목과 한 줄 목적 설명으로 정보 위계를 만들고, 우측의 1px 라인 인디케이터가 `+`에서 `−`로 전환되어 열린 상태를 보여준다.
+- 상세 내용은 열릴 때 opacity와 12px 이동만 사용해 진입하며, reduced motion에서는 애니메이션 없이 즉시 표시한다.
+- disclosure 안에서는 각 거점이 제공할 수 있는 서비스 문장을 사양보다 먼저 배치해, 비개발자도 하드웨어의 용도를 이해할 수 있게 한다.
+- Cloud와 Owned Infrastructure는 대체 관계가 아니라 baseline과 peak 요구사항에 따라 조합하는 선택지로 설명한다.
+- 지역 연결 신호는 8초 동안 천천히 이동하고 reduced motion에서는 숨긴다.
+- 모바일에서도 `Seoul ↔ Gwangju` 관계를 가로로 유지하되 타입을 축소하고 상세 사양은 한 열로 전환한다.
+- CTA는 별도 상세 페이지가 생기기 전까지 문의 섹션으로 연결한다.
+
 ### Capabilities
 
 - 기능을 카드 모음처럼 보이지 않게 수평 구분선 목록으로 표현한다.
@@ -265,12 +297,15 @@ public/images/
 │   ├── jabin-logo-lockup.png  # 심볼과 워드마크 세로 조합
 │   ├── jabin-logo-word.png    # 헤더용 워드마크
 │   ├── jabin-logo-mark.png    # 단독 심볼
-│   └── jabin-favicon.png      # 정사각형 파비콘
+│   ├── jabin-favicon.png      # 정사각형 파비콘
+│   └── jabin-social-preview.png # 링크 공유용 1200×630 대표 이미지
 └── work/                      # 프로젝트와 콘셉트 이미지
     └── jabin-studio-hero.png
 ```
 
 현재 `jabin-studio-hero.png`는 imagegen으로 생성한 초기 콘셉트 에셋이다. 실제 스튜디오 또는 프로젝트 촬영본을 확보하면 같은 파일명으로 덮지 말고 새 파일을 추가한 뒤 콘텐츠 참조를 변경해 변경 이력을 남긴다.
+
+링크 공유 대표 이미지는 `jabin-social-preview.png`를 사용한다. Open Graph와 X/Twitter 모두 1200×630 크기의 같은 파일을 참조하며, 작은 미리보기에서도 식별할 수 있도록 Navy 단색 배경과 흰색 로고만 사용한다.
 
 ## 8. 컴포넌트 규칙
 
