@@ -64,10 +64,11 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
     page.getByRole("heading", { name: /진단부터 운영까지, 같은 기준으로 이어갑니다/ }),
   ).toBeAttached();
   await expect(
-    page.getByRole("heading", { name: /필요한 시스템을, 함께 정의합시다/ }),
+    page.getByRole("heading", { name: /지금 가진 것부터, 함께 시작합니다/ }),
   ).toBeVisible();
-  await expect(page.getByLabel("프로젝트에 대해 알려주세요 *")).toBeAttached();
-  await expect(page.getByRole("link", { name: "내용 보기" })).toBeAttached();
+  await expect(
+    page.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }),
+  ).toBeAttached();
   await expectNoHorizontalOverflow(page);
   await revealFullPage(page);
   await page.screenshot({ path: "test-results/home-desktop.png", fullPage: true });
@@ -218,40 +219,181 @@ test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", as
   await expectNoHorizontalOverflow(page);
 });
 
-test("문의 폼이 선택 항목과 동의를 포함해 접수된다", async ({ page }) => {
+test("문의 유형에 따라 질문이 바뀌고 작성한 내용을 유지한다", async ({ page }) => {
+  await page.goto("/#contact");
+  await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
+
+  const inquiry = page.locator("#contact");
+  await expect(page.locator("#approach + #contact")).toHaveCount(1);
+  await expect(inquiry.getByRole("button", { name: "프로젝트 문의" })).toHaveCount(0);
+
+  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  const idea = inquiry.getByLabel("어떤 서비스를 구상하고 계신가요? *");
+  await expect(idea).toBeVisible();
+  const continuationChoice = inquiry.getByRole("button", {
+    name: /진행 중인 작업을 이어가고 싶으신가요/,
+  });
+  const ideaTop = await idea.evaluate((element) => element.getBoundingClientRect().top);
+  const continuationTop = await continuationChoice.evaluate(
+    (element) => element.closest("button")?.getBoundingClientRect().top ?? 0,
+  );
+  expect(ideaTop).toBeLessThan(continuationTop);
+  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  await expect(idea).toBeHidden();
+  await expect(inquiry.getByRole("button", { name: "프로젝트 문의" })).toHaveCount(0);
+  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  await expect(idea).toBeVisible();
+  await idea.fill("현장 업무를 모바일에서 관리하는 서비스를 구상하고 있습니다.");
+  await inquiry
+    .getByLabel("누구의 어떤 문제를 해결하려 하나요? *")
+    .fill("현장 담당자의 반복 보고와 누락 문제를 해결하려고 합니다.");
+  await inquiry.getByLabel("이름 *").fill("테스트 담당자");
+  await inquiry.getByLabel("이메일 *").fill("form@example.com");
+  await expect(
+    inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }),
+  ).toHaveAttribute("aria-expanded", "true");
+
+  await continuationChoice.click();
+  const currentState = inquiry.getByLabel("현재 어디까지 준비되어 있나요? *");
+  const improvementChoice = inquiry.getByRole("button", {
+    name: /운영 중인 서비스를 개선하고 싶으신가요/,
+  });
+  const currentStateTop = await currentState.evaluate(
+    (element) => element.getBoundingClientRect().top,
+  );
+  const improvementTop = await improvementChoice.evaluate(
+    (element) => element.closest("button")?.getBoundingClientRect().top ?? 0,
+  );
+  expect(currentStateTop).toBeLessThan(improvementTop);
+  await currentState.fill("Figma 디자인과 프론트엔드 코드가 준비되어 있습니다.");
+  await inquiry
+    .getByLabel("어느 부분부터 이어서 맡기고 싶으신가요? *")
+    .fill("백엔드 API 연동과 배포 환경부터 이어서 맡기고 싶습니다.");
+  await expect(
+    inquiry.getByRole("button", { name: /진행 중인 작업을 이어가고 싶으신가요/ }),
+  ).toHaveAttribute("aria-expanded", "true");
+  await expect(idea).toBeHidden();
+
+  await inquiry.getByRole("button", { name: /운영 중인 서비스를 개선하고 싶으신가요/ }).click();
+  await inquiry.getByLabel("가장 먼저 해결하고 싶은 문제는 무엇인가요? *").selectOption({
+    label: "서버 안정성과 트래픽",
+  });
+  await inquiry
+    .getByLabel("현재 문제와 발생 상황을 알려주세요. *")
+    .fill("사용자가 몰리는 시간에 API 응답이 느려지고 간헐적으로 요청이 실패합니다.");
+  await expect(
+    inquiry.getByRole("button", { name: /운영 중인 서비스를 개선하고 싶으신가요/ }),
+  ).toHaveAttribute("aria-expanded", "true");
+
+  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  await expect(idea).toHaveValue("현장 업무를 모바일에서 관리하는 서비스를 구상하고 있습니다.");
+  await expect(inquiry.getByLabel("이름 *")).toHaveValue("테스트 담당자");
+  await expect(inquiry.getByLabel("이메일 *")).toHaveValue("form@example.com");
+  await expect(inquiry.locator(".inquiry-fields-enter")).toHaveCSS(
+    "animation-name",
+    "inquiry-fields-enter",
+  );
+  await expectNoHorizontalOverflow(page);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(inquiry.locator(".inquiry-fields-enter")).toHaveCSS("animation-name", "none");
+});
+
+test("문의 폼이 프로젝트 상태와 동의를 포함해 접수된다", async ({ page }) => {
   await disableIntro(page);
   await page.goto("/#contact");
 
-  await page.getByLabel("이름 *").fill("테스트 담당자");
-  await page.getByLabel("회사 / 브랜드").fill("Jabin Test");
-  await page.getByLabel("이메일 *").fill("form@example.com");
-  await page.getByLabel("기획", { exact: true }).check();
-  await page.getByLabel("웹 개발", { exact: true }).check();
-  await page
-    .getByLabel("프로젝트에 대해 알려주세요 *")
-    .fill("신규 서비스의 기획과 API 구축 범위를 함께 검토하고 싶습니다.");
-  await page.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
-  await page.getByRole("button", { name: "문의 보내기" }).click();
+  const inquiry = page.locator("#contact");
+  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  await inquiry
+    .getByLabel("어떤 서비스를 구상하고 계신가요? *")
+    .fill("신규 현장 관리 서비스를 만들고 싶습니다.");
+  await inquiry
+    .getByLabel("누구의 어떤 문제를 해결하려 하나요? *")
+    .fill("현장 담당자의 반복 보고와 누락 문제를 해결하려고 합니다.");
+  await inquiry.getByLabel("이름 *").fill("테스트 담당자");
+  await inquiry.getByLabel("회사 / 브랜드").fill("Jabin Test");
+  await inquiry.getByLabel("이메일 *").fill("form@example.com");
+  await inquiry.getByLabel("기획", { exact: true }).check();
+  await inquiry.getByLabel("웹 개발", { exact: true }).check();
+  await inquiry.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
+  await inquiry.getByRole("button", { name: "프로젝트 문의" }).click();
 
   await expect(page.getByText("문의가 접수되었습니다.", { exact: false })).toBeVisible();
-  await expect(page.getByRole("button", { name: "접수 완료" })).toBeVisible();
+  await expect(inquiry.getByRole("button", { name: "접수 완료" })).toBeVisible();
 });
 
 test("문의 폼이 서버 검증에 걸린 항목을 알려준다", async ({ page }) => {
   await disableIntro(page);
   await page.goto("/#contact");
 
+  const inquiry = page.locator("#contact");
   // 브라우저 기본 검증을 건너뛰고 서버 액션의 응답만 확인한다.
-  await page.locator("#contact form").evaluate((form) => form.setAttribute("novalidate", ""));
-  await page.getByLabel("이름 *").fill("김");
-  await page.getByLabel("이메일 *").fill("form@example.com");
-  await page.getByLabel("기획", { exact: true }).check();
-  await page
-    .getByLabel("프로젝트에 대해 알려주세요 *")
-    .fill("신규 서비스의 기획과 API 구축 범위를 함께 검토하고 싶습니다.");
-  await page.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
-  await page.getByRole("button", { name: "문의 보내기" }).click();
+  await inquiry.locator("form").evaluate((form) => form.setAttribute("novalidate", ""));
+  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  await inquiry
+    .getByLabel("어떤 서비스를 구상하고 계신가요? *")
+    .fill("신규 현장 관리 서비스를 만들고 싶습니다.");
+  await inquiry
+    .getByLabel("누구의 어떤 문제를 해결하려 하나요? *")
+    .fill("현장 담당자의 반복 보고와 누락 문제를 해결하려고 합니다.");
+  await inquiry.getByLabel("이름 *").fill("김");
+  await inquiry.getByLabel("이메일 *").fill("form@example.com");
+  await inquiry.getByLabel("기획", { exact: true }).check();
+  await inquiry.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
+  await inquiry.getByRole("button", { name: "프로젝트 문의" }).click();
 
   await expect(page.getByText("이름을 2~40자로 입력해 주세요.")).toBeVisible();
-  await expect(page.getByRole("button", { name: "문의 보내기" })).toBeEnabled();
+  await expect(inquiry.getByRole("button", { name: "프로젝트 문의" })).toBeEnabled();
+});
+
+test("문의 폼이 조작된 프로젝트 상태를 서버에서 거부한다", async ({ page }) => {
+  await disableIntro(page);
+  await page.goto("/#contact");
+
+  const inquiry = page.locator("#contact");
+  await inquiry.locator("form").evaluate((form) => form.setAttribute("novalidate", ""));
+  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  await inquiry.getByLabel("이름 *").fill("테스트 담당자");
+  await inquiry.getByLabel("이메일 *").fill("form@example.com");
+  await inquiry.getByLabel("기획", { exact: true }).check();
+  await inquiry.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
+  await inquiry
+    .locator('input[name="inquiryType"]')
+    .evaluate((input: HTMLInputElement) => (input.value = "tampered"));
+  await inquiry.getByRole("button", { name: "프로젝트 문의" }).click();
+
+  await expect(page.getByText("현재 프로젝트 상태를 선택해 주세요.")).toBeVisible();
+});
+
+test("문의 폼이 짧은 시간의 반복 접수를 제한한다", async ({ page }) => {
+  test.setTimeout(60_000);
+  await disableIntro(page);
+  await page.setExtraHTTPHeaders({ "x-forwarded-for": `rate-limit-test-${Date.now()}` });
+
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    await page.goto(`/?attempt=${attempt}#contact`);
+    const inquiry = page.locator("#contact");
+
+    await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+    await inquiry
+      .getByLabel("어떤 서비스를 구상하고 계신가요? *")
+      .fill("신규 현장 관리 서비스를 만들고 싶습니다.");
+    await inquiry
+      .getByLabel("누구의 어떤 문제를 해결하려 하나요? *")
+      .fill("현장 담당자의 반복 보고와 누락 문제를 해결하려고 합니다.");
+    await inquiry.getByLabel("이름 *").fill("요청 제한 테스트");
+    await inquiry.getByLabel("이메일 *").fill("rate-limit@example.com");
+    await inquiry.getByLabel("기획", { exact: true }).check();
+    await inquiry.getByLabel(/개인정보 수집 및 이용에 동의합니다/).check();
+    await inquiry.getByRole("button", { name: "프로젝트 문의" }).click();
+
+    if (attempt < 5) {
+      await expect(page.getByText("문의가 접수되었습니다.", { exact: false })).toBeVisible();
+    } else {
+      await expect(
+        page.getByText("문의 요청이 많습니다. 10분 후 다시 시도해 주세요."),
+      ).toBeVisible();
+    }
+  }
 });
