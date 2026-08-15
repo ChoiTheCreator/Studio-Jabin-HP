@@ -52,16 +52,16 @@ export default function PrivacyPage() {
                 <br />
                 처리 안내
               </h1>
-              <p className="mt-6 mb-0 text-[12px] font-bold text-muted">시행일 2026. 08. 03.</p>
+              <p className="mt-6 mb-0 text-[12px] font-bold text-muted">시행일 2026. 08. 15.</p>
             </div>
 
             <div className="grid gap-16">
               <section className={sectionClass}>
                 <h2 className={headingClass}>1. 수집하는 정보</h2>
                 <p className={bodyClass}>
-                  프로젝트 문의 과정에서 이름, 이메일, 회사 또는 브랜드명, 연락처, 프로젝트 유형,
-                  필요한 업무 범위, 예상 일정, 예산 구간과 프로젝트 설명을 수집합니다. 회사명,
-                  연락처, 일정과 예산은 선택 항목입니다.
+                  프로젝트 문의 과정에서 이름, 이메일, 회사 또는 브랜드명, 프로젝트 진행 상태,
+                  필요한 업무 범위와 상황별 프로젝트 답변을 수집합니다. 회사 또는 브랜드명과 참고
+                  링크, 서비스 URL 등 별도로 표시된 항목은 선택 사항입니다.
                 </p>
               </section>
 
@@ -94,9 +94,18 @@ export default function PrivacyPage() {
               <section className={sectionClass}>
                 <h2 className={headingClass}>5. 외부 서비스와 처리 위탁</h2>
                 <p className={bodyClass}>
-                  현재 홈페이지 문의 정보의 외부 처리 수탁사를 확정하지 않았습니다. 이메일, 협업
-                  도구, 저장 서비스 등 외부 처리 수탁사를 도입하는 경우 업체명, 목적과 보유 기준을
-                  이 문서에 반영합니다.
+                  문의 이메일 전달을 위해 Resend(Plus Five Five, Inc.)를 이용합니다. 이 과정에서
+                  이메일 주소, 이름, 회사명과 문의 내용이 이메일 전송 목적으로 처리되며 미국 소재
+                  시스템에 저장될 수 있습니다. 자세한 처리 기준은{" "}
+                  <a
+                    className="border-b border-current font-bold text-ink"
+                    href="https://resend.com/legal/dpa"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Resend Data Processing Addendum
+                  </a>
+                  에서 확인할 수 있습니다.
                 </p>
               </section>
 
