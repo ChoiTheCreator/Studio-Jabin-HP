@@ -15,7 +15,7 @@ const inquiryScenarios = [
   {
     id: "continuation",
     number: "02",
-    title: "진행 중인 작업을 이어가고 싶으신가요?",
+    title: "진행 중인 프로젝트가 있으신가요?",
     description: "기획서, 디자인과 코드부터 이어서 진행합니다.",
     orderClass: "[order:30]",
   },
@@ -41,12 +41,6 @@ export function InquiryScenarioSelector({
 }: InquiryScenarioSelectorProps) {
   return (
     <>
-      <p
-        className="[order:0] mb-7 text-[14px] leading-[1.3] font-bold text-white/70 sm:mb-10 sm:text-[16px]"
-        id="inquiry-stage-question"
-      >
-        지금 어떤 단계에 있으신가요?
-      </p>
       {inquiryScenarios.map((item) => {
         const selected = selectedScenario === item.id;
 
