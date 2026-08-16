@@ -6,6 +6,11 @@ export const brand = {
   description:
     "서비스 기획, UX/UI, 프론트엔드, 백엔드와 운영 환경을 함께 설계하고 구축하는 Jabin입니다.",
   contactEmail: "hello@jabinstudio.com",
+  company: {
+    representatives: ["최원빈", "박재욱"],
+    businessRegistrationNumber: null,
+    address: "서울특별시 양천구 목동중앙북로 16길 56",
+  },
   assets: {
     logoWord: "/images/brand/jabin-logo-word.png",
     logoLockup: "/images/brand/jabin-logo-lockup.png",
