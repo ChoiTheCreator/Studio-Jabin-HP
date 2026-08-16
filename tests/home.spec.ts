@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 async function expectNoHorizontalOverflow(page: Page) {
   const dimensions = await page.evaluate(() => ({
@@ -11,6 +11,18 @@ async function expectNoHorizontalOverflow(page: Page) {
 
 async function disableIntro(page: Page) {
   await page.emulateMedia({ reducedMotion: "reduce" });
+}
+
+async function sectionOpeningGap(section: Locator, firstContent: Locator) {
+  const [sectionBox, contentBox] = await Promise.all([
+    section.boundingBox(),
+    firstContent.boundingBox(),
+  ]);
+
+  expect(sectionBox).not.toBeNull();
+  expect(contentBox).not.toBeNull();
+
+  return contentBox!.y - sectionBox!.y;
 }
 
 async function revealFullPage(page: Page) {
@@ -60,6 +72,8 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
     page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ }),
   ).toBeAttached();
   await expect(page.getByRole("link", { name: "최원빈 GitHub 새 창에서 열기" })).toBeAttached();
+  await expect(page.getByText("유효석", { exact: true })).toBeAttached();
+  await expect(page.getByText("임시우", { exact: true })).toBeAttached();
   await expect(
     page.getByRole("heading", { name: /진단부터 운영까지, 같은 기준으로 이어갑니다/ }),
   ).toBeAttached();
@@ -68,6 +82,13 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }),
+  ).toBeAttached();
+  const footer = page.locator("footer");
+  await expect(footer.getByRole("link", { name: "hello@jabinstudio.com" })).toBeAttached();
+  await expect(footer.getByText("최원빈 · 박재욱", { exact: true })).toBeAttached();
+  await expect(footer.getByText("발급 전", { exact: true })).toBeAttached();
+  await expect(
+    footer.getByText("서울특별시 양천구 목동중앙북로 16길 56", { exact: true }),
   ).toBeAttached();
   await expectNoHorizontalOverflow(page);
   await revealFullPage(page);
@@ -96,6 +117,32 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
 
   await revealFullPage(page);
   await page.screenshot({ path: "test-results/home-mobile.png", fullPage: true });
+});
+
+test("인접 섹션의 시작 여백이 같은 시각 리듬을 유지한다", async ({ page }) => {
+  await disableIntro(page);
+
+  for (const viewport of [
+    { width: 390, height: 844, maxGap: 112 },
+    { width: 768, height: 1024, maxGap: 128 },
+    { width: 1440, height: 900, maxGap: 160 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+
+    const statementGap = await sectionOpeningGap(
+      page.locator("#approach"),
+      page.getByText("WHAT WE BELIEVE", { exact: true }),
+    );
+    const inquiryGap = await sectionOpeningGap(
+      page.locator("#contact"),
+      page.getByText("START A PROJECT", { exact: true }),
+    );
+
+    expect(statementGap).toBeLessThanOrEqual(viewport.maxGap);
+    expect(inquiryGap).toBeLessThanOrEqual(viewport.maxGap);
+    expect(Math.abs(statementGap - inquiryGap)).toBeLessThanOrEqual(32);
+  }
 });
 
 test("첫 방문에서 JABIN 인트로가 재생되고 자동 종료된다", async ({ page }) => {
@@ -225,13 +272,43 @@ test("문의 유형에 따라 질문이 바뀌고 작성한 내용을 유지한�
 
   const inquiry = page.locator("#contact");
   await expect(page.locator("#approach + #contact")).toHaveCount(1);
+  await expect(inquiry.getByText("지금 어떤 단계에 있으신가요?", { exact: true })).toHaveCount(0);
   await expect(inquiry.getByRole("button", { name: "프로젝트 문의" })).toHaveCount(0);
+  await expect(inquiry.getByRole("link", { name: "hello@jabinstudio.com" })).toHaveCount(0);
 
-  await inquiry.getByRole("button", { name: /아이디어를 구체화하고 싶으신가요/ }).click();
+  const conceptChoice = inquiry.getByRole("button", {
+    name: /아이디어를 구체화하고 싶으신가요/,
+  });
+  const sectionLabel = inquiry.getByText("START A PROJECT", { exact: true });
+  const headerBottom = await page
+    .locator("header")
+    .evaluate((element) => element.getBoundingClientRect().bottom);
+  const conceptTop = await conceptChoice.evaluate((element) => element.getBoundingClientRect().top);
+  expect(headerBottom).toBeLessThan(conceptTop);
+  const sectionLabelBottom = await sectionLabel.evaluate(
+    (element) => element.getBoundingClientRect().bottom,
+  );
+  expect(sectionLabelBottom).toBeLessThan(conceptTop);
+
+  const improvementChoice = inquiry.getByRole("button", {
+    name: /운영 중인 서비스를 개선하고 싶으신가요/,
+  });
+  const inquiryHeading = inquiry.getByRole("heading", {
+    name: /지금 가진 것부터, 함께 시작합니다/,
+  });
+  const improvementBottom = await improvementChoice.evaluate(
+    (element) => element.getBoundingClientRect().bottom,
+  );
+  const inquiryHeadingTop = await inquiryHeading.evaluate(
+    (element) => element.getBoundingClientRect().top,
+  );
+  expect(improvementBottom).toBeLessThan(inquiryHeadingTop);
+
+  await conceptChoice.click();
   const idea = inquiry.getByLabel("어떤 서비스를 구상하고 계신가요? *");
   await expect(idea).toBeVisible();
   const continuationChoice = inquiry.getByRole("button", {
-    name: /진행 중인 작업을 이어가고 싶으신가요/,
+    name: /진행 중인 프로젝트가 있으신가요/,
   });
   const ideaTop = await idea.evaluate((element) => element.getBoundingClientRect().top);
   const continuationTop = await continuationChoice.evaluate(
@@ -255,9 +332,6 @@ test("문의 유형에 따라 질문이 바뀌고 작성한 내용을 유지한�
 
   await continuationChoice.click();
   const currentState = inquiry.getByLabel("현재 어디까지 준비되어 있나요? *");
-  const improvementChoice = inquiry.getByRole("button", {
-    name: /운영 중인 서비스를 개선하고 싶으신가요/,
-  });
   const currentStateTop = await currentState.evaluate(
     (element) => element.getBoundingClientRect().top,
   );
@@ -270,7 +344,7 @@ test("문의 유형에 따라 질문이 바뀌고 작성한 내용을 유지한�
     .getByLabel("어느 부분부터 이어서 맡기고 싶으신가요? *")
     .fill("백엔드 API 연동과 배포 환경부터 이어서 맡기고 싶습니다.");
   await expect(
-    inquiry.getByRole("button", { name: /진행 중인 작업을 이어가고 싶으신가요/ }),
+    inquiry.getByRole("button", { name: /진행 중인 프로젝트가 있으신가요/ }),
   ).toHaveAttribute("aria-expanded", "true");
   await expect(idea).toBeHidden();
 
