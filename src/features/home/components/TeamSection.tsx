@@ -106,8 +106,25 @@ export function TeamSection() {
           ))}
         </div>
 
+        <Reveal className="grid border-b border-navy-line py-8 sm:grid-cols-[176px_minmax(0,1fr)] sm:py-10 lg:grid-cols-[308px_minmax(0,1fr)]">
+          <p className={`${eyebrow} mb-7 text-navy-primary sm:mb-0`}>TEAM MEMBERS</p>
+          <ul className="m-0 grid list-none p-0">
+            {team.additionalMembers.map((member) => (
+              <li
+                className="grid grid-cols-[44px_minmax(0,1fr)] items-baseline border-t border-navy-line py-5 first:border-t-0 first:pt-0 last:pb-0 sm:grid-cols-[64px_minmax(0,1fr)]"
+                key={member.number}
+              >
+                <span className="text-[12px] font-bold text-navy-primary">{member.number}</span>
+                <span className="text-[28px] leading-none font-bold sm:text-[34px]">
+                  {member.name}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
         <Reveal className="mt-5 flex flex-col gap-2 text-[12px] font-bold text-navy-muted sm:flex-row sm:items-center sm:justify-between">
-          <p className="m-0">3 PEOPLE · 2 PUBLIC PROFILES</p>
+          <p className="m-0">4 PEOPLE · 2 PUBLIC PROFILES</p>
           <p className="m-0">PROJECT LEAD · PRODUCT · ENGINEERING · OPERATIONS</p>
         </Reveal>
       </div>
