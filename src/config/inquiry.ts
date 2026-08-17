@@ -8,6 +8,14 @@ export const serviceOptions = [
 
 export type InquiryService = (typeof serviceOptions)[number];
 
+export const inquiryTypeLabels = {
+  concept: "아이디어 구체화",
+  continuation: "진행 중인 작업 이어가기",
+  improvement: "운영 서비스 개선",
+} as const;
+
+export type InquiryType = keyof typeof inquiryTypeLabels;
+
 /**
  * 문의 메일 발신 주소.
  * Resend 공용 테스트 주소라 도메인 인증이 필요 없는 대신,

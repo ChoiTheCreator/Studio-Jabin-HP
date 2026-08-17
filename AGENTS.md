@@ -5,7 +5,8 @@
 ## 디자인 작업
 
 - 프론트엔드 작업 전 `DESIGN.md`, `DESIGN_NAVY.md`, `.agents/skills/design-taste-frontend/SKILL.md`, `.agents/skills/design-taste-frontend/JABIN_PROFILE.md`를 확인한다.
-- 디자인 기준의 우선순위는 사용자 요구사항, `DESIGN.md`, `DESIGN_NAVY.md`, `JABIN_PROFILE.md`, 범용 `SKILL.md` 순서다.
+- 레이아웃과 UI를 수정할 때 `VISUAL_QA_HARNESS.md`의 섹션 여백, 인접 섹션 편차, 경계 캡처 기준을 반드시 검증한다.
+- 디자인 기준의 우선순위는 사용자 요구사항, `DESIGN.md`, `VISUAL_QA_HARNESS.md`, `DESIGN_NAVY.md`, `JABIN_PROFILE.md`, 범용 `SKILL.md` 순서다.
 - 구현 전에 대상 사용자, 시각 방향, `DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY`를 한 줄의 Design Read로 선언한다.
 - 완료 전 `JABIN_PROFILE.md`의 Preflight와 반응형 시각 검증을 수행한다.
 
@@ -16,6 +17,8 @@
 - 자동화 도구를 포함한 작업자는 수정 전에 현재 브랜치와 기존 변경 파일을 확인한다.
 - 자신이 만들지 않은 변경은 공동 작업자의 진행 중 작업으로 간주하며 임의로 되돌리지 않는다.
 - 첫 push 뒤 Draft PR을 열고 PR 템플릿의 변경 범위와 인수인계를 최신 상태로 유지한다.
+- UI 변경 PR은 Playwright로 base와 head의 같은 뷰포트·같은 DOM 영역을 캡처해 Before / After를 본문에 넣는다. 전체 페이지 캡처는 전역 레이아웃 변경에만 사용한다.
+- 열림, 선택, 오류처럼 변경의 핵심이 되는 인터랙션 상태도 해당 컴포넌트 영역만 추가 캡처한다. PR 검토 이미지는 기능 브랜치의 제품 파일에 포함하지 않는다.
 
 ## 커밋 단위
 

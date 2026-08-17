@@ -21,13 +21,13 @@ export function HomePage() {
         <HeroSection />
         <ServiceMarquee />
         <StudioStatement />
+        <InquirySection />
         <ProjectsSection />
         <EngineeringSection />
         <OwnedInfrastructureSection />
         <CapabilitiesSection />
         <TeamSection />
         <ProcessSection />
-        <InquirySection />
       </main>
       <SiteFooter />
     </>

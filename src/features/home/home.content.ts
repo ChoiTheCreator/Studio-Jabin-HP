@@ -198,10 +198,14 @@ type TeamMember = {
 type Team = {
   total: number;
   members: readonly TeamMember[];
+  additionalMembers: readonly {
+    number: string;
+    name: string;
+  }[];
 };
 
 export const team: Team = {
-  total: 3,
+  total: 4,
   members: [
     {
       number: "01",
@@ -239,6 +243,10 @@ export const team: Team = {
         { label: "Portfolio", href: "https://wooooooooook.com/" },
       ],
     },
+  ],
+  additionalMembers: [
+    { number: "03", name: "유효석" },
+    { number: "04", name: "임시우" },
   ],
 };
 

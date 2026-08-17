@@ -11,6 +11,16 @@ npm run dev
 
 브라우저에서 `http://localhost:3000`을 엽니다.
 
+## 문의 이메일 설정
+
+```bash
+cp .env.example .env.local
+```
+
+`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`을 운영 환경에 맞게 설정한다. 발신 주소는 Resend에서 인증한 도메인을 사용해야 하며, 수신 주소는 실제 문의 담당자 메일함으로 지정한다.
+
+API 키가 없는 로컬·테스트 환경에서는 이메일을 보내지 않고 개인정보를 제외한 접수 요약만 로그에 남긴다. 유효한 문의는 IP 기준으로 10분에 5회까지 접수한다.
+
 ## 문서
 
 - [COLLABORATION_HARNESS.md](./COLLABORATION_HARNESS.md): 공동 작업 브랜치, PR, 인수인계 운영 기준
