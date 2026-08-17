@@ -17,6 +17,7 @@ blob-report
 tests
 
 *.md
+!CHATBOT_KNOWLEDGE.md
 Dockerfile
 .dockerignore
 
