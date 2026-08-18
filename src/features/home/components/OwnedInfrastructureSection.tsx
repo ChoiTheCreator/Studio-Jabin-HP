@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 import { Reveal } from "@/components/motion/Reveal";
 import { contentShell, eyebrow } from "@/components/ui/tailwind";
@@ -29,38 +30,58 @@ function RegionServiceCopy({ segments }: { segments: readonly RegionServiceSegme
 export function OwnedInfrastructureSection() {
   return (
     <section id="infrastructure" aria-labelledby="infrastructure-title">
-      <div className="bg-navy-surface py-22 text-navy-ink sm:py-28 lg:py-32">
+      <div
+        className="bg-navy-surface py-22 text-navy-ink sm:py-28 lg:py-32"
+        data-testid="infrastructure-overview"
+      >
         <div className={contentShell}>
-          <Reveal className="border-t border-navy-line pt-5 lg:pt-6">
-            <div className="flex items-center justify-between gap-6">
-              <p className={`${eyebrow} text-navy-primary`}>OWNED INFRASTRUCTURE</p>
-              <p className="m-0 text-[12px] font-bold text-navy-muted">02 REGIONS</p>
+          <div className="md:grid md:grid-cols-[minmax(0,1fr)_240px] md:gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12 xl:grid-cols-[800px_minmax(0,1fr)] xl:gap-8">
+            <div className="xl:max-w-200" data-testid="infrastructure-intro">
+              <Reveal className="border-t border-navy-line pt-5 lg:pt-6">
+                <div className="flex items-center justify-between gap-6">
+                  <p className={`${eyebrow} text-navy-primary`}>OWNED INFRASTRUCTURE</p>
+                  <p className="m-0 text-[12px] font-bold text-navy-muted">02 REGIONS</p>
+                </div>
+
+                <h2
+                  className="mt-14 mb-0 flex items-center justify-between gap-2 text-[34px] leading-none font-bold sm:mt-20 sm:gap-3 sm:text-[64px] md:justify-start md:gap-6 md:text-[42px] lg:mt-24 lg:gap-10 lg:text-[60px] xl:gap-14 xl:text-[72px]"
+                  id="infrastructure-title"
+                  aria-label="Seoul to Gwangju"
+                >
+                  <span className="whitespace-nowrap">Seoul</span>
+                  <span className="text-navy-primary" aria-hidden="true">
+                    ↔
+                  </span>
+                  <span className="whitespace-nowrap">Gwangju</span>
+                </h2>
+
+                <div className="mt-14 grid gap-8 sm:mt-18 md:grid-cols-1 md:items-start xl:grid-cols-[332px_minmax(0,1fr)]">
+                  <p className="m-0 max-w-190 text-[34px] leading-[1.08] font-bold break-keep sm:text-[46px] md:text-[38px] lg:text-[42px] xl:text-[38px]">
+                    <TextHighlight>자체 인프라</TextHighlight>로
+                    <br />
+                    서비스를 직접
+                    <br />
+                    운영합니다.
+                  </p>
+                  <p className="m-0 max-w-145 text-[16px] leading-[1.72] break-keep text-navy-muted sm:text-[18px] xl:text-[16px]">
+                    서울의 AI 컴퓨팅 인프라와 광주의 서비스 운영 인프라를 기반으로 외부 클라우드
+                    의존도를 낮추고 운영 비용을 효율적으로 설계합니다.
+                  </p>
+                </div>
+              </Reveal>
             </div>
 
-            <h2
-              className="mt-14 mb-0 flex items-center justify-between gap-2 text-[34px] leading-none font-bold sm:mt-20 sm:gap-3 sm:text-[64px] lg:mt-24 lg:text-[96px]"
-              id="infrastructure-title"
-              aria-label="Seoul to Gwangju"
-            >
-              <span className="whitespace-nowrap">Seoul</span>
-              <span className="text-navy-primary" aria-hidden="true">
-                ↔
-              </span>
-              <span className="whitespace-nowrap">Gwangju</span>
-            </h2>
-
-            <div className="mt-14 grid gap-8 sm:mt-18 lg:grid-cols-[minmax(0,1.14fr)_minmax(320px,0.86fr)] lg:items-end lg:gap-24">
-              <p className="m-0 max-w-190 text-[34px] leading-[1.08] font-bold break-keep sm:text-[46px] lg:text-[58px]">
-                <TextHighlight>자체 인프라</TextHighlight>로
-                <br />
-                서비스를 직접 운영합니다.
-              </p>
-              <p className="m-0 max-w-145 text-[16px] leading-[1.72] break-keep text-navy-muted sm:text-[18px]">
-                서울의 AI 컴퓨팅 인프라와 광주의 서비스 운영 인프라를 기반으로 외부 클라우드
-                의존도를 낮추고 운영 비용을 효율적으로 설계합니다.
-              </p>
-            </div>
-          </Reveal>
+            <Reveal className="mt-10 ml-auto w-full max-w-60 overflow-hidden rounded-md sm:mt-14 sm:max-w-72 md:mt-0 md:max-w-none">
+              <Image
+                className="h-auto w-full"
+                src="/images/infrastructure/infra-map.png"
+                alt="서울과 광주의 자체 인프라 거점을 연결한 대한민국 네트워크 지도"
+                width={464}
+                height={602}
+                sizes="(min-width: 1280px) 332px, (min-width: 1024px) 280px, (min-width: 768px) 240px, (min-width: 640px) 288px, 240px"
+              />
+            </Reveal>
+          </div>
 
           <Reveal
             className="mt-18 border-y border-navy-line py-7 sm:mt-24 sm:py-9 lg:mt-32"
