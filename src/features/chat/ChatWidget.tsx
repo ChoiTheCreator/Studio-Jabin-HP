@@ -174,28 +174,33 @@ export function ChatWidget() {
           ) : null}
         </div>
 
-        <form
-          className="flex items-center gap-2 border-t border-navy-line p-3"
-          onSubmit={handleSubmit}
-        >
-          <input
-            ref={inputRef}
-            className="min-h-11 flex-1 rounded-full border border-navy-line bg-white px-4 text-[14px] text-navy-ink placeholder:text-navy-muted focus:border-navy-primary focus:outline-none"
-            type="text"
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
-            placeholder="궁금한 점을 입력해 주세요"
-            aria-label="채팅 메시지 입력"
-            disabled={isReplying}
-          />
-          <button
-            className={`grid size-11 shrink-0 cursor-pointer place-items-center rounded-full bg-navy-primary text-white transition-[transform,background-color] duration-200 not-disabled:hover:-translate-y-0.5 not-disabled:hover:bg-navy-deep disabled:cursor-default disabled:opacity-50 ${easeOut}`}
-            type="submit"
-            aria-label="메시지 보내기"
-            disabled={!draft.trim() || isReplying}
-          >
-            <PaperAirplaneIcon className="size-4.5" aria-hidden="true" />
-          </button>
+        <form className="border-t border-navy-line p-3" onSubmit={handleSubmit}>
+          <div className="flex items-center gap-2">
+            <input
+              ref={inputRef}
+              className="min-h-11 flex-1 rounded-full border border-navy-line bg-white px-4 text-[14px] text-navy-ink placeholder:text-navy-muted focus:border-navy-primary focus:outline-none"
+              type="text"
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
+              placeholder="궁금한 점을 입력해 주세요"
+              aria-label="채팅 메시지 입력"
+              maxLength={2000}
+              disabled={isReplying}
+            />
+            <button
+              className={`grid size-11 shrink-0 cursor-pointer place-items-center rounded-full bg-navy-primary text-white transition-[transform,background-color] duration-200 not-disabled:hover:-translate-y-0.5 not-disabled:hover:bg-navy-deep disabled:cursor-default disabled:opacity-50 ${easeOut}`}
+              type="submit"
+              aria-label="메시지 보내기"
+              disabled={!draft.trim() || isReplying}
+            >
+              <PaperAirplaneIcon className="size-4.5" aria-hidden="true" />
+            </button>
+          </div>
+          {draft.length >= 2000 ? (
+            <p className="mt-1 px-4 text-[12px] text-red-500" role="status">
+              입력 제한에 도달했습니다
+            </p>
+          ) : null}
         </form>
       </div>
 
