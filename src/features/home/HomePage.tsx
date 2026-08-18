@@ -1,3 +1,5 @@
+import { ChatWidget } from "@/features/chat/ChatWidget";
+
 import { CapabilitiesSection } from "./components/CapabilitiesSection";
 import { EngineeringSection } from "./components/EngineeringSection";
 import { HeroSection } from "./components/HeroSection";
@@ -30,6 +32,7 @@ export function HomePage() {
         <ProcessSection />
       </main>
       <SiteFooter />
+      <ChatWidget />
     </>
   );
 }
