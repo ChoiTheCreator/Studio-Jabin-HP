@@ -51,6 +51,7 @@ export function ProblemTwo() {
   return (
     <section
       className="border-t border-navy-line bg-navy-paper"
+      id="why-problem-2"
       aria-labelledby="problem-two-title"
     >
       <ProblemTwoIntro />

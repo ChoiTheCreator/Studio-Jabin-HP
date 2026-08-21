@@ -4,6 +4,7 @@ import { WebsiteComparisonStage } from "./components/WebsiteComparisonStage";
 import { ProblemTwo } from "./components/ProblemTwo";
 import { ProblemThree } from "./components/ProblemThree";
 import { OurDifferenceSection } from "./components/OurDifferenceSection";
+import { SectionIndexIndicator } from "./components/SectionIndexIndicator";
 
 const websites = [
   {
@@ -87,9 +88,14 @@ function ProblemFraming() {
 export function WhyOurServicePage() {
   return (
     <main className="bg-navy-paper">
+      <SectionIndexIndicator />
       <WhyHero />
       <ProblemFraming />
-      <section className="border-t border-navy-line" aria-labelledby="problem-one-title">
+      <section
+        className="border-t border-navy-line"
+        id="why-problem-1"
+        aria-labelledby="problem-one-title"
+      >
         <ProblemIntro />
         <h2 className="sr-only" id="problem-one-title">
           서로 다른 비즈니스의 홈페이지 구조 비교

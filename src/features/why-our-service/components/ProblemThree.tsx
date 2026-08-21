@@ -6,6 +6,7 @@ export function ProblemThree() {
   return (
     <section
       className="border-t border-navy-line bg-navy-paper"
+      id="why-problem-3"
       aria-labelledby="problem-three-title"
     >
       <div className={`${contentShell} pt-28 pb-16 sm:pt-40 sm:pb-20 lg:pt-48 lg:pb-24`}>

@@ -190,6 +190,7 @@ export function OurDifferenceSection() {
   return (
     <section
       className="border-t border-navy-line bg-navy-paper pt-24 pb-32 sm:pt-32 sm:pb-40 lg:pt-40 lg:pb-48"
+      id="why-conclusion"
       aria-labelledby="our-difference-title"
     >
       <div className={`${contentShell} text-center`}>
