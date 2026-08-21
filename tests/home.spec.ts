@@ -56,6 +56,18 @@ test("링크 공유 메타데이터가 Jabin 로고 대표 이미지를 사용�
   );
 });
 
+test("챗봇 헤더가 Jabin 로고와 어시스턴트 정보를 보여준다", async ({ page }) => {
+  await disableIntro(page);
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "채팅 열기" }).click();
+
+  const dialog = page.getByRole("dialog", { name: "Jabin 어시스턴트" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator("header img")).toHaveAttribute("src", /jabin-logo-mark\.png/);
+  await expect(dialog.getByText("보통 몇 초 안에 답해요")).toBeVisible();
+});
+
 test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await disableIntro(page);
@@ -63,7 +75,18 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
 
   await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "문제에서 시작한 설계." })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: /당신의 웹사이트도, 어딘가에서 본 것 같지 않나요/,
+    }),
+  ).toBeAttached();
+  await expect(
+    page.getByRole("heading", { name: /첫 번째 결과물에서 멈추지 않는 제작 방식/ }),
+  ).toBeAttached();
+  await expect(page.getByRole("link", { name: "Explore the Jabin System →" })).toHaveAttribute(
+    "href",
+    "#engineering",
+  );
   await expect(
     page.getByRole("heading", { name: /코드만 넘기고 끝내지 않습니다\. 운영까지 설계합니다/ }),
   ).toBeAttached();
@@ -106,7 +129,7 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
 
   await page.getByRole("button", { name: "메뉴 열기" }).click();
   await expect(page.getByRole("navigation", { name: "모바일 메뉴" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "03 INFRA" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "02 INFRA" })).toBeVisible();
   await expect(page.getByRole("link", { name: /TEAM$/ })).toBeVisible();
   await expectNoHorizontalOverflow(page);
   await page.getByRole("button", { name: "메뉴 닫기", exact: true }).first().click();
@@ -143,6 +166,38 @@ test("인접 섹션의 시작 여백이 같은 시각 리듬을 유지한다", a
     expect(inquiryGap).toBeLessThanOrEqual(viewport.maxGap);
     expect(Math.abs(statementGap - inquiryGap)).toBeLessThanOrEqual(32);
   }
+});
+
+test("제작 원칙 상세 레이어를 열고 키보드로 닫을 수 있다", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await disableIntro(page);
+  await page.goto("/");
+
+  const designTrigger = page.getByRole("button", { name: /비슷한 디자인을 만들지 않습니다/ });
+  await designTrigger.click();
+
+  const designDialog = page.getByRole("dialog", { name: /처음 나온 화면을/ });
+  await expect(designDialog).toBeVisible();
+  await expect(designDialog.getByText("UNDERSTAND", { exact: true })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("hidden");
+  await page.screenshot({ path: "test-results/principle-detail-desktop.png" });
+
+  await page.keyboard.press("Escape");
+  await expect(designDialog).toBeHidden();
+  await expect(designTrigger).toBeFocused();
+
+  await page.getByRole("button", { name: /보여주기 좋은 화면에서 끝내지 않습니다/ }).click();
+  await expect(page.getByRole("dialog", { name: /화면이 완성됐다고/ })).toBeVisible();
+  await page.getByRole("button", { name: "상세 내용 닫기" }).last().click();
+
+  await page.getByRole("button", { name: /운영할 곳까지 준비합니다/ }).click();
+  const operateDialog = page.getByRole("dialog", { name: /어디에서 돌아갈지도 생각합니다/ });
+  await expect(operateDialog).toBeVisible();
+  await expect(page.getByText("Jabin Infrastructure / External Cloud / Hybrid")).toBeVisible();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(operateDialog).toHaveCSS("width", "390px");
+  await page.screenshot({ path: "test-results/principle-detail-mobile.png" });
 });
 
 test("첫 방문에서 JABIN 인트로가 재생되고 자동 종료된다", async ({ page }) => {
@@ -281,7 +336,7 @@ test("문의 유형에 따라 질문이 바뀌고 작성한 내용을 유지한�
   });
   const sectionLabel = inquiry.getByText("START A PROJECT", { exact: true });
   const headerBottom = await page
-    .locator("header")
+    .getByRole("banner")
     .evaluate((element) => element.getBoundingClientRect().bottom);
   const conceptTop = await conceptChoice.evaluate((element) => element.getBoundingClientRect().top);
   expect(headerBottom).toBeLessThan(conceptTop);
