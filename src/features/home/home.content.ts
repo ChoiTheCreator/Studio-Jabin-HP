@@ -1,7 +1,6 @@
 import type { ProjectSummary } from "@/features/projects/project.types";
 
 export const navigation = [
-  { href: "#work", label: "PROJECTS" },
   { href: "#engineering", label: "SYSTEM" },
   { href: "#infrastructure", label: "INFRA" },
   { href: "#team", label: "TEAM" },
