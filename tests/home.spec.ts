@@ -192,6 +192,55 @@ test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공
   await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
 
   const infrastructure = page.locator("#infrastructure");
+  const overview = infrastructure.getByTestId("infrastructure-overview");
+  const intro = infrastructure.getByTestId("infrastructure-intro");
+  const locations = infrastructure.getByRole("img", {
+    name: "서울 AI 컴퓨팅과 광주 코어 컴퓨팅을 연결한 자체 인프라",
+  });
+  const gwangjuHeading = infrastructure
+    .getByRole("heading", { name: "Seoul to Gwangju" })
+    .getByText("Gwangju");
+  const infrastructureSummary = infrastructure.getByText(
+    /서울의 AI 컴퓨팅 인프라와 광주의 서비스 운영 인프라를 기반으로/,
+  );
+  const infrastructureMessage = infrastructure
+    .getByText("자체 인프라", { exact: true })
+    .locator("..");
+  const infrastructureMap = infrastructure.getByRole("img", {
+    name: "서울과 광주의 자체 인프라 거점을 연결한 대한민국 네트워크 지도",
+  });
+  const [
+    overviewBox,
+    introBox,
+    locationsBox,
+    gwangjuHeadingBox,
+    infrastructureSummaryBox,
+    infrastructureMessageBox,
+    infrastructureMapBox,
+  ] = await Promise.all([
+    overview.boundingBox(),
+    intro.boundingBox(),
+    locations.boundingBox(),
+    gwangjuHeading.boundingBox(),
+    infrastructureSummary.boundingBox(),
+    infrastructureMessage.boundingBox(),
+    infrastructureMap.boundingBox(),
+  ]);
+  expect(overviewBox).not.toBeNull();
+  expect(introBox).not.toBeNull();
+  expect(locationsBox).not.toBeNull();
+  expect(gwangjuHeadingBox).not.toBeNull();
+  expect(infrastructureSummaryBox).not.toBeNull();
+  expect(infrastructureMessageBox).not.toBeNull();
+  expect(infrastructureMapBox).not.toBeNull();
+  expect(overviewBox!.x).toBeLessThan(1);
+  expect(overviewBox!.width).toBeGreaterThanOrEqual(1439);
+  expect(Math.abs(introBox!.x - locationsBox!.x)).toBeLessThan(1);
+  expect(introBox!.width).toBeLessThan(locationsBox!.width * 0.7);
+  expect(Math.abs(gwangjuHeadingBox!.x - infrastructureSummaryBox!.x)).toBeLessThan(2);
+  expect(Math.abs(infrastructureMessageBox!.y - infrastructureSummaryBox!.y)).toBeLessThan(1);
+  expect(infrastructureMapBox!.x).toBeGreaterThanOrEqual(introBox!.x + introBox!.width);
+  await expect(infrastructureMap).toBeVisible();
   await expect(infrastructure.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
   await expect(infrastructure.getByText("02 REGIONS")).toBeAttached();
   await expect(infrastructure.getByText("SEOUL", { exact: true })).toBeAttached();
@@ -254,6 +303,48 @@ test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(signal).toHaveCSS("display", "none");
   await expect(detailsContent).toHaveCSS("animation-name", "none");
+});
+
+test("인프라 지도가 화면 폭에 맞춰 안정적으로 재배치된다", async ({ page }) => {
+  await disableIntro(page);
+
+  for (const viewport of [
+    { width: 390, height: 844, maxMapWidth: 240, sideBySide: false },
+    { width: 640, height: 900, maxMapWidth: 288, sideBySide: false },
+    { width: 768, height: 1024, maxMapWidth: 240, sideBySide: true },
+    { width: 1024, height: 768, maxMapWidth: 280, sideBySide: true },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+
+    const infrastructure = page.locator("#infrastructure");
+    const intro = infrastructure.getByTestId("infrastructure-intro");
+    const infrastructureMap = infrastructure.getByRole("img", {
+      name: "서울과 광주의 자체 인프라 거점을 연결한 대한민국 네트워크 지도",
+    });
+    const [introBox, infrastructureMapBox] = await Promise.all([
+      intro.boundingBox(),
+      infrastructureMap.boundingBox(),
+    ]);
+
+    expect(introBox).not.toBeNull();
+    expect(infrastructureMapBox).not.toBeNull();
+    expect(infrastructureMapBox!.width).toBeLessThanOrEqual(viewport.maxMapWidth + 1);
+
+    if (viewport.sideBySide) {
+      expect(infrastructureMapBox!.x).toBeGreaterThan(introBox!.x + introBox!.width);
+    } else {
+      expect(infrastructureMapBox!.y).toBeGreaterThanOrEqual(introBox!.y + introBox!.height);
+      expect(
+        Math.abs(
+          infrastructureMapBox!.x + infrastructureMapBox!.width - (introBox!.x + introBox!.width),
+        ),
+      ).toBeLessThan(1);
+    }
+
+    await expect(infrastructureMap).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  }
 });
 
 test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", async ({ page }) => {
