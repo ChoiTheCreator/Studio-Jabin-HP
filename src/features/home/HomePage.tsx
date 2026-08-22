@@ -7,7 +7,6 @@ import { InquirySection } from "./components/InquirySection";
 import { JabinIntro } from "./components/JabinIntro";
 import { OwnedInfrastructureSection } from "./components/OwnedInfrastructureSection";
 import { ProcessSection } from "./components/ProcessSection";
-import { ProjectsSection } from "./components/ProjectsSection";
 import { ServiceMarquee } from "./components/ServiceMarquee";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
@@ -24,7 +23,6 @@ export function HomePage() {
         <ServiceMarquee />
         <StudioStatement />
         <InquirySection />
-        <ProjectsSection />
         <EngineeringSection />
         <OwnedInfrastructureSection />
         <CapabilitiesSection />
