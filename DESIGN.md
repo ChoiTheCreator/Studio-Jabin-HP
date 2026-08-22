@@ -214,13 +214,21 @@ Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인
 
 ### What We Believe
 
+- 헤더의 `ABOUT` 메뉴는 `#approach`로 이동해 방문자가 회사 철학과 Design, Build, Operate 제작 원칙을 먼저 확인하게 한다.
 - 흰색 배경과 강한 질문형 타이포그래피로 앞의 서비스 띠와 뒤의 문의 섹션을 연결한다.
 - `당신의 웹사이트도, 어딘가에서 본 것 같지 않나요?`를 섹션의 시각적 중심으로 사용한다.
 - `빠르게 만드는 것`보다 `비슷하게 만들지 않는 것`이 어렵다는 답을 질문 직후에 제시한다.
 - Design, Production, Infrastructure 세 제작 원칙은 짧은 편집형 행으로 제한한다.
 - 제작 원칙 행 전체를 클릭 영역으로 사용하고 각 행에서 `HOW WE DESIGN/BUILD/OPERATE` 상세 레이어를 연다.
+- 제작 원칙 행 hover에서는 제목을 왼쪽 기준으로 1.035배 확대하고 본문과 `+` 인디케이터를 미세하게 이동시켜 상세 진입 가능성을 보여준다. 주변 레이아웃의 크기는 바꾸지 않는다.
 - 상세 레이어는 데스크톱에서 우측 editorial panel, 모바일에서 전체 화면 sheet로 표시한다.
 - 상세 정보는 번호, 큰 문장, 수직 process list, 결론 순으로 구성하며 카드와 아이콘을 사용하지 않는다.
+- `HOW WE DESIGN`은 UNDERSTAND, EXPLORE, DIRECTION, REVIEW, SYSTEM 다섯 단계만 한 번에 하나씩 보여준다.
+- 디자인 단계 오른쪽에는 질문 목록, KEEP/DROP 레퍼런스 판단, 실제 `design.md`, 방향 리뷰, 확장 가능한 디자인 시스템을 artifact 형태로 교체한다.
+- 다섯 단계는 4초 간격으로 순환한다. 큰 현재 단계 번호, 다음 단계, 5분할 진행 레일을 네이비 상태 밴드에 표시한다. 마우스 hover와 일시정지 버튼에서는 멈추며 reduced motion 환경에서는 자동 재생하지 않는다.
+- `HOW WE BUILD`은 ARCHITECTURE, DEVELOPMENT, QUALITY, SECURITY, DEPLOY를 engineering pipeline과 실제 구현 artifact로 보여준다.
+- `HOW WE OPERATE`는 CHOOSE, DEPLOY, MONITOR, PROTECT, OPTIMIZE를 인프라 선택, 운영 환경, 관찰, 보호, 비용 판단으로 구분한다.
+- 실제 고객이나 프로젝트 사례가 없는 상태에서는 범용 제작 기준만 보여주고 가상의 고객 정보를 만들지 않는다.
 - 상세 레이어는 배경 클릭, 닫기 버튼, ESC로 닫히고 열린 동안 본문 스크롤을 잠근다.
 - 닫은 뒤에는 열었던 원칙 행으로 키보드 포커스를 복원한다.
 - `THE JABIN SYSTEM`은 상세 설명이 아닌 티저로 사용하고 기존 `#engineering` 섹션으로 연결한다.
@@ -356,6 +364,8 @@ public/images/
 - CTA는 행동 결과가 보이도록 `문의하기`, `프로젝트 시작하기`처럼 쓴다.
 
 ## 10. 변경 절차
+
+`WHAT WE BELIEVE` 상세는 동일한 5단계 재생 문법을 사용하되 artifact는 Design, Build, Operate의 성격에 맞게 다르게 구성한다. 4초 자동 진행·일시정지·직접 단계 선택을 제공하며 운영 정보는 장비 목록보다 서비스 요구조건과 인프라 선택 근거가 먼저 읽혀야 한다.
 
 1. 변경하려는 화면과 관련된 이 문서 항목을 읽는다.
 2. 새 규칙이 필요하면 디자인 문서를 먼저 수정한다.

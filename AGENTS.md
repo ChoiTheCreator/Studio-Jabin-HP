@@ -21,6 +21,7 @@
 - 디자인 기준의 우선순위는 사용자 요구사항, `DESIGN.md`, `VISUAL_QA_HARNESS.md`, `DESIGN_NAVY.md`, `JABIN_PROFILE.md`, 범용 `SKILL.md` 순서다.
 - 구현 전에 대상 사용자, 시각 방향, `DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY`를 한 줄의 Design Read로 선언한다.
 - 완료 전 `JABIN_PROFILE.md`의 Preflight와 반응형 시각 검증을 수행한다.
+- UI 작업은 테스트 통과만으로 완료 처리하지 않는다. 최종 화면을 직접 보고 의도, 정보 밀도, 빈 공간, 인접 콘텐츠의 흐름을 판단한 뒤 결함을 먼저 수정하고 완료를 보고한다.
 
 ## 공동 작업
 
