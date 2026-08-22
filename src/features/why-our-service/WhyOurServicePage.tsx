@@ -4,7 +4,7 @@ import { WebsiteComparisonStage } from "./components/WebsiteComparisonStage";
 import { InfrastructureSection } from "./components/InfrastructureSection";
 import { ProblemTwo } from "./components/ProblemTwo";
 import { ProblemThree } from "./components/ProblemThree";
-import { OurDifferenceSection } from "./components/OurDifferenceSection";
+import { LiveProjectSection } from "./components/LiveProjectSection";
 import { SectionIndexIndicator } from "./components/SectionIndexIndicator";
 
 const websites = [
@@ -106,7 +106,7 @@ export function WhyOurServicePage() {
       <ProblemTwo />
       <ProblemThree />
       <InfrastructureSection />
-      <OurDifferenceSection />
+      <LiveProjectSection />
     </main>
   );
 }
