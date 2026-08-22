@@ -1,6 +1,7 @@
 import { contentShell } from "@/components/ui/tailwind";
 
 import { WebsiteComparisonStage } from "./components/WebsiteComparisonStage";
+import { InfrastructureSection } from "./components/InfrastructureSection";
 import { ProblemTwo } from "./components/ProblemTwo";
 import { ProblemThree } from "./components/ProblemThree";
 import { OurDifferenceSection } from "./components/OurDifferenceSection";
@@ -104,6 +105,7 @@ export function WhyOurServicePage() {
       </section>
       <ProblemTwo />
       <ProblemThree />
+      <InfrastructureSection />
       <OurDifferenceSection />
     </main>
   );

@@ -6,16 +6,13 @@ const sectionIndex = [
   { number: 1, targetId: "why-problem-1", label: "PROBLEM 1" },
   { number: 2, targetId: "why-problem-2", label: "PROBLEM 2" },
   { number: 3, targetId: "why-problem-3", label: "PROBLEM 3" },
-  { number: 4, targetId: null, label: "" },
+  { number: 4, targetId: "why-infrastructure", label: "INFRASTRUCTURE" },
   { number: 5, targetId: "why-conclusion", label: "CONCLUSION" },
 ] as const;
 
 type ActiveIndex = (typeof sectionIndex)[number]["number"];
 
-const observedSections = sectionIndex.filter(
-  (section): section is (typeof sectionIndex)[number] & { targetId: string } =>
-    section.targetId !== null,
-);
+const observedSections = sectionIndex;
 
 export function SectionIndexIndicator() {
   const [activeIndex, setActiveIndex] = useState<ActiveIndex>(1);
