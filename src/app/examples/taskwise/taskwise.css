@@ -1,0 +1,101 @@
+[data-saas-page] {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* These rules intentionally preserve the supplied demo's poor responsive behavior. */
+@media (max-width: 1350px) and (min-width: 701px) {
+  [data-saas-page] {
+    --saas-crush: calc((1350px - 100vw) / 240);
+  }
+
+  [data-saas-page] #features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  [data-saas-page] #preview {
+    flex: 0 1 calc(68% - (var(--saas-crush) * 180px));
+    min-width: 310px;
+  }
+
+  [data-saas-page] #features > div:last-child {
+    width: calc(22% - (var(--saas-crush) * 90px));
+    min-width: 150px;
+    grid-template-columns: 1fr !important;
+  }
+
+  [data-saas-page] #features > div:last-child article:nth-child(n + 3) {
+    position: relative;
+    left: calc(34vw + 120px);
+  }
+
+  [data-saas-page] #how div[class*="md:grid-cols-3"],
+  [data-saas-page] #customers div[class*="md:grid-cols-3"] {
+    grid-template-columns: minmax(150px, 0.42fr) minmax(120px, 0.28fr) !important;
+    justify-content: start;
+  }
+
+  [data-saas-page] #how article:last-child,
+  [data-saas-page] #customers figure:last-child {
+    grid-column: 1;
+    width: 62%;
+  }
+
+  [data-saas-page] footer > div:first-child {
+    grid-template-columns: minmax(180px, 0.55fr) repeat(2, minmax(90px, 0.22fr)) !important;
+  }
+
+  [data-saas-page] footer > div:first-child > div:last-child {
+    grid-column: 1;
+    width: 48%;
+  }
+
+  [data-saas-page] article p,
+  [data-saas-page] section > div > p,
+  [data-saas-page] blockquote {
+    letter-spacing: calc(var(--saas-crush) * -0.08em);
+    line-height: calc(1.45em - (var(--saas-crush) * 0.48em));
+    word-spacing: calc(var(--saas-crush) * -0.12em);
+  }
+
+  [data-saas-page] article p,
+  [data-saas-page] figure blockquote {
+    width: calc(100% + (var(--saas-crush) * 14%));
+  }
+}
+
+@media (max-width: 900px) and (min-width: 701px) {
+  [data-saas-page] #preview {
+    flex-basis: 46%;
+  }
+
+  [data-saas-page] #features > div:last-child {
+    width: 18%;
+  }
+
+  [data-saas-page] #features > div:last-child article {
+    padding-inline: 8px;
+  }
+
+  [data-saas-page] article p,
+  [data-saas-page] section > div > p,
+  [data-saas-page] blockquote {
+    letter-spacing: -0.07em;
+    line-height: 0.92em;
+    word-spacing: -0.1em;
+  }
+
+  [data-saas-page] article p,
+  [data-saas-page] figure blockquote {
+    width: 116%;
+  }
+
+  [data-saas-page] article:nth-child(even) p,
+  [data-saas-page] figure:nth-child(odd) blockquote {
+    width: 100%;
+    letter-spacing: normal;
+    line-height: 1.25em;
+    word-spacing: normal;
+  }
+}
