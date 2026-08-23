@@ -235,6 +235,10 @@ Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인
 - 홈 티저는 상세 페이지의 네 문제를 다시 설명하지 않는다. skeleton, business context, responsive viewport, operation flow를 하나의 stage에서 짧게 암시한다.
 - 티저 stage에는 번호, pagination dot, progress bar, 카드형 목차를 사용하지 않는다. 장면은 같은 프레임 안에서 opacity와 짧은 이동으로 한 번만 이어진다.
 - 티저가 뷰포트에 들어오면 장면을 2.8초 간격으로 진행하고 마지막 장면에서 멈춘다. reduced motion에서는 첫 장면을 정적으로 보여준다.
+- `WHY JABIN?` 티저는 `HOW WE BUILD` 원칙보다 먼저 배치해 차별점에서 제작 방식으로 읽히게 한다.
+- `USED, NOT DISPLAYED` 장면과 `OWNERSHIP, NOT HANDOFF` 블록은 재검토를 위해 렌더링 진입점만 주석 처리하고 구현은 보존한다.
+- `WHY JABIN?` 하단의 회색 scene stage 전체도 재검토를 위해 JSX 렌더링만 주석 처리한다. 소개와 상세 페이지 CTA는 유지한다.
+- `WHY OUR SERVICE` CTA는 `HOW WE BUILD` 세 원칙 다음에 배치하고 `DESIGN / BUILD / OPERATE → FULL METHOD` 표시로 상세 근거가 이어짐을 알린다.
 - 마지막 CTA는 작은 텍스트 버튼이 아니라 가로 폭 전체가 클릭 가능한 editorial block으로 제공한다. hover에서는 Blue 면과 흰색 텍스트, 화살표 이동만 사용한다.
 - 기존 `Reveal`만 사용해 질문과 증거의 읽는 순서를 만들고 reduced motion 설정을 그대로 따른다.
 
