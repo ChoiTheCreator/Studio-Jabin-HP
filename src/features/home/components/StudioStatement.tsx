@@ -2,6 +2,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { contentShell, eyebrow } from "@/components/ui/tailwind";
 
 import { StudioPrinciples } from "./StudioPrinciples";
+import { WhyJabinTeaser } from "./WhyJabinTeaser";
 
 export function StudioStatement() {
   return (
@@ -40,31 +41,7 @@ export function StudioStatement() {
           <StudioPrinciples />
         </div>
 
-        <Reveal className="pt-20 sm:pt-24 lg:pt-28" delay={100}>
-          <div
-            id="jabin-system"
-            className="grid gap-10 border-t-2 border-navy-deep pt-6 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16"
-          >
-            <p className={`${eyebrow} text-navy-primary`}>THE JABIN SYSTEM</p>
-            <div>
-              <h3 className="m-0 max-w-[880px] text-[36px] leading-[1.14] font-bold [word-break:keep-all] sm:text-[48px] lg:text-[58px]">
-                첫 번째 결과물에서
-                <br />
-                멈추지 않는 제작 방식.
-              </h3>
-              <p className="mt-8 mb-0 max-w-[620px] text-[16px] leading-[1.72] [word-break:keep-all] text-navy-muted sm:text-[17px]">
-                디자인부터 개발, 배포와 운영까지 Jabin이 프로젝트를 만드는 방식을 하나의 시스템으로
-                연결했습니다.
-              </p>
-              <a
-                className="mt-9 inline-flex min-h-12 items-center border-b border-navy-deep text-[14px] font-bold transition-colors duration-200 hover:border-navy-primary hover:text-navy-primary"
-                href="#engineering"
-              >
-                Explore the Jabin System →
-              </a>
-            </div>
-          </div>
-        </Reveal>
+        <WhyJabinTeaser />
       </div>
     </section>
   );
