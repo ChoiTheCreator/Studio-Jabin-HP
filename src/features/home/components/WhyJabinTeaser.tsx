@@ -18,16 +18,11 @@ const scenes = [
     title: "같은 업종이, 같은 비즈니스를 의미하지 않습니다.",
     visual: <BusinessPreview />,
   },
-  {
-    label: "USED, NOT DISPLAYED",
-    title: "화면은 실제 사용되는 순간에 완성됩니다.",
-    visual: <ResponsivePreview />,
-  },
-  {
-    label: "BEYOND DEPLOYMENT",
-    title: "우리는 배포 이후까지 생각합니다.",
-    visual: <OperationPreview />,
-  },
+  // {
+  //   label: "USED, NOT DISPLAYED",
+  //   title: "화면은 실제 사용되는 순간에 완성됩니다.",
+  //   visual: <ResponsivePreview />,
+  // },
 ] as const;
 
 export function WhyJabinTeaser() {
@@ -83,29 +78,9 @@ export function WhyJabinTeaser() {
         </p>
       </div>
 
-      <Link
-        className="group mt-14 grid min-h-[176px] border-y border-navy-deep px-0 py-8 text-navy-ink transition-colors duration-300 hover:bg-navy-primary hover:px-6 hover:text-white focus-visible:bg-navy-primary focus-visible:px-6 focus-visible:text-white sm:mt-16 sm:min-h-[200px] sm:grid-cols-[220px_minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:py-10"
-        href="/why-our-service"
-      >
-        <span
-          className={`${eyebrow} text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white`}
-        >
-          WHY OUR SERVICE
-        </span>
-        <span className="mt-6 max-w-[720px] text-[28px] leading-[1.15] font-bold [word-break:keep-all] sm:mt-0 sm:text-[36px] lg:text-[44px]">
-          우리가 다르게 만드는 방식을 확인해보세요.
-        </span>
-        <span
-          aria-hidden="true"
-          className="mt-8 text-[36px] leading-none transition-transform duration-300 group-hover:translate-x-2 group-focus-visible:translate-x-2 sm:mt-0 sm:text-[48px]"
-        >
-          →
-        </span>
-      </Link>
-
-      <div
+      {/* <div
         className="relative min-h-[430px] overflow-hidden border-b border-navy-line bg-navy-surface sm:min-h-[460px] lg:min-h-[400px]"
-        aria-label="Jabin이 다르게 만드는 네 가지 관점"
+        aria-label="Jabin이 다르게 만드는 두 가지 관점"
         data-testid="why-jabin-stage"
         data-scene={activeScene}
       >
@@ -132,8 +107,46 @@ export function WhyJabinTeaser() {
             <div className="min-w-0 self-end lg:self-center">{scene.visual}</div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
+  );
+}
+
+export function WhyOurServiceCta() {
+  return (
+    <Link
+      className="group mt-20 block border-y border-navy-deep text-navy-ink transition-colors duration-300 hover:bg-navy-primary hover:text-white focus-visible:bg-navy-primary focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary"
+      href="/why-our-service"
+      id="why-our-service-cta"
+    >
+      <span className="flex items-center justify-between gap-6 border-b border-navy-line px-0 py-5 transition-[padding,border-color] duration-300 group-hover:border-white/40 group-hover:px-6 group-focus-visible:border-white/40 group-focus-visible:px-6">
+        <span className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-bold sm:text-[12px]">
+          <span>DESIGN</span>
+          <span aria-hidden="true" className="text-navy-muted group-hover:text-white/60">/</span>
+          <span>BUILD</span>
+          <span aria-hidden="true" className="text-navy-muted group-hover:text-white/60">/</span>
+          <span>OPERATE</span>
+        </span>
+        <span className="text-[11px] font-bold text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white sm:text-[12px]">
+          FULL METHOD
+        </span>
+      </span>
+
+      <span className="grid min-h-[176px] px-0 py-8 transition-[padding] duration-300 group-hover:px-6 group-focus-visible:px-6 sm:min-h-[200px] sm:grid-cols-[220px_minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:py-10">
+        <span className={`${eyebrow} text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white`}>
+          WHY OUR SERVICE
+        </span>
+        <span className="mt-6 max-w-[720px] text-[28px] leading-[1.15] font-bold [word-break:keep-all] sm:mt-0 sm:text-[36px] lg:text-[44px]">
+          세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요.
+        </span>
+        <span
+          aria-hidden="true"
+          className="mt-8 text-[36px] leading-none transition-transform duration-300 group-hover:translate-x-3 group-focus-visible:translate-x-3 sm:mt-0 sm:text-[48px]"
+        >
+          →
+        </span>
+      </span>
+    </Link>
   );
 }
 
@@ -182,7 +195,7 @@ function BusinessPreview() {
   );
 }
 
-function ResponsivePreview() {
+export function ResponsivePreview() {
   return (
     <div className="flex min-h-[240px] items-center justify-center border-y border-navy-line bg-white px-4 sm:min-h-[280px]">
       <div className="why-jabin-viewport border border-navy-deep bg-white p-3 sm:p-4">
@@ -199,23 +212,36 @@ function ResponsivePreview() {
   );
 }
 
-function OperationPreview() {
+export function OwnershipStatement() {
   return (
-    <div className="border-y border-navy-line bg-white px-4 py-8 sm:px-6 sm:py-12">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-5 text-[13px] font-bold sm:gap-x-4 sm:text-[16px]">
-        {["DESIGN", "BUILD", "DEPLOY", "SECURITY", "OPERATE"].map((item, index) => (
-          <div className="flex items-center gap-3 sm:gap-4" key={item}>
-            <span className={index > 2 ? "text-navy-primary" : "text-navy-deep"}>{item}</span>
-            {index < 4 && <span className="text-navy-muted">→</span>}
-          </div>
-        ))}
+    <div
+      className="mt-20 grid gap-10 border-y border-navy-line bg-navy-surface px-6 py-12 sm:px-10 sm:py-16 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-16 lg:px-12 lg:py-20"
+      id="ownership"
+    >
+      <div>
+        <p className={`${eyebrow} text-navy-primary`}>OWNERSHIP, NOT HANDOFF</p>
+        <h3 className="mt-6 max-w-[560px] text-[36px] leading-[1.1] font-bold [word-break:keep-all] sm:text-[46px] lg:text-[54px]">
+          출시 뒤 생기는 문제도
+          <br />
+          함께 봅니다.
+        </h3>
       </div>
-      <div className="mt-10 h-px bg-navy-line">
-        <span className="why-jabin-operation-line block h-px origin-left bg-navy-primary" />
+      <div className="border-y border-navy-line bg-white px-5 py-9 sm:px-8 sm:py-12">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-5 text-[14px] font-bold sm:gap-x-4 sm:text-[17px]">
+          {["MONITOR", "MAINTAIN", "IMPROVE"].map((item, index) => (
+            <div className="flex items-center gap-3 sm:gap-4" key={item}>
+              <span className={index === 0 ? "text-navy-deep" : "text-navy-primary"}>{item}</span>
+              {index < 2 && <span className="text-navy-muted">→</span>}
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 h-px bg-navy-line">
+          <span className="why-jabin-operation-line block h-px origin-left bg-navy-primary" />
+        </div>
+        <p className="mt-5 text-[11px] font-bold text-navy-primary sm:text-[12px]">
+          LAUNCH IS NOT A HANDOFF
+        </p>
       </div>
-      <p className="mt-5 text-[11px] font-bold text-navy-primary sm:text-[12px]">
-        RELEASE IS THE START OF OPERATION
-      </p>
     </div>
   );
 }

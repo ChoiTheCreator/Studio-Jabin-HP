@@ -2,7 +2,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { contentShell, eyebrow } from "@/components/ui/tailwind";
 
 import { StudioPrinciples } from "./StudioPrinciples";
-import { WhyJabinTeaser } from "./WhyJabinTeaser";
+import { WhyJabinTeaser, WhyOurServiceCta } from "./WhyJabinTeaser";
 
 export function StudioStatement() {
   return (
@@ -25,13 +25,18 @@ export function StudioStatement() {
 
         <Reveal className="mt-10 max-w-[700px] sm:mt-12 lg:ml-auto lg:w-[58%]" delay={120}>
           <p className="m-0 text-[22px] leading-[1.45] font-bold [word-break:keep-all] text-navy-deep sm:text-[28px]">
-            빠르게 만드는 건 어렵지 않습니다. 비슷하게 만들지 않는 게 더 어렵습니다.
+            빨리 만드는 것보다, 제대로 다르게 만드는 것.
           </p>
           <p className="mt-7 mb-0 max-w-[680px] text-[16px] leading-[1.7] [word-break:keep-all] text-navy-muted sm:text-[17px]">
-            Jabin은 AI를 적극적으로 사용하지만 나온 결과를 그대로 내놓지 않습니다. 고객의 이야기를
-            듣고 필요한 것을 함께 정한 뒤, 실제로 사용할 수 있는 서비스로 완성합니다.
+            <strong className="font-bold text-navy-deep">
+              멋진 레퍼런스가 있다면, 당연히 봅니다.
+            </strong>{" "}
+            다만 그대로 따라 만들지는 않습니다. 고객이 무엇을 좋아하는지, 왜 그 디자인에 끌리는지
+            함께 살펴보고, 그 감각을 프로젝트의 목적과 브랜드에 맞게 다시 풀어냅니다.
           </p>
         </Reveal>
+
+        <WhyJabinTeaser />
 
         <div className="mt-20 lg:mt-28">
           <Reveal className="border-t-2 border-navy-deep pt-5">
@@ -39,9 +44,10 @@ export function StudioStatement() {
           </Reveal>
 
           <StudioPrinciples />
+          <WhyOurServiceCta />
+          {/* <OwnershipStatement /> */}
         </div>
 
-        <WhyJabinTeaser />
       </div>
     </section>
   );
