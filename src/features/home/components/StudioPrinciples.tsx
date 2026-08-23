@@ -1100,7 +1100,7 @@ export function StudioPrinciples() {
         {principles.map((principle, index) => (
           <Reveal delay={index * 70} key={principle.label}>
             <button
-              className="group grid w-full cursor-pointer gap-5 border-b border-navy-line py-9 text-left transition-[background-color,border-color] duration-500 hover:border-navy-primary hover:bg-navy-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary motion-reduce:transition-none sm:grid-cols-[64px_minmax(0,1fr)] sm:gap-7 sm:py-11 lg:py-12 xl:grid-cols-[80px_minmax(300px,0.9fr)_minmax(240px,0.6fr)_minmax(280px,0.8fr)] xl:items-baseline xl:gap-9"
+              className="group grid w-full cursor-pointer gap-5 border-b border-navy-line py-7 text-left transition-[background-color,border-color] duration-500 hover:border-navy-primary hover:bg-navy-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary motion-reduce:transition-none sm:grid-cols-[64px_minmax(0,1fr)] sm:gap-7 sm:py-8 lg:py-9 xl:grid-cols-[80px_minmax(300px,0.9fr)_minmax(240px,0.6fr)_minmax(280px,0.8fr)] xl:items-baseline xl:gap-9"
               type="button"
               aria-haspopup="dialog"
               onClick={(event) => openDetail(index, event.currentTarget)}
