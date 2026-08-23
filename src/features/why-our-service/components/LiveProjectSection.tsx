@@ -25,13 +25,13 @@ export function LiveProjectSection() {
             직접 확인해보세요.
           </h2>
           <p className="mt-6 mb-0 text-[17px] leading-[1.6] text-navy-muted sm:text-[20px]">
-            JB Studio는 이렇게 만듭니다.
+            Jabin Studio는 이렇게 만듭니다.
           </p>
         </Reveal>
 
         <Reveal className="mx-auto mt-12 w-full max-w-[820px] sm:mt-14 lg:mt-16" delay={120}>
           <a
-            className="group/live-project block w-full rounded-lg border border-navy-line bg-navy-surface p-6 text-left text-navy-ink transition-[border-color,transform] duration-300 ease-out focus-visible:border-navy-primary motion-reduce:transition-none motion-safe:[@media(hover:hover)]:hover:-translate-y-1 sm:p-10 lg:p-12 [@media(hover:hover)]:hover:border-navy-primary"
+            className="group/live-project block w-full rounded-lg border border-navy-line bg-navy-surface p-6 text-left text-navy-ink transition-[border-color,transform] duration-300 ease-out focus-visible:border-navy-primary motion-reduce:transition-none sm:p-10 lg:p-12 [@media(hover:hover)]:hover:border-navy-primary motion-safe:[@media(hover:hover)]:hover:-translate-y-1"
             href={liveProject.url}
             target="_blank"
             rel="noopener noreferrer"

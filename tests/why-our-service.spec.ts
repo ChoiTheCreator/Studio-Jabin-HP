@@ -36,7 +36,7 @@ test("데스크톱에서 세 홈페이지가 같은 자리에서 원본에서 �
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/why-our-service");
 
-  await expect(page.getByRole("heading", { name: /JB Studio의 웹사이트는/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Jabin Studio의 웹사이트는/ })).toBeVisible();
   await expect(
     page.getByText(/아래 세 가지는,\s*양산형 웹사이트에서 반복되는 문제입니다/),
   ).toBeAttached();
@@ -333,7 +333,7 @@ test("Infrastructure 섹션이 Problem 03과 결론 사이에서 서비스 범�
 
   const section = page.locator("#why-infrastructure");
   const comparison = page.getByAltText(
-    "AWS 직접 구축과 JB Studio 인프라 서비스의 리소스 제공, 운영·관리, 보안, 책임 구조 비교",
+    "AWS 직접 구축과 Jabin 인프라 서비스의 리소스 제공, 운영·관리, 보안, 책임 구조 비교",
   );
   const graph = page.locator('[data-testid="infrastructure-cost-graph-svg"]');
 
@@ -366,7 +366,7 @@ test("Infrastructure 섹션이 Problem 03과 결론 사이에서 서비스 범�
   await expect(graph).toHaveAttribute("scrolling", "no");
   await expect(graph).toHaveAttribute(
     "aria-label",
-    "JB Studio 연간 예상 컴퓨팅 비용 15~30만원과 AWS/GCP 120만원 비교 그래프",
+    "Jabin 연간 예상 컴퓨팅 비용 15~30만원과 AWS/GCP 120만원 비교 그래프",
   );
 
   const [comparisonBox, graphBox, sectionBox, numberBox] = await Promise.all([
@@ -427,7 +427,7 @@ test("Infrastructure 섹션이 지정된 뷰포트에서 자산 비율과 모바
 
     const section = page.locator("#why-infrastructure");
     const desktopComparison = page.getByAltText(
-      "AWS 직접 구축과 JB Studio 인프라 서비스의 리소스 제공, 운영·관리, 보안, 책임 구조 비교",
+      "AWS 직접 구축과 Jabin 인프라 서비스의 리소스 제공, 운영·관리, 보안, 책임 구조 비교",
     );
     const mobileComparison = page.locator('[data-testid="infrastructure-comparison-mobile"]');
     const graph = page.locator('[data-testid="infrastructure-cost-graph"]');
@@ -441,7 +441,7 @@ test("Infrastructure 섹션이 지정된 뷰포트에서 자산 비율과 모바
       await expect(desktopComparison).toBeHidden();
       await expect(mobileComparison).toBeVisible();
       await expect(mobileComparison.getByText("AWS 직접 구축", { exact: true })).toBeVisible();
-      await expect(mobileComparison.getByText("JB Studio 구축", { exact: true })).toBeVisible();
+      await expect(mobileComparison.getByText("Jabin 구축", { exact: true })).toBeVisible();
       await expect(mobileComparison.getByText("전문인력 직접 담당", { exact: true })).toHaveCount(
         2,
       );
