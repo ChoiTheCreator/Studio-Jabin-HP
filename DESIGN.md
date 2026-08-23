@@ -231,7 +231,11 @@ Eternal의 파란색 중심 팔레트, 로고, 문구, 이미지와 구체적인
 - 실제 고객이나 프로젝트 사례가 없는 상태에서는 범용 제작 기준만 보여주고 가상의 고객 정보를 만들지 않는다.
 - 상세 레이어는 배경 클릭, 닫기 버튼, ESC로 닫히고 열린 동안 본문 스크롤을 잠근다.
 - 닫은 뒤에는 열었던 원칙 행으로 키보드 포커스를 복원한다.
-- `THE JABIN SYSTEM`은 상세 설명이 아닌 티저로 사용하고 기존 `#engineering` 섹션으로 연결한다.
+- 기존 `THE JABIN SYSTEM` 설명 블록은 `WHY JABIN?` 티저로 대체하고 `/why-our-service`로 연결한다.
+- 홈 티저는 상세 페이지의 네 문제를 다시 설명하지 않는다. skeleton, business context, responsive viewport, operation flow를 하나의 stage에서 짧게 암시한다.
+- 티저 stage에는 번호, pagination dot, progress bar, 카드형 목차를 사용하지 않는다. 장면은 같은 프레임 안에서 opacity와 짧은 이동으로 한 번만 이어진다.
+- 티저가 뷰포트에 들어오면 장면을 2.8초 간격으로 진행하고 마지막 장면에서 멈춘다. reduced motion에서는 첫 장면을 정적으로 보여준다.
+- 마지막 CTA는 작은 텍스트 버튼이 아니라 가로 폭 전체가 클릭 가능한 editorial block으로 제공한다. hover에서는 Blue 면과 흰색 텍스트, 화살표 이동만 사용한다.
 - 기존 `Reveal`만 사용해 질문과 증거의 읽는 순서를 만들고 reduced motion 설정을 그대로 따른다.
 
 ### Inquiry
