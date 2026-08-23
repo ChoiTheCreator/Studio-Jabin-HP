@@ -1100,7 +1100,7 @@ export function StudioPrinciples() {
         {principles.map((principle, index) => (
           <Reveal delay={index * 70} key={principle.label}>
             <button
-              className="group grid w-full cursor-pointer gap-5 border-b border-navy-line py-9 text-left transition-[background-color,border-color] duration-500 hover:border-navy-primary hover:bg-navy-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary motion-reduce:transition-none sm:grid-cols-[64px_minmax(0,1fr)] sm:gap-7 sm:py-11 lg:grid-cols-[80px_minmax(300px,0.9fr)_minmax(240px,0.6fr)_minmax(280px,0.8fr)] lg:items-baseline lg:gap-9 lg:py-12"
+              className="group grid w-full cursor-pointer gap-5 border-b border-navy-line py-9 text-left transition-[background-color,border-color] duration-500 hover:border-navy-primary hover:bg-navy-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary motion-reduce:transition-none sm:grid-cols-[64px_minmax(0,1fr)] sm:gap-7 sm:py-11 lg:py-12 xl:grid-cols-[80px_minmax(300px,0.9fr)_minmax(240px,0.6fr)_minmax(280px,0.8fr)] xl:items-baseline xl:gap-9"
               type="button"
               aria-haspopup="dialog"
               onClick={(event) => openDetail(index, event.currentTarget)}
@@ -1115,10 +1115,10 @@ export function StudioPrinciples() {
               >
                 {principle.title}
               </span>
-              <span className="text-[15px] leading-[1.65] [word-break:keep-all] text-navy-muted sm:col-start-2 sm:text-[16px] lg:col-start-auto">
+              <span className="text-[15px] leading-[1.65] [word-break:keep-all] text-navy-muted sm:col-start-2 sm:text-[16px] xl:col-start-auto">
                 {principle.description}
               </span>
-              <span className="grid gap-5 transition-transform duration-500 group-hover:translate-x-2 motion-reduce:transform-none motion-reduce:transition-none sm:col-start-2 lg:col-start-auto">
+              <span className="grid gap-5 transition-transform duration-500 group-hover:translate-x-2 motion-reduce:transform-none motion-reduce:transition-none sm:col-start-2 xl:col-start-auto">
                 <strong className="border-l-2 border-navy-primary pl-5 text-[15px] leading-[1.55] [word-break:keep-all] text-navy-deep sm:text-[16px]">
                   {principle.statement}
                 </strong>
@@ -1140,7 +1140,7 @@ export function StudioPrinciples() {
       {mounted
         ? createPortal(
             <div
-              className={`fixed inset-0 z-[180] transition-[visibility] duration-300 ${open ? "visible" : "invisible"}`}
+              className={`fixed inset-0 z-[180] overflow-hidden transition-[visibility] duration-300 ${open ? "visible" : "invisible"}`}
               aria-hidden={!open}
             >
               <button
