@@ -88,12 +88,11 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
     }),
   ).toBeAttached();
   await expect(
-    page.getByRole("heading", { name: /첫 번째 결과물에서 멈추지 않는 제작 방식/ }),
+    page.getByRole("heading", { name: /왜 다른지, 직접 보여드리겠습니다/ }),
   ).toBeAttached();
-  await expect(page.getByRole("link", { name: "Explore the Jabin System →" })).toHaveAttribute(
-    "href",
-    "#engineering",
-  );
+  await expect(
+    page.getByRole("link", { name: /우리가 다르게 만드는 방식을 확인해보세요/ }),
+  ).toHaveAttribute("href", "/why-our-service");
   await expect(
     page.getByRole("heading", { name: /코드만 넘기고 끝내지 않습니다\. 운영까지 설계합니다/ }),
   ).toBeAttached();
@@ -174,6 +173,20 @@ test("인접 섹션의 시작 여백이 같은 시각 리듬을 유지한다", a
     expect(inquiryGap).toBeLessThanOrEqual(viewport.maxGap);
     expect(Math.abs(statementGap - inquiryGap)).toBeLessThanOrEqual(32);
   }
+});
+
+test("WHY JABIN 티저가 장면을 한 번 진행하고 상세 페이지로 연결한다", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
+
+  const stage = page.getByTestId("why-jabin-stage");
+  await stage.scrollIntoViewIfNeeded();
+  await expect(stage).toHaveAttribute("data-scene", "0");
+  await expect(stage).toHaveAttribute("data-scene", "1", { timeout: 4_000 });
+  await expect(
+    page.getByRole("link", { name: /우리가 다르게 만드는 방식을 확인해보세요/ }),
+  ).toHaveAttribute("href", "/why-our-service");
 });
 
 test("제작 원칙 상세 레이어를 열고 키보드로 닫을 수 있다", async ({ page }) => {
