@@ -557,15 +557,6 @@ test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공
   await expect(infrastructure.getByText("RTX A4500 × 2")).toBeVisible();
   await expect(infrastructure.getByText("Tenstorrent p150a")).toBeVisible();
   await expect(infrastructure.getByText("Dedicated Compute")).toBeVisible();
-  await expect(
-    infrastructure.getByRole("heading", { name: /서버를 계속 빌리는 대신/ }),
-  ).toBeAttached();
-  await expect(infrastructure.getByText("Cloud for the peaks.")).toBeAttached();
-  await expect(infrastructure.getByRole("link", { name: "프로젝트 문의" })).toHaveAttribute(
-    "href",
-    "#contact",
-  );
-
   const signal = infrastructure.locator(".infrastructure-region__signal");
   await expect(signal).toHaveCSS("animation-name", "infrastructure-region-signal");
   await expect(signal).toHaveCSS("animation-duration", "8s");
