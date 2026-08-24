@@ -9,9 +9,16 @@ import { easeOut } from "@/components/ui/tailwind";
 import { brand } from "@/config/brand";
 import { navigation } from "../home.content";
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  anchorPrefix?: "" | "/";
+  initialTone?: "dark" | "light";
+};
+
+export function SiteHeader({ anchorPrefix = "", initialTone = "dark" }: SiteHeaderProps = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const usesLightTone = scrolled || (initialTone === "light" && !menuOpen);
+  const homeAnchor = (hash: string) => `${anchorPrefix}${hash}`;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -35,9 +42,9 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`pointer-events-none fixed top-0 left-0 z-[100] w-full animate-header-enter px-5 pb-4 text-white transition-[padding] duration-[550ms] motion-reduce:animate-none sm:px-8 lg:px-12 ${easeOut} ${
-          scrolled ? "pt-2.5" : "pt-4 lg:pt-[22px]"
-        }`}
+        className={`pointer-events-none fixed top-0 left-0 z-[100] w-full animate-header-enter px-5 pb-4 transition-[padding,color] duration-[550ms] motion-reduce:animate-none sm:px-8 lg:px-12 ${easeOut} ${
+          usesLightTone ? "text-navy-ink" : "text-white"
+        } ${scrolled ? "pt-2.5" : "pt-4 lg:pt-[22px]"}`}
       >
         <div
           className={`pointer-events-auto mx-auto flex items-center justify-between border transition-[width,height,padding,border-color,background-color,box-shadow,color] duration-[550ms] ${easeOut} ${
@@ -47,13 +54,13 @@ export function SiteHeader() {
           }`}
         >
           <Link
-            href="#top"
+            href={homeAnchor("#top")}
             className="inline-flex min-h-11 w-[84px] items-center"
             aria-label={`${brand.name} 홈`}
           >
             <Image
               className={`h-auto w-[84px] transition-[filter] duration-300 ${
-                scrolled ? "filter-none" : "brightness-0 invert"
+                usesLightTone ? "filter-none" : "brightness-0 invert"
               }`}
               src={brand.assets.logoWord}
               alt=""
@@ -71,7 +78,7 @@ export function SiteHeader() {
             {navigation.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={homeAnchor(item.href)}
                 className="relative py-3.5 text-[12px] font-bold after:absolute after:right-0 after:bottom-2.5 after:left-0 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 focus-visible:after:origin-left focus-visible:after:scale-x-100"
               >
                 {item.label}
@@ -82,11 +89,11 @@ export function SiteHeader() {
           <div className="flex items-center gap-1">
             <Link
               className={`inline-flex min-h-10 items-center justify-center rounded-full px-[15px] text-[12px] font-bold transition-[transform,background-color] duration-200 lg:min-h-11 lg:px-5 ${easeOut} ${
-                scrolled
+                usesLightTone
                   ? "bg-navy-primary text-white hover:-translate-y-0.5 hover:bg-navy-deep"
                   : "bg-white text-navy-deep hover:-translate-y-0.5 hover:bg-navy-tint"
               }`}
-              href="#contact"
+              href={homeAnchor("#contact")}
             >
               프로젝트 문의
             </Link>
@@ -132,7 +139,7 @@ export function SiteHeader() {
           {navigation.map((item, index) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={homeAnchor(item.href)}
               className="flex min-h-14 items-center gap-[18px] border-b border-white/20 text-[24px] font-bold sm:min-h-[68px] sm:text-[28px]"
               onClick={() => setMenuOpen(false)}
             >
@@ -142,7 +149,7 @@ export function SiteHeader() {
           ))}
           <Link
             className="mt-auto grid min-h-[52px] place-items-center rounded-full bg-white font-bold text-navy-deep"
-            href="#contact"
+            href={homeAnchor("#contact")}
             onClick={() => setMenuOpen(false)}
           >
             프로젝트 문의

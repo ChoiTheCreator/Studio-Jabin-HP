@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { SiteFooter } from "@/features/home/components/SiteFooter";
+import { SiteHeader } from "@/features/home/components/SiteHeader";
 import { WhyOurServicePage } from "@/features/why-our-service/WhyOurServicePage";
 
 export const metadata: Metadata = {
@@ -9,5 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <WhyOurServicePage />;
+  return (
+    <>
+      <SiteHeader anchorPrefix="/" initialTone="light" />
+      <WhyOurServicePage />
+      <div className="relative z-[60]">
+        <SiteFooter />
+      </div>
+    </>
+  );
 }
