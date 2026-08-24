@@ -119,24 +119,14 @@ export function WhyOurServiceCta() {
       href="/why-our-service"
       id="why-our-service-cta"
     >
-      <span className="flex items-center justify-between gap-6 border-b border-navy-line px-0 py-5 transition-[padding,border-color] duration-300 group-hover:border-white/40 group-hover:px-6 group-focus-visible:border-white/40 group-focus-visible:px-6">
-        <span className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-bold sm:text-[12px]">
-          <span>DESIGN</span>
-          <span aria-hidden="true" className="text-navy-muted group-hover:text-white/60">/</span>
-          <span>BUILD</span>
-          <span aria-hidden="true" className="text-navy-muted group-hover:text-white/60">/</span>
-          <span>OPERATE</span>
-        </span>
-        <span className="text-[11px] font-bold text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white sm:text-[12px]">
-          FULL METHOD
+      <span className="block border-b border-navy-line px-0 py-5 transition-[padding,border-color] duration-300 group-hover:border-white/40 group-hover:px-6 group-focus-visible:border-white/40 group-focus-visible:px-6">
+        <span className={`${eyebrow} text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white`}>
+          WHY JABIN SYSTEM?
         </span>
       </span>
 
-      <span className="grid min-h-[176px] px-0 py-8 transition-[padding] duration-300 group-hover:px-6 group-focus-visible:px-6 sm:min-h-[200px] sm:grid-cols-[220px_minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:py-10">
-        <span className={`${eyebrow} text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white`}>
-          WHY OUR SERVICE
-        </span>
-        <span className="mt-6 max-w-[720px] text-[28px] leading-[1.15] font-bold [word-break:keep-all] sm:mt-0 sm:text-[36px] lg:text-[44px]">
+      <span className="grid min-h-[176px] px-0 py-8 transition-[padding] duration-300 group-hover:px-6 group-focus-visible:px-6 sm:min-h-[200px] sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:py-10">
+        <span className="max-w-[920px] text-[28px] leading-[1.15] font-bold [word-break:keep-all] sm:text-[36px] lg:text-[44px]">
           세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요.
         </span>
         <span
