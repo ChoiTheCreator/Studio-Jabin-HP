@@ -1,3 +1,5 @@
+import { ChatWidget } from "@/features/chat/ChatWidget";
+
 import { CapabilitiesSection } from "./components/CapabilitiesSection";
 import { EngineeringSection } from "./components/EngineeringSection";
 import { HeroSection } from "./components/HeroSection";
@@ -5,7 +7,6 @@ import { InquirySection } from "./components/InquirySection";
 import { JabinIntro } from "./components/JabinIntro";
 import { OwnedInfrastructureSection } from "./components/OwnedInfrastructureSection";
 import { ProcessSection } from "./components/ProcessSection";
-import { ProjectsSection } from "./components/ProjectsSection";
 import { ServiceMarquee } from "./components/ServiceMarquee";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
@@ -21,15 +22,15 @@ export function HomePage() {
         <HeroSection />
         <ServiceMarquee />
         <StudioStatement />
-        <ProjectsSection />
+        <InquirySection />
         <EngineeringSection />
         <OwnedInfrastructureSection />
         <CapabilitiesSection />
         <TeamSection />
         <ProcessSection />
-        <InquirySection />
       </main>
       <SiteFooter />
+      <ChatWidget />
     </>
   );
 }

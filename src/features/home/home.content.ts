@@ -1,8 +1,7 @@
 import type { ProjectSummary } from "@/features/projects/project.types";
 
 export const navigation = [
-  { href: "#work", label: "PROJECTS" },
-  { href: "#engineering", label: "SYSTEM" },
+  { href: "#approach", label: "ABOUT" },
   { href: "#infrastructure", label: "INFRA" },
   { href: "#team", label: "TEAM" },
   { href: "#process", label: "PROCESS" },
@@ -177,70 +176,6 @@ export const aiInfrastructureSpecs = [
     detail: "32GB",
   },
 ] as const;
-
-type TeamLink = {
-  label: string;
-  // URL이 확인되지 않은 구성원은 href를 비워 두고 비활성 링크로 표시한다.
-  href?: string;
-};
-
-type TeamMember = {
-  number: string;
-  name: string;
-  nameEn: string;
-  initials: string;
-  role: string;
-  responsibility: string;
-  specialties: readonly string[];
-  links: readonly TeamLink[];
-};
-
-type Team = {
-  total: number;
-  members: readonly TeamMember[];
-};
-
-export const team: Team = {
-  total: 3,
-  members: [
-    {
-      number: "01",
-      name: "최원빈",
-      nameEn: "Wonbin Choi",
-      initials: "WB",
-      role: "CEO",
-      responsibility:
-        "고객의 목표를 제품 방향으로 구체화하고, 프로젝트의 우선순위와 실행 과정을 책임집니다.",
-      specialties: ["Business Strategy", "Product Direction", "Client Partnership"],
-      links: [
-        {
-          label: "LinkedIn",
-          href: "https://kr.linkedin.com/in/%EC%9B%90%EB%B9%88-%EC%B5%9C-a90451366",
-        },
-        { label: "GitHub", href: "https://github.com/ChoiTheCreator" },
-        { label: "Portfolio", href: "https://www.wonbinchoi.com/" },
-      ],
-    },
-    {
-      number: "02",
-      name: "박재욱",
-      nameEn: "Jaewook Park",
-      initials: "JW",
-      role: "CTO",
-      responsibility:
-        "서비스 구조와 기술 의사결정을 이끌고, 구축부터 배포와 운영까지의 품질을 책임집니다.",
-      specialties: ["System Architecture", "Full-stack Engineering", "Cloud Operations"],
-      links: [
-        {
-          label: "LinkedIn",
-          href: "https://au.linkedin.com/in/jaewook-park-a5a032385",
-        },
-        { label: "GitHub", href: "https://github.com/wooooooooook" },
-        { label: "Portfolio", href: "https://wooooooooook.com/" },
-      ],
-    },
-  ],
-};
 
 export const processSteps = [
   {
