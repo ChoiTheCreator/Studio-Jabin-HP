@@ -5,6 +5,7 @@ import {
   PaperAirplaneIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 
 import { easeOut } from "@/components/ui/tailwind";
@@ -137,11 +138,23 @@ export function ChatWidget() {
             : "invisible translate-y-3 scale-95 opacity-0"
         }`}
       >
-        <header className="bg-navy-deep px-5 py-4 text-white">
-          <p id={titleId} className="text-[14px] leading-[1.2] font-bold">
-            {brand.name} 어시스턴트
-          </p>
-          <p className="mt-0.5 text-[12px] text-white/70">보통 몇 초 안에 답해요</p>
+        <header className="bg-navy-deep px-5 py-5 text-white">
+          <div className="flex items-center gap-4">
+            <Image
+              className="h-10 w-auto shrink-0 brightness-0 invert"
+              src={brand.assets.logoMark}
+              alt=""
+              width={270}
+              height={384}
+              sizes="28px"
+            />
+            <div className="border-l border-white/25 pl-4">
+              <p id={titleId} className="m-0 text-[14px] leading-[1.2] font-bold">
+                {brand.name} 어시스턴트
+              </p>
+              <p className="mt-1 mb-0 text-[12px] text-white/70">보통 몇 초 안에 답해요</p>
+            </div>
+          </div>
         </header>
 
         <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-5 py-4">

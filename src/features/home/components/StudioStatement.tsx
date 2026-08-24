@@ -1,49 +1,53 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { contentShell, eyebrow } from "@/components/ui/tailwind";
 
-const studioFacts = [
-  { value: "03", label: "Core team" },
-  { value: "05", label: "Delivery phases" },
-  { value: "01", label: "Integrated partner" },
-] as const;
+import { StudioPrinciples } from "./StudioPrinciples";
+import { WhyJabinTeaser, WhyOurServiceCta } from "./WhyJabinTeaser";
 
 export function StudioStatement() {
   return (
     <section className="bg-white text-navy-ink" id="approach" aria-labelledby="statement-title">
       <div className={`${contentShell} py-[88px] sm:py-28 lg:py-32`}>
-        <Reveal className="grid gap-9 lg:grid-cols-[0.75fr_2.25fr] lg:gap-16">
-          <p className="m-0 text-[12px] font-bold text-navy-primary">WHAT WE BELIEVE</p>
-          <div>
-            <h2
-              className="m-0 max-w-[880px] text-[34px] leading-[1.18] font-bold [word-break:keep-all] sm:text-[44px] lg:text-[52px]"
-              id="statement-title"
-            >
-              좋은 서비스는 보기 좋은 화면을 넘어, 실제 업무와 운영 안에서 오래 작동해야 합니다.
-            </h2>
-            <p className="mt-7 mb-0 max-w-[680px] text-[16px] leading-[1.7] [word-break:keep-all] text-navy-muted sm:text-[17px]">
-              Jabin은 전략, 디자인, 개발을 따로 넘기지 않습니다. 고객의 목표를 구조로 바꾸고, 같은
-              판단 기준으로 구축과 운영까지 이어갑니다.
-            </p>
-          </div>
+        <Reveal>
+          <p className={`${eyebrow} text-navy-primary`}>WHAT WE BELIEVE</p>
         </Reveal>
 
-        <Reveal className="mt-16 grid grid-cols-3 border-t border-navy-line lg:mt-24" delay={120}>
-          {studioFacts.map((fact, index) => (
-            <div
-              className={`flex min-h-[132px] flex-col items-start justify-between border-r border-b border-navy-line px-3 py-5 last:border-r-0 sm:min-h-[164px] sm:px-6 sm:first:pl-0 ${
-                index === studioFacts.length - 1 ? "sm:pr-0" : ""
-              }`}
-              key={fact.label}
-            >
-              <span className="text-[48px] leading-none font-bold text-navy-deep">
-                {fact.value}
-              </span>
-              <span className={`${eyebrow} text-[11px] text-navy-muted sm:text-[12px]`}>
-                {fact.label}
-              </span>
-            </div>
-          ))}
+        <Reveal className="mt-12 sm:mt-16" delay={60}>
+          <h2
+            className="m-0 max-w-[1080px] text-[40px] leading-[1.08] font-bold [word-break:keep-all] sm:text-[56px] lg:text-[72px]"
+            id="statement-title"
+          >
+            당신의 웹사이트도,
+            <br />
+            어딘가에서 본 것 같지 않나요?
+          </h2>
         </Reveal>
+
+        <Reveal className="mt-10 max-w-[700px] sm:mt-12 lg:ml-auto lg:w-[58%]" delay={120}>
+          <p className="m-0 text-[22px] leading-[1.45] font-bold [word-break:keep-all] text-navy-deep sm:text-[28px]">
+            빨리 만드는 것보다, 제대로 다르게 만드는 것.
+          </p>
+          <p className="mt-7 mb-0 max-w-[680px] text-[16px] leading-[1.7] [word-break:keep-all] text-navy-muted sm:text-[17px]">
+            <strong className="font-bold text-navy-deep">
+              멋진 레퍼런스가 있다면, 당연히 봅니다.
+            </strong>{" "}
+            다만 그대로 따라 만들지는 않습니다. 고객이 무엇을 좋아하는지, 왜 그 디자인에 끌리는지
+            함께 살펴보고, 그 감각을 프로젝트의 목적과 브랜드에 맞게 다시 풀어냅니다.
+          </p>
+        </Reveal>
+
+        <WhyJabinTeaser />
+
+        <div className="mt-20 lg:mt-28">
+          <Reveal className="border-t-2 border-navy-deep pt-5">
+            <p className={`${eyebrow} text-navy-primary`}>HOW WE BUILD</p>
+          </Reveal>
+
+          <StudioPrinciples />
+          <WhyOurServiceCta />
+          {/* <OwnershipStatement /> */}
+        </div>
+
       </div>
     </section>
   );

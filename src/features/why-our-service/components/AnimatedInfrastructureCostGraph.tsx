@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const GRAPH_ALT = "JB Studio 연간 예상 컴퓨팅 비용 15~30만원과 AWS/GCP 120만원 비교 그래프";
+const GRAPH_ALT = "Jabin 연간 예상 컴퓨팅 비용 15~30만원과 AWS/GCP 120만원 비교 그래프";
 const BAR_DURATION = 900;
 const PRICE_DURATION = 240;
 const GRAPH_EASING = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -158,7 +158,7 @@ function MobileInfrastructureCostGraph({ animateBars, showPrices }: MobileCostGr
       </div>
 
       <div className="grid grid-cols-2 pt-4 text-center text-[13px] text-[#626b76]">
-        <span>JB Studio</span>
+        <span>Jabin</span>
         <span>AWS/GCP</span>
       </div>
     </figure>

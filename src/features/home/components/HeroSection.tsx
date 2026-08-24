@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { ArrowDownIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
@@ -82,29 +82,22 @@ export function HeroSection() {
             <span className="block">Just Ask.</span>
             <span className="mt-1 block text-white/62">Build It Now.</span>
           </p>
-          <div className="flex items-end justify-between gap-6 sm:block">
-            <p className="m-0 max-w-[390px] text-[14px] leading-[1.6] [word-break:keep-all] text-white/72 sm:text-[15px]">
-              복잡한 요구를 작동하는 시스템으로. 기획, UX/UI, 프론트엔드와 백엔드, 배포와 운영까지
-              한 팀이 연결합니다.
-            </p>
-            <a
-              className="mt-5 inline-flex min-h-11 shrink-0 items-center gap-2 border-b border-white/70 text-[13px] font-bold transition-colors hover:border-navy-signal hover:text-navy-signal"
-              href="#work"
-            >
-              프로젝트 보기
-              <ArrowRightIcon className="size-4" aria-hidden="true" />
-            </a>
-          </div>
+
+          <p className="m-0 max-w-[440px] justify-self-end text-[14px] leading-[1.6] [word-break:keep-all] text-white/72 sm:text-[15px]">
+            복잡한 요구를 작동하는 시스템으로. 기획, UX/UI, 프론트엔드와 백엔드, 배포와 운영까지
+            한 팀이 연결합니다.
+          </p>
         </div>
       </div>
 
       <a
-        className="absolute right-5 bottom-8 hidden min-h-11 items-center gap-3 text-[11px] text-white/70 lg:flex"
+        className="absolute bottom-4 left-1/2 flex min-h-12 -translate-x-1/2 flex-col items-center justify-end gap-2 text-[11px] font-bold text-white/70 transition-colors hover:text-white focus-visible:text-white sm:bottom-8"
         href="#approach"
+        aria-label="아래 섹션으로 이동"
       >
-        SCROLL
+        <span className="hidden sm:block">SCROLL TO EXPLORE</span>
         <ArrowDownIcon
-          className="size-4 animate-scroll-nudge motion-reduce:animate-none"
+          className="size-5 animate-scroll-nudge motion-reduce:animate-none"
           aria-hidden="true"
         />
       </a>
