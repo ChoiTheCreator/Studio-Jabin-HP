@@ -16,12 +16,12 @@ function MobileInfrastructureComparison() {
   return (
     <div
       className="rounded-[8px] border border-[#e7e9ed] bg-white px-5 py-6 md:hidden"
-      aria-label="AWS 직접 구축과 JB Studio 인프라 서비스 비교"
+      aria-label="AWS 직접 구축과 Jabin 인프라 서비스 비교"
       data-testid="infrastructure-comparison-mobile"
     >
       <div className="grid grid-cols-2 gap-4 text-[18px] leading-[1.25] font-bold">
         <p className="w-fit border-b-2 border-[#ff9900] pb-1 text-[#6b4100]">AWS 직접 구축</p>
-        <p className="w-fit border-b-2 border-[#142b4a] pb-1 text-[#142b4a]">JB Studio 구축</p>
+        <p className="w-fit border-b-2 border-[#142b4a] pb-1 text-[#142b4a]">Jabin 구축</p>
       </div>
 
       <dl className="mt-5">
@@ -36,7 +36,7 @@ function MobileInfrastructureComparison() {
               <span className="block">{row.aws}</span>
             </dd>
             <dd className="text-[15px] leading-[1.45] font-bold text-[#142b4a]">
-              <span className="mb-1 block text-[12px] font-bold text-[#142b4a]">JB Studio</span>
+              <span className="mb-1 block text-[12px] font-bold text-[#142b4a]">Jabin</span>
               <span className="block">{row.jabin}</span>
             </dd>
           </div>
@@ -54,7 +54,7 @@ function InfrastructureComparison() {
         <Image
           className="hidden h-auto w-full md:block"
           src="/images/why-our-service/text_comparison.svg"
-          alt="AWS 직접 구축과 JB Studio 인프라 서비스의 리소스 제공, 운영·관리, 보안, 책임 구조 비교"
+          alt="AWS 직접 구축과 Jabin 인프라 서비스의 리소스 제공, 운영·관리, 보안, 책임 구조 비교"
           width={698}
           height={392}
           sizes="(min-width: 1280px) 690px, (min-width: 1120px) 57vw, (min-width: 768px) min(690px, calc(100vw - 64px)), 0px"

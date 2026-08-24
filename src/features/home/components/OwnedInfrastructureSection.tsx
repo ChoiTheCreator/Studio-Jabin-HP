@@ -1,4 +1,3 @@
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
 import { Reveal } from "@/components/motion/Reveal";
@@ -204,7 +203,7 @@ export function OwnedInfrastructureSection() {
         </div>
       </div>
 
-      <div className="bg-white py-22 text-navy-ink sm:py-28 lg:py-36">
+      {/* <div className="bg-white py-22 text-navy-ink sm:py-28 lg:py-36">
         <div className={contentShell}>
           <Reveal className="border-t border-navy-line pt-7 lg:pt-9">
             <h2 className="m-0 max-w-240 text-[42px] leading-[1.02] font-bold break-keep sm:text-[64px] lg:text-[86px]">
@@ -249,7 +248,7 @@ export function OwnedInfrastructureSection() {
             </a>
           </Reveal>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

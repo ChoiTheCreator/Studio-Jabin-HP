@@ -86,7 +86,7 @@ export function LiveProjectSection() {
             직접 확인해보세요.
           </h2>
           <p className="mt-6 mb-0 text-[17px] leading-[1.6] text-navy-muted sm:text-[20px]">
-            JB Studio는 이렇게 만듭니다.
+            Jabin Studio는 이렇게 만듭니다.
           </p>
         </Reveal>
 

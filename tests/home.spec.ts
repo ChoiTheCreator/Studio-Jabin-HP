@@ -56,14 +56,43 @@ test("링크 공유 메타데이터가 Jabin 로고 대표 이미지를 사용�
   );
 });
 
+test("챗봇 헤더가 Jabin 로고와 어시스턴트 정보를 보여준다", async ({ page }) => {
+  await disableIntro(page);
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "채팅 열기" }).click();
+
+  const dialog = page.getByRole("dialog", { name: "Jabin 어시스턴트" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator("header img")).toHaveAttribute("src", /jabin-logo-mark\.png/);
+  await expect(dialog.getByText("보통 몇 초 안에 답해요")).toBeVisible();
+});
+
 test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await disableIntro(page);
   await page.goto("/");
 
   await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
+  const aboutLink = page.getByRole("navigation", { name: "주요 메뉴" }).getByRole("link", {
+    name: "ABOUT",
+  });
+  await expect(aboutLink).toHaveAttribute("href", "#approach");
+  await aboutLink.click();
+  await expect(page).toHaveURL(/#approach$/);
+  await expect(page.getByText("WHAT WE BELIEVE", { exact: true })).toBeInViewport();
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "문제에서 시작한 설계." })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: /당신의 웹사이트도, 어딘가에서 본 것 같지 않나요/,
+    }),
+  ).toBeAttached();
+  await expect(
+    page.getByRole("heading", { name: /왜 다른지, 직접 보여드리겠습니다/ }),
+  ).toBeAttached();
+  await expect(
+    page.getByRole("link", { name: /세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요/ }),
+  ).toHaveAttribute("href", "/why-our-service");
   await expect(
     page.getByRole("heading", { name: /코드만 넘기고 끝내지 않습니다\. 운영까지 설계합니다/ }),
   ).toBeAttached();
@@ -106,7 +135,8 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
 
   await page.getByRole("button", { name: "메뉴 열기" }).click();
   await expect(page.getByRole("navigation", { name: "모바일 메뉴" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "03 INFRA" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "01 ABOUT" })).toHaveAttribute("href", "#approach");
+  await expect(page.getByRole("link", { name: "02 INFRA" })).toBeVisible();
   await expect(page.getByRole("link", { name: /TEAM$/ })).toBeVisible();
   await expectNoHorizontalOverflow(page);
   await page.getByRole("button", { name: "메뉴 닫기", exact: true }).first().click();
@@ -143,6 +173,247 @@ test("인접 섹션의 시작 여백이 같은 시각 리듬을 유지한다", a
     expect(inquiryGap).toBeLessThanOrEqual(viewport.maxGap);
     expect(Math.abs(statementGap - inquiryGap)).toBeLessThanOrEqual(32);
   }
+});
+
+test("WHY JABIN 소개가 상세 페이지로 연결되고 제작 원칙보다 먼저 보인다", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
+
+  await page.getByRole("heading", { name: /왜 다른지, 직접 보여드리겠습니다/ }).scrollIntoViewIfNeeded();
+  await expect(
+    page.getByRole("link", { name: /세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요/ }),
+  ).toHaveAttribute("href", "/why-our-service");
+
+  const sectionOrder = await page.locator("#approach").evaluate((section) => {
+    const teaser = section.querySelector("#jabin-system");
+    const howWeBuild = Array.from(section.querySelectorAll("p")).find(
+      (element) => element.textContent === "HOW WE BUILD",
+    );
+
+    return Boolean(teaser && howWeBuild && teaser.compareDocumentPosition(howWeBuild) & Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+  expect(sectionOrder).toBe(true);
+
+  const ctaFollowsHowWeBuild = await page.locator("#approach").evaluate((section) => {
+    const cta = section.querySelector("#why-our-service-cta");
+    const howWeBuild = Array.from(section.querySelectorAll("p")).find(
+      (element) => element.textContent === "HOW WE BUILD",
+    );
+
+    return Boolean(
+      cta &&
+        howWeBuild &&
+        howWeBuild.compareDocumentPosition(cta) & Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+  });
+  expect(ctaFollowsHowWeBuild).toBe(true);
+});
+
+test("제작 원칙 상세 레이어를 열고 키보드로 닫을 수 있다", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
+  await expect(page.getByTestId("jabin-intro")).toBeHidden();
+  await page.evaluate(() => document.fonts.ready);
+
+  const designTrigger = page.getByRole("button", { name: /똑같은 디자인을 만들지 않습니다/ });
+  await designTrigger.scrollIntoViewIfNeeded();
+  await expect(designTrigger.locator("..")).toHaveCSS("transform", "none");
+  await expect
+    .poll(async () => {
+      await designTrigger.hover({ position: { x: 100, y: 80 } });
+      const [scale, background] = await Promise.all([
+        designTrigger
+          .locator(".principle-title")
+          .evaluate((element) => getComputedStyle(element).scale),
+        designTrigger.evaluate((element) => getComputedStyle(element).backgroundColor),
+      ]);
+      return `${scale}|${background}`;
+    })
+    .toBe("1.035|rgb(246, 246, 246)");
+  await designTrigger.screenshot({ path: "test-results/principle-entry-hover-desktop.png" });
+  await designTrigger.click();
+
+  const designDialog = page.getByRole("dialog", { name: /좋은 디자인은/ });
+  await expect(designDialog).toBeVisible();
+  await expect(designDialog).toHaveCSS("transform", "none");
+  await expect(designDialog).toHaveCSS("width", "1040px");
+  await expectNoHorizontalOverflow(page);
+  await expect(designDialog.getByText("어떤 서비스인가", { exact: true })).toBeVisible();
+  const contentGap = await designDialog.evaluate((dialog) => {
+    const panel = dialog.querySelector<HTMLElement>("[data-testid='design-stage-panel']");
+    const closing = dialog.querySelector<HTMLElement>("[data-testid='design-closing']");
+
+    return panel && closing
+      ? closing.getBoundingClientRect().top - panel.getBoundingClientRect().bottom
+      : Number.POSITIVE_INFINITY;
+  });
+  expect(contentGap).toBeLessThanOrEqual(96);
+  await page.screenshot({ path: "test-results/principle-design-talk-desktop.png" });
+  await designDialog.getByTestId("design-closing").scrollIntoViewIfNeeded();
+  await page.screenshot({ path: "test-results/principle-design-closing-desktop.png" });
+  await designDialog.locator(".overflow-y-auto").evaluate((content) => content.scrollTo(0, 0));
+  await expect(designDialog.locator(".design-stage-progress")).toHaveCSS(
+    "animation-duration",
+    "4s",
+  );
+  await page.mouse.move(10, 10);
+  await expect(designDialog.getByRole("tab", { name: /EXPLORE/ })).toHaveAttribute(
+    "aria-selected",
+    "true",
+    { timeout: 5_000 },
+  );
+  await designDialog.getByRole("button", { name: "단계 자동 재생 멈춤" }).click();
+  await expect(designDialog.getByRole("button", { name: "단계 자동 재생 시작" })).toBeVisible();
+  await designDialog.getByRole("tab", { name: /EXPLORE/ }).click();
+  await expect(designDialog.getByText("좋은 건 전부 찾아봅니다.")).toBeVisible();
+  await expect(designDialog.getByText("KEEP / CONTENT RHYTHM")).toBeVisible();
+  await designDialog
+    .getByTestId("design-stage-artifact")
+    .screenshot({ path: "test-results/principle-design-reference-desktop.png" });
+  await designDialog.getByRole("tab", { name: /DIRECTION/ }).click();
+  await expect(designDialog.getByText("# THIS SHOULD FEEL LIKE", { exact: false })).toBeVisible();
+  await expect(designDialog.getByText("v0.5 / REFINED", { exact: true })).toBeVisible();
+  await designDialog
+    .getByTestId("design-stage-artifact")
+    .screenshot({ path: "test-results/principle-design-md-desktop.png" });
+  await designDialog.getByRole("tab", { name: /REVIEW/ }).click();
+  await expect(designDialog.getByText("CLIENT REVIEW", { exact: true })).toBeVisible();
+  await expect(designDialog.getByText(/방향은 맞지만 조금 더 우리답게/)).toBeVisible();
+  await designDialog.getByRole("tab", { name: /SYSTEM/ }).click();
+  await expect(designDialog.getByText("PAGE OUTPUT → REUSABLE DESIGN SYSTEM")).toBeVisible();
+  await designDialog
+    .getByTestId("design-stage-artifact")
+    .screenshot({ path: "test-results/principle-design-loop-desktop.png" });
+  await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("hidden");
+  await page.screenshot({ path: "test-results/principle-detail-desktop.png" });
+
+  await page.setViewportSize({ width: 768, height: 900 });
+  await expect(designDialog).toHaveCSS("width", "768px");
+  await designDialog.locator(".overflow-y-auto").evaluate((content) => content.scrollTo(0, 0));
+  await page.screenshot({ path: "test-results/principle-design-tablet.png" });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(designDialog).toHaveCSS("width", "390px");
+  await designDialog.locator(".overflow-y-auto").evaluate((content) => content.scrollTo(0, 0));
+  await page.screenshot({ path: "test-results/principle-design-mobile.png" });
+  await designDialog
+    .getByTestId("design-stage-artifact")
+    .screenshot({ path: "test-results/principle-design-loop-mobile.png" });
+  await designDialog.getByRole("tab", { name: /DIRECTION/ }).click();
+  await designDialog
+    .getByTestId("design-stage-artifact")
+    .screenshot({ path: "test-results/principle-design-md-mobile.png" });
+  await designDialog.getByRole("tab", { name: /EXPLORE/ }).click();
+  await designDialog
+    .getByTestId("design-stage-artifact")
+    .screenshot({ path: "test-results/principle-design-reference-mobile.png" });
+
+  await page.keyboard.press("Escape");
+  await expect(designDialog).toBeHidden();
+  await expect(designTrigger).toBeFocused();
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.getByRole("button", { name: /어정쩡한 프로젝트를 만들지 않습니다/ }).click();
+  const buildDialog = page.getByRole("dialog", { name: /우리는 화면이 아니라/ });
+  await expect(buildDialog).toBeVisible();
+  await expect(buildDialog).toHaveCSS("transform", "none");
+  await expect(buildDialog.getByText("PRODUCT BUILD / AUTO", { exact: true })).toBeVisible();
+  await expect(buildDialog.getByText("만들기 전에 구조부터 잡습니다.")).toBeVisible();
+  await buildDialog.getByRole("button", { name: "단계 자동 재생 멈춤" }).click();
+  await buildDialog
+    .getByTestId("build-stage-artifact")
+    .screenshot({ path: "test-results/principle-build-architecture-desktop.png" });
+  const developmentTab = buildDialog.getByRole("tab", { name: /DEVELOPMENT/ });
+  const architectureTab = buildDialog.getByRole("tab", { name: /ARCHITECTURE/ });
+  await developmentTab.click();
+  await expect(
+    buildDialog.getByText("버튼이 있는 것과, 버튼이 작동하는 것은 다릅니다."),
+  ).toBeVisible();
+  await expect(developmentTab).toHaveCSS("background-color", "rgb(24, 75, 186)");
+  await expect(architectureTab).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  await buildDialog
+    .getByTestId("build-stage-artifact")
+    .screenshot({ path: "test-results/principle-build-development-desktop.png" });
+  await buildDialog.getByRole("tab", { name: /QUALITY/ }).click();
+  await expect(buildDialog.getByText("‘돌아갑니다’에서 끝내지 않습니다.")).toBeVisible();
+  await buildDialog.getByRole("tab", { name: /SECURITY/ }).click();
+  await expect(buildDialog.getByText("보안은 마지막에 붙이지 않습니다.")).toBeVisible();
+  const deployTab = buildDialog.getByRole("tab", { name: /DEPLOY/ });
+  await deployTab.click();
+  await expect(buildDialog.getByText("READY FOR PRODUCTION / READY FOR REAL USERS")).toBeVisible();
+  await expect(deployTab).toHaveCSS("background-color", "rgb(24, 75, 186)");
+  await buildDialog
+    .getByTestId("build-stage-artifact")
+    .screenshot({ path: "test-results/principle-build-deploy-desktop.png" });
+  await buildDialog.locator(".overflow-y-auto").evaluate((content) => content.scrollTo(0, 0));
+  await page.screenshot({ path: "test-results/principle-build-desktop.png" });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await buildDialog.locator(".overflow-y-auto").evaluate((content) => content.scrollTo(0, 0));
+  await expectNoHorizontalOverflow(page);
+  await page.screenshot({ path: "test-results/principle-build-mobile.png" });
+  await buildDialog
+    .getByTestId("build-stage-artifact")
+    .screenshot({ path: "test-results/principle-build-deploy-mobile.png" });
+  await page.getByRole("button", { name: "상세 내용 닫기" }).last().click();
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.getByRole("button", { name: /만들고, 운영까지 책임집니다/ }).click();
+  const operateDialog = page.getByRole("dialog", { name: /서비스마다 정답인/ });
+  await expect(operateDialog).toBeVisible();
+  await expect(operateDialog).toHaveCSS("transform", "none");
+  await expect(operateDialog.getByText("SERVICE OPERATION / AUTO", { exact: true })).toBeVisible();
+  await expect(operateDialog.getByText("서비스에 맞는 인프라를 고릅니다.")).toBeVisible();
+  await operateDialog.getByRole("button", { name: "단계 자동 재생 멈춤" }).click();
+  const chooseTab = operateDialog.getByRole("tab", { name: /CHOOSE/ });
+  const monitorTab = operateDialog.getByRole("tab", { name: /MONITOR/ });
+  await expect(
+    operateDialog.getByText("우리가 가진 서버를 파는 것이 아니라, 서비스에 맞는 서버를 고릅니다."),
+  ).toBeVisible();
+  await expect(chooseTab).toHaveCSS("background-color", "rgb(24, 75, 186)");
+  await operateDialog
+    .getByTestId("operate-decision-artifact")
+    .screenshot({ path: "test-results/principle-operate-artifact-desktop.png" });
+  await operateDialog.getByRole("tab", { name: /DEPLOY/ }).click();
+  await expect(operateDialog.getByText("운영할 수 있는 환경을 만듭니다.")).toBeVisible();
+  await monitorTab.click();
+  await expect(operateDialog.getByText("문제가 생길 때까지 기다리지 않습니다.")).toBeVisible();
+  await expect(monitorTab).toHaveCSS("background-color", "rgb(24, 75, 186)");
+  await expect(chooseTab).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  await operateDialog
+    .getByTestId("operate-stage-artifact")
+    .screenshot({ path: "test-results/principle-operate-monitor-desktop.png" });
+  await operateDialog.getByRole("tab", { name: /PROTECT/ }).click();
+  await expect(operateDialog.getByText("데이터와 서비스를 보호합니다.")).toBeVisible();
+  await operateDialog.getByRole("tab", { name: /OPTIMIZE/ }).click();
+  await expect(operateDialog.getByText("비용도 운영의 일부입니다.")).toBeVisible();
+  await operateDialog
+    .getByTestId("operate-stage-artifact")
+    .screenshot({ path: "test-results/principle-operate-optimize-desktop.png" });
+  await monitorTab.click();
+  await expect(monitorTab).toHaveCSS("background-color", "rgb(24, 75, 186)");
+  await page.screenshot({ path: "test-results/principle-operate-monitor-panel-desktop.png" });
+  await operateDialog.locator(".overflow-y-auto").evaluate((content) => content.scrollTo(0, 0));
+  await page.screenshot({ path: "test-results/principle-operate-desktop.png" });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(operateDialog).toHaveCSS("width", "390px");
+  await operateDialog
+    .getByTestId("operate-stage-artifact")
+    .screenshot({ path: "test-results/principle-operate-monitor-mobile.png" });
+  await page.screenshot({ path: "test-results/principle-operate-monitor-panel-mobile.png" });
+  await operateDialog.locator(".overflow-y-auto").evaluate((content) => content.scrollTo(0, 0));
+  await expectNoHorizontalOverflow(page);
+  await page.screenshot({ path: "test-results/principle-operate-mobile.png" });
+  await page.getByRole("button", { name: "상세 내용 닫기" }).last().click();
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await designTrigger.click();
+  await expect(page.getByRole("dialog", { name: /좋은 디자인은/ })).toBeVisible();
+  await expect(page.locator(".design-stage-progress")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /단계 자동 재생/ })).toHaveCount(0);
 });
 
 test("첫 방문에서 JABIN 인트로가 재생되고 자동 종료된다", async ({ page }) => {
@@ -286,15 +557,6 @@ test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공
   await expect(infrastructure.getByText("RTX A4500 × 2")).toBeVisible();
   await expect(infrastructure.getByText("Tenstorrent p150a")).toBeVisible();
   await expect(infrastructure.getByText("Dedicated Compute")).toBeVisible();
-  await expect(
-    infrastructure.getByRole("heading", { name: /서버를 계속 빌리는 대신/ }),
-  ).toBeAttached();
-  await expect(infrastructure.getByText("Cloud for the peaks.")).toBeAttached();
-  await expect(infrastructure.getByRole("link", { name: "프로젝트 문의" })).toHaveAttribute(
-    "href",
-    "#contact",
-  );
-
   const signal = infrastructure.locator(".infrastructure-region__signal");
   await expect(signal).toHaveCSS("animation-name", "infrastructure-region-signal");
   await expect(signal).toHaveCSS("animation-duration", "8s");
@@ -362,6 +624,9 @@ test("문의 유형에 따라 질문이 바뀌고 작성한 내용을 유지한�
   await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
 
   const inquiry = page.locator("#contact");
+  const formReveal = inquiry.locator("form").locator("..");
+  await expect(formReveal).toHaveCSS("transform", "none");
+  await expect(formReveal).toHaveCSS("opacity", "1");
   await expect(page.locator("#approach + #contact")).toHaveCount(1);
   await expect(inquiry.getByText("지금 어떤 단계에 있으신가요?", { exact: true })).toHaveCount(0);
   await expect(inquiry.getByRole("button", { name: "프로젝트 문의" })).toHaveCount(0);
@@ -372,7 +637,7 @@ test("문의 유형에 따라 질문이 바뀌고 작성한 내용을 유지한�
   });
   const sectionLabel = inquiry.getByText("START A PROJECT", { exact: true });
   const headerBottom = await page
-    .locator("header")
+    .getByRole("banner")
     .evaluate((element) => element.getBoundingClientRect().bottom);
   const conceptTop = await conceptChoice.evaluate((element) => element.getBoundingClientRect().top);
   expect(headerBottom).toBeLessThan(conceptTop);

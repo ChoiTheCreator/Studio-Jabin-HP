@@ -45,8 +45,8 @@ function WhyHero() {
           className="mx-auto max-w-[920px] text-[38px] leading-[1.04] font-bold text-navy-ink sm:text-[54px] lg:text-[68px]"
           id="why-hero-title"
         >
-          <span className="block">JB Studio의 웹사이트는</span>
-          <span className="block">양산형 사이트들과 다릅니다.</span>
+          <span className="block">Jabin Studio의 웹사이트는</span>
+          <span className="block">AI 양산형 사이트들과 다릅니다.</span>
         </h1>
       </div>
     </section>
