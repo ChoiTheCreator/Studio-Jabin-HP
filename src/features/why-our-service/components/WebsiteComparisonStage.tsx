@@ -3,7 +3,6 @@
 import Image from "next/image";
 import {
   motion,
-  useMotionValue,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -53,10 +52,10 @@ function WebsiteViewport({ website, progress }: WebsiteViewportProps) {
   const maxTravel = Math.max(0, renderedImageHeight - size.height);
   const summaryScale = renderedImageHeight > 0 ? Math.min(1, size.height / renderedImageHeight) : 1;
 
-  const y = useTransform(progress, [0, 0.1, 0.78, 1], [0, 0, -maxTravel, 0]);
-  const scale = useTransform(progress, [0, 0.78, 1], [1, 1, summaryScale]);
-  const originalOpacity = useTransform(progress, [0, 0.35, 0.58, 1], [1, 1, 0, 0]);
-  const boneOpacity = useTransform(progress, [0, 0.35, 0.58, 1], [0, 0, 1, 1]);
+  const y = useTransform(progress, [0, 0.72, 1], [0, -maxTravel, 0]);
+  const scale = useTransform(progress, [0, 0.72, 1], [1, 1, summaryScale]);
+  const originalOpacity = useTransform(progress, [0, 0.24, 0.48, 1], [1, 1, 0, 0]);
+  const boneOpacity = useTransform(progress, [0, 0.24, 0.48, 1], [0, 0, 1, 1]);
 
   return (
     <article
@@ -125,35 +124,32 @@ function WebsiteViewport({ website, progress }: WebsiteViewportProps) {
 
 export function WebsiteComparisonStage({ websites }: WebsiteComparisonStageProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const resettingRef = useRef(false);
+  const completedRef = useRef(false);
   const [completed, setCompleted] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  const storyProgress = useTransform(scrollYProgress, [0, 0.62], [0, 1], { clamp: true });
-  const completedProgress = useMotionValue(1);
-  const displayProgress = completed ? completedProgress : storyProgress;
+  const storyProgress = useTransform(scrollYProgress, [0, 0.9], [0, 1], { clamp: true });
 
   useMotionValueEvent(storyProgress, "change", (latest) => {
-    if (resettingRef.current) {
-      if (latest <= 0.02) resettingRef.current = false;
-      return;
-    }
+    const nextCompleted = latest >= 0.995;
+    if (completedRef.current === nextCompleted) return;
 
-    if (latest >= 0.995) setCompleted(true);
+    completedRef.current = nextCompleted;
+    setCompleted(nextCompleted);
   });
 
   const stageBackground = useTransform(
-    displayProgress,
-    [0, 0.68, 1],
+    storyProgress,
+    [0, 0.64, 1],
     ["rgba(246,246,246,0)", "rgba(246,246,246,0)", "rgba(246,246,246,1)"],
   );
-  const conclusionOpacity = useTransform(displayProgress, [0, 0.84, 0.96], [0, 0, 1]);
-  const conclusionY = useTransform(displayProgress, [0, 0.84, 0.96], [18, 18, 0]);
+  const conclusionOpacity = useTransform(storyProgress, [0, 0.82, 0.96], [0, 0, 1]);
+  const conclusionY = useTransform(storyProgress, [0, 0.82, 0.96], [18, 18, 0]);
 
   const restartComparison = () => {
-    resettingRef.current = true;
+    completedRef.current = false;
     setCompleted(false);
     sectionRef.current?.scrollIntoView({
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
@@ -164,17 +160,17 @@ export function WebsiteComparisonStage({ websites }: WebsiteComparisonStageProps
   return (
     <div
       ref={sectionRef}
-      className="relative h-[300dvh] motion-reduce:h-auto"
+      className="relative h-[240dvh] motion-reduce:h-auto"
       data-testid="comparison-stage"
     >
       <motion.div
-        className="sticky top-0 flex min-h-[100dvh] items-start overflow-hidden pt-8 pb-12 motion-reduce:relative motion-reduce:min-h-0 motion-reduce:bg-navy-surface motion-reduce:py-8 sm:pt-10 lg:pt-12"
+        className="sticky top-0 flex min-h-[100dvh] items-start overflow-hidden pt-16 pb-6 motion-reduce:relative motion-reduce:min-h-0 motion-reduce:bg-navy-surface motion-reduce:py-8 sm:pt-20 sm:pb-8"
         style={{ backgroundColor: stageBackground }}
       >
         <div className="mx-auto w-full max-w-[1280px] px-5 sm:px-6 lg:px-8">
           <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-6">
             {websites.map((website) => (
-              <WebsiteViewport key={website.name} website={website} progress={displayProgress} />
+              <WebsiteViewport key={website.name} website={website} progress={storyProgress} />
             ))}
           </div>
           <p className="mt-3 text-center text-[12px] leading-[1.45] text-navy-muted sm:hidden">

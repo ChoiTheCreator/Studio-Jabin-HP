@@ -1,13 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 type CardPosition = "left" | "right" | "bottom";
@@ -73,20 +67,18 @@ function BusinessCard({
   stageWidth: number;
 }) {
   const start = initialPosition(business.position, stageWidth);
-  const x = useTransform(progress, [0, 0.15, 0.8, 1], [start.x, start.x, 0, 0]);
-  const y = useTransform(progress, [0, 0.15, 0.8, 1], [start.y, start.y, 0, 0]);
-  const cardOpacity = useTransform(progress, [0, 0.7, 0.78, 0.9, 1], [1, 1, 0.58, 0, 0]);
-  const detailMaskOpacity = useTransform(progress, [0, 0.35, 0.55, 1], [0, 0, 1, 1]);
-  const neutralOpacity = useTransform(progress, [0, 0.5, 0.7, 1], [0, 0, 0.72, 0.72]);
-  const saturation = useTransform(progress, [0, 0.5, 0.7, 1], [1, 1, 0.08, 0.08]);
-  const filter = useTransform(saturation, (value) => `saturate(${value})`);
+  const x = useTransform(progress, [0, 0.8, 1], [start.x, 0, 0]);
+  const y = useTransform(progress, [0, 0.8, 1], [start.y, 0, 0]);
+  const cardOpacity = useTransform(progress, [0, 0.68, 0.78, 0.88, 1], [1, 1, 0.58, 0, 0]);
+  const detailMaskOpacity = useTransform(progress, [0, 0.28, 0.58, 1], [0, 0, 1, 1]);
+  const neutralOpacity = useTransform(progress, [0, 0.5, 0.72, 1], [0, 0, 0.86, 0.86]);
 
   return (
     <div className="pointer-events-none absolute inset-0 grid place-items-center">
       <motion.article
         className="relative w-[min(82vw,320px)] will-change-transform sm:w-[300px] lg:w-[320px]"
         data-testid={`business-card-${business.id}`}
-        style={{ x, y, opacity: cardOpacity, filter }}
+        style={{ x, y, opacity: cardOpacity }}
       >
         <Image
           className="block h-auto w-full"
@@ -125,8 +117,8 @@ function GenericRestaurantCard({
   asset: string;
   progress: MotionValue<number>;
 }) {
-  const opacity = useTransform(progress, [0, 0.75, 0.9, 1], [0, 0, 1, 1]);
-  const scale = useTransform(progress, [0, 0.75, 0.9, 1], [0.94, 0.94, 1, 1]);
+  const opacity = useTransform(progress, [0, 0.74, 0.96, 1], [0, 0, 1, 1]);
+  const scale = useTransform(progress, [0, 0.74, 0.96, 1], [0.94, 0.94, 1, 1]);
 
   return (
     <div className="pointer-events-none absolute inset-0 grid place-items-center">
@@ -194,26 +186,19 @@ export function BusinessCompressionStage({
   genericAsset,
 }: BusinessCompressionStageProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [conclusionRevealed, setConclusionRevealed] = useState(false);
   const { ref: stageRef, size } = useStageSize<HTMLDivElement>();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  const storyProgress = useTransform(scrollYProgress, [0, 0.65], [0, 1], { clamp: true });
-  const conclusionOpacity = useTransform(storyProgress, [0, 0.72, 0.8, 1], [0, 0, 1, 1]);
-  const conclusionY = useTransform(storyProgress, [0, 0.72, 0.8, 1], [18, 18, 0, 0]);
-
-  useMotionValueEvent(storyProgress, "change", (latest) => {
-    if (latest >= 0.8 && !conclusionRevealed) {
-      setConclusionRevealed(true);
-    }
-  });
+  const storyProgress = useTransform(scrollYProgress, [0, 0.9], [0, 1], { clamp: true });
+  const conclusionOpacity = useTransform(storyProgress, [0, 0.76, 0.96, 1], [0, 0, 1, 1]);
+  const conclusionY = useTransform(storyProgress, [0, 0.76, 0.96, 1], [18, 18, 0, 0]);
 
   return (
     <div
       ref={sectionRef}
-      className="relative h-[300dvh] motion-reduce:h-auto"
+      className="relative h-[240dvh] motion-reduce:h-auto"
       data-testid="business-compression-stage"
     >
       <div className="sticky top-0 flex min-h-[100dvh] items-center overflow-hidden motion-reduce:hidden">
@@ -233,10 +218,7 @@ export function BusinessCompressionStage({
           <motion.div
             className="absolute top-1/2 right-5 left-5 mt-[220px] grid gap-4 text-center opacity-0 sm:right-8 sm:left-8 sm:mt-[225px] sm:grid-cols-2 sm:items-end sm:text-left lg:right-12 lg:left-12 lg:mt-[230px]"
             data-testid="problem-two-conclusion"
-            style={{
-              opacity: conclusionRevealed ? 1 : conclusionOpacity,
-              y: conclusionRevealed ? 0 : conclusionY,
-            }}
+            style={{ opacity: conclusionOpacity, y: conclusionY }}
           >
             <p className="text-[16px] leading-[1.35] font-bold text-navy-muted sm:text-[18px] lg:text-[20px]">
               같은 업종이라는 이유만으로,
