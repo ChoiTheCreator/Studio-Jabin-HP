@@ -43,6 +43,18 @@ export function ChatWidget() {
   const titleId = useId();
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("chat") !== "faq") return;
+    const timer = window.setTimeout(() => setOpen(true), 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const openChat = () => setOpen(true);
+    window.addEventListener("jabin:open-chat", openChat);
+    return () => window.removeEventListener("jabin:open-chat", openChat);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     inputRef.current?.focus();
 
