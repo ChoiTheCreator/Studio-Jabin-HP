@@ -6,6 +6,8 @@ import type { ReactNode } from "react";
 import { contentShell } from "@/components/ui/tailwind";
 import { brand } from "@/config/brand";
 
+import { FooterFaqLink } from "./FooterFaqLink";
+
 export function SiteFooter() {
   return (
     <footer className="bg-navy-night pt-24 pb-8 text-white sm:pt-28 sm:pb-10 lg:pt-32">
@@ -66,9 +68,7 @@ export function SiteFooter() {
           <nav aria-labelledby="footer-guide">
             <FooterHeading id="footer-guide">GUIDE</FooterHeading>
             <div className="grid justify-items-start gap-1">
-              <Link className={footerLink} href="/?chat=faq">
-                자주 묻는 질문
-              </Link>
+              <FooterFaqLink className={footerLink} />
               <Link className={footerLink} href="/#contact">
                 프로젝트 문의
               </Link>
