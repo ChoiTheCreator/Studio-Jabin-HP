@@ -303,67 +303,304 @@ details[open] .infrastructure-details__content {
 }
 
 .jabin-intro {
-  animation: jabin-intro-exit 720ms cubic-bezier(0.76, 0, 0.24, 1) 2100ms forwards;
+  clip-path: inset(0);
 }
 
-.jabin-intro__meta,
-.jabin-intro__footer {
+body:has(.jabin-intro) {
+  overflow: hidden;
+}
+
+.jabin-intro--exiting {
+  pointer-events: none;
+  animation: jabin-intro-panel-exit 500ms cubic-bezier(0.76, 0, 0.24, 1) 160ms forwards;
+}
+
+body:has(.jabin-intro:not(.jabin-intro--exiting)) > header,
+body:has(.jabin-intro:not(.jabin-intro--exiting)) main,
+body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
+  animation-play-state: paused;
+}
+
+.jabin-intro__meta {
   opacity: 0;
-  animation: jabin-intro-fade 520ms ease-out 160ms forwards;
+  animation: jabin-intro-fade 420ms ease-out 180ms both;
+}
+
+.jabin-intro__word {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.18em;
+  font-size: clamp(54px, 9vw, 144px);
+  font-weight: 700;
+  line-height: 0.82;
 }
 
 .jabin-intro__letter {
+  display: inline-block;
   opacity: 0;
-  filter: blur(10px);
-  transform: translateY(112%) scale(0.94);
-  animation: jabin-intro-letter 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--intro-delay) forwards;
+  clip-path: inset(100% 0 0);
+  will-change: clip-path, transform, opacity;
 }
 
-.jabin-intro__phrase {
+.jabin-intro__letter--j {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 520ms both;
+}
+
+.jabin-intro__letter--a {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
+}
+
+.jabin-intro__letter--b {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 780ms both;
+}
+
+.jabin-intro__letter--i {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 910ms both;
+}
+
+.jabin-intro__letter--n {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 1040ms both;
+}
+
+.jabin-intro__slogans {
+  position: absolute;
+  top: calc(50% + clamp(80px, 8vw, 125px));
+  left: 50%;
+  display: flex;
+  width: min(76%, 820px);
+  justify-content: space-between;
+  font-size: clamp(15px, 1.7vw, 24px);
+  font-weight: 600;
+  transform: translateX(-50%);
+}
+
+.jabin-intro__slogans span {
   opacity: 0;
-  transform: translateY(22px);
-  animation: jabin-intro-phrase 660ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: jabin-intro-slogan-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.jabin-intro__slogans span:first-child {
+  animation-delay: 0.72s;
+}
+
+.jabin-intro__slogans span:last-child {
+  animation-delay: 1.58s;
+}
+
+.jabin-intro__track {
+  opacity: 0;
+  animation: jabin-intro-fade 420ms ease-out 250ms both;
 }
 
 .jabin-intro__progress {
   transform: scaleX(0);
-  animation: jabin-intro-progress 1750ms cubic-bezier(0.22, 1, 0.36, 1) 360ms forwards;
+  transition: transform 480ms cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-@keyframes jabin-intro-letter {
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0) scale(1);
+.jabin-intro__traveler {
+  opacity: 0;
+  transform-origin: 50% 100%;
+  animation: jabin-intro-traveler 2200ms linear 280ms both;
+  will-change: left, opacity, transform;
+}
+
+.jabin-intro__enter {
+  opacity: 0;
+  animation: jabin-intro-fade 240ms ease-out 2800ms both;
+}
+
+.jabin-intro--exiting .jabin-intro__word,
+.jabin-intro--exiting .jabin-intro__meta,
+.jabin-intro--exiting .jabin-intro__enter {
+  animation: jabin-intro-content-exit 180ms ease-out forwards;
+}
+
+.jabin-intro--exiting .jabin-intro__slogans {
+  animation: jabin-intro-slogans-exit 180ms ease-out forwards;
+}
+
+.jabin-intro--exiting .jabin-intro__traveler {
+  animation: jabin-intro-logo-to-navigation 520ms cubic-bezier(0.2, 0.82, 0.25, 1) forwards;
+}
+
+.jabin-intro--exiting .jabin-intro__track {
+  animation: jabin-intro-line-exit 260ms ease-in 120ms forwards;
+}
+
+@keyframes jabin-intro-letter-reveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(100% 0 0);
+    transform: translateY(48px);
   }
-}
-
-@keyframes jabin-intro-phrase {
-  to {
+  72% {
     opacity: 1;
+    clip-path: inset(0);
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0);
     transform: translateY(0);
   }
 }
 
+@keyframes jabin-intro-slogan-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 0.62;
+    transform: translateY(0);
+  }
+}
+
+@keyframes jabin-intro-traveler {
+  0% {
+    left: 0;
+    bottom: 22px;
+    opacity: 0;
+    transform: translateY(-9px) scaleY(1.04);
+  }
+  7% {
+    left: 0;
+    bottom: 8px;
+    opacity: 1;
+    transform: translateY(1px) scaleY(0.98);
+  }
+  11% {
+    left: 0;
+    bottom: 8px;
+    opacity: 1;
+    transform: none;
+  }
+  20%,
+  25% {
+    left: 18%;
+    bottom: 8px;
+    opacity: 1;
+    transform: translateY(1px);
+  }
+  35%,
+  39% {
+    left: 34%;
+    bottom: 8px;
+    opacity: 1;
+    transform: none;
+  }
+  50%,
+  54% {
+    left: 50%;
+    bottom: 8px;
+    opacity: 1;
+    transform: translateY(1px);
+  }
+  62% {
+    left: 64%;
+    bottom: 8px;
+    opacity: 1;
+    transform: none;
+  }
+  71%,
+  78% {
+    left: 82%;
+    bottom: 8px;
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  81% {
+    left: 81.8%;
+    bottom: 8px;
+    opacity: 1;
+    transform: translateX(-1px) scale(0.98);
+  }
+  88% {
+    left: 82%;
+    bottom: 8px;
+    opacity: 1;
+    transform: translateX(1px) scale(0.98);
+  }
+  100% {
+    left: 82%;
+    bottom: 8px;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes jabin-intro-fade {
+  from {
+    opacity: 0;
+  }
   to {
     opacity: 1;
   }
 }
 
-@keyframes jabin-intro-progress {
-  to {
-    transform: scaleX(1);
+@keyframes jabin-intro-logo-to-navigation {
+  0% {
+    left: 82%;
+    bottom: 8px;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  12% {
+    left: 82%;
+    bottom: 5px;
+    transform: translateY(2px) scale(0.98);
+  }
+  82% {
+    left: clamp(18px, 6vw, 92px);
+    bottom: calc(100vh - 82px);
+    opacity: 1;
+    transform: translateY(-2px) scale(1.64);
+  }
+  100% {
+    left: clamp(18px, 6vw, 92px);
+    bottom: calc(100vh - 80px);
+    opacity: 0;
+    transform: translateY(0) scale(1.58);
   }
 }
 
-@keyframes jabin-intro-exit {
-  0% {
-    clip-path: inset(0 0 0 0);
+@keyframes jabin-intro-content-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
   }
-  100% {
+}
+
+@keyframes jabin-intro-slogans-exit {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -6px);
+  }
+}
+
+@keyframes jabin-intro-line-exit {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes jabin-intro-panel-exit {
+  to {
     clip-path: inset(0 0 100% 0);
-    visibility: hidden;
+  }
+}
+
+@media (max-width: 639px) {
+  .jabin-intro__slogans {
+    width: 88%;
+  }
+}
+
+@media (min-width: 640px) {
+  .jabin-intro__word {
+    gap: clamp(0.7em, 7vw, 1.2em);
   }
 }
 
@@ -404,6 +641,39 @@ details[open] .infrastructure-details__content {
   }
 
   .jabin-intro {
+    animation: none;
+  }
+
+  .jabin-intro__meta,
+  .jabin-intro__track,
+  .jabin-intro__enter {
+    opacity: 1;
+    animation: none;
+  }
+
+  .jabin-intro__word {
+    opacity: 1;
+    animation: none;
+  }
+
+  .jabin-intro__letter {
+    opacity: 1;
+    clip-path: inset(0);
+    transform: none;
+    animation: none;
+  }
+
+  .jabin-intro__progress {
+    transition-duration: 120ms;
+    animation: none;
+  }
+
+  .jabin-intro__traveler,
+  .jabin-intro__slogans {
     display: none;
+  }
+
+  .jabin-intro--exiting {
+    animation: jabin-intro-panel-exit 180ms ease-out forwards;
   }
 }
