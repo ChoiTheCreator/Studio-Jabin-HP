@@ -98,7 +98,7 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   ).toBeAttached();
   await expect(page.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
   await expect(
-    page.getByRole("heading", { name: /역할은 나누고, 책임은 함께 집니다/ }),
+    page.getByRole("heading", { name: /하나의 관점으로 처음부터 끝까지/ }),
   ).toBeAttached();
   await expect(page.getByRole("link", { name: "최원빈 GitHub 새 창에서 열기" })).toBeAttached();
   await expect(page.getByText("유효석", { exact: true })).toBeAttached();
@@ -115,10 +115,26 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   const footer = page.locator("footer");
   await expect(footer.getByRole("link", { name: "hello@jabinstudio.com" })).toBeAttached();
   await expect(footer.getByText("최원빈 · 박재욱", { exact: true })).toBeAttached();
-  await expect(footer.getByText("발급 전", { exact: true })).toBeAttached();
+  await expect(footer.getByText("471-07-03625", { exact: true })).toBeVisible();
+  await expect(footer.getByText("발급 전", { exact: true })).toHaveCount(0);
+  await expect(footer.getByRole("link", { name: "hello@jabinstudio.com" })).toHaveAttribute(
+    "href",
+    "mailto:hello@jabinstudio.com",
+  );
   await expect(
     footer.getByText("서울특별시 양천구 목동중앙북로 16길 56", { exact: true }),
   ).toBeAttached();
+  await expect(footer.getByRole("link", { name: "자주 묻는 질문" })).toHaveAttribute(
+    "href",
+    "/?chat=faq",
+  );
+  await footer.getByRole("link", { name: "자주 묻는 질문" }).click();
+  await expect(page.getByRole("dialog", { name: /Jabin 어시스턴트/ })).toBeVisible();
+  await page.getByRole("button", { name: "채팅 닫기" }).click();
+  await expect(footer.getByRole("link", { name: "이용약관" })).toHaveAttribute(
+    "href",
+    "/terms",
+  );
   await expectNoHorizontalOverflow(page);
   await revealFullPage(page);
   await page.screenshot({ path: "test-results/home-desktop.png", fullPage: true });
