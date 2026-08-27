@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react"
 
 import { Reveal } from "@/components/motion/Reveal";
 import { easeOut, eyebrow } from "@/components/ui/tailwind";
+import { trackEvent } from "@/lib/analytics";
 
 const principles = [
   {
@@ -1086,6 +1087,10 @@ export function StudioPrinciples() {
     if (index === 0) setDesignStage(0);
     if (index === 1) setBuildStage(0);
     if (index === 2) setOperateStage(0);
+    trackEvent("service_view", {
+      service_name: ["design", "engineering", "operation"][index] ?? "unknown",
+      section_name: "how_we_build",
+    });
     setOpen(true);
   };
 

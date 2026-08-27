@@ -87,6 +87,8 @@ export function SiteHeader() {
                   : "bg-white text-navy-deep hover:-translate-y-0.5 hover:bg-navy-tint"
               }`}
               href="#contact"
+              data-analytics-event="contact_start"
+              data-entry-point="header"
             >
               프로젝트 문의
             </Link>
@@ -143,6 +145,8 @@ export function SiteHeader() {
           <Link
             className="mt-auto grid min-h-[52px] place-items-center rounded-full bg-white font-bold text-navy-deep"
             href="#contact"
+            data-analytics-event="contact_start"
+            data-entry-point="mobile_header"
             onClick={() => setMenuOpen(false)}
           >
             프로젝트 문의

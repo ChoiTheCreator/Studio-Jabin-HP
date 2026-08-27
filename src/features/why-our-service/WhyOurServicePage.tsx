@@ -35,6 +35,7 @@ function WhyHero() {
   return (
     <section
       className="flex min-h-[52dvh] items-center bg-navy-paper py-14 sm:min-h-[56dvh] sm:py-16"
+      id="why-service-hero"
       aria-labelledby="why-hero-title"
     >
       <div className={`${contentShell} text-center`}>
