@@ -303,7 +303,7 @@ details[open] .infrastructure-details__content {
 }
 
 .jabin-intro {
-  clip-path: inset(0);
+  contain: paint;
 }
 
 body:has(.jabin-intro) {
@@ -312,7 +312,32 @@ body:has(.jabin-intro) {
 
 .jabin-intro--exiting {
   pointer-events: none;
-  animation: jabin-intro-panel-exit 500ms cubic-bezier(0.76, 0, 0.24, 1) 160ms forwards;
+}
+
+.jabin-intro__curtain-panel {
+  background: var(--color-navy-night);
+  transform: translate3d(0, 0, 0);
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel {
+  animation: jabin-intro-curtain-panel-exit 500ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  will-change: transform;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(2) {
+  animation-delay: 24ms;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(3) {
+  animation-delay: 48ms;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(4) {
+  animation-delay: 72ms;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(5) {
+  animation-delay: 96ms;
 }
 
 body:has(.jabin-intro:not(.jabin-intro--exiting)) > header,
@@ -377,7 +402,7 @@ body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
 
 .jabin-intro__slogans span {
   opacity: 0;
-  animation: jabin-intro-slogan-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: jabin-intro-slogan-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .jabin-intro__slogans span:first-child {
@@ -385,7 +410,7 @@ body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
 }
 
 .jabin-intro__slogans span:last-child {
-  animation-delay: 1.58s;
+  animation-delay: 1.15s;
 }
 
 .jabin-intro__track {
@@ -399,15 +424,20 @@ body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
 }
 
 .jabin-intro__traveler {
+  --intro-travel-x: min(calc(82vw - 40px), 1280px);
+  --intro-travel-1: min(calc(18.04vw - 8.8px), 281.6px);
+  --intro-travel-2: min(calc(33.62vw - 16.4px), 524.8px);
+  --intro-travel-3: min(calc(50.02vw - 24.4px), 780.8px);
+  --intro-travel-4: min(calc(63.96vw - 31.2px), 998.4px);
   opacity: 0;
   transform-origin: 50% 100%;
-  animation: jabin-intro-traveler 2200ms linear 280ms both;
-  will-change: left, opacity, transform;
+  animation: jabin-intro-traveler 1250ms linear 220ms both;
+  will-change: opacity, transform;
 }
 
 .jabin-intro__enter {
   opacity: 0;
-  animation: jabin-intro-fade 240ms ease-out 2800ms both;
+  animation: jabin-intro-fade 220ms ease-out 1250ms both;
 }
 
 .jabin-intro--exiting .jabin-intro__word,
@@ -459,74 +489,52 @@ body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
 
 @keyframes jabin-intro-traveler {
   0% {
-    left: 0;
-    bottom: 22px;
     opacity: 0;
-    transform: translateY(-9px) scaleY(1.04);
+    transform: translate3d(0, -9px, 0) scaleY(1.04);
   }
   7% {
-    left: 0;
-    bottom: 8px;
     opacity: 1;
-    transform: translateY(1px) scaleY(0.98);
+    transform: translate3d(0, 1px, 0) scaleY(0.98);
   }
   11% {
-    left: 0;
-    bottom: 8px;
     opacity: 1;
-    transform: none;
+    transform: translate3d(0, 0, 0);
   }
   20%,
   25% {
-    left: 18%;
-    bottom: 8px;
     opacity: 1;
-    transform: translateY(1px);
+    transform: translate3d(var(--intro-travel-1), 1px, 0);
   }
   35%,
   39% {
-    left: 34%;
-    bottom: 8px;
     opacity: 1;
-    transform: none;
+    transform: translate3d(var(--intro-travel-2), 0, 0);
   }
   50%,
   54% {
-    left: 50%;
-    bottom: 8px;
     opacity: 1;
-    transform: translateY(1px);
+    transform: translate3d(var(--intro-travel-3), 1px, 0);
   }
   62% {
-    left: 64%;
-    bottom: 8px;
     opacity: 1;
-    transform: none;
+    transform: translate3d(var(--intro-travel-4), 0, 0);
   }
   71%,
   78% {
-    left: 82%;
-    bottom: 8px;
     opacity: 1;
-    transform: translateY(-2px);
+    transform: translate3d(var(--intro-travel-x), -2px, 0);
   }
   81% {
-    left: 81.8%;
-    bottom: 8px;
     opacity: 1;
-    transform: translateX(-1px) scale(0.98);
+    transform: translate3d(calc(var(--intro-travel-x) - 1px), 0, 0) scale(0.98);
   }
   88% {
-    left: 82%;
-    bottom: 8px;
     opacity: 1;
-    transform: translateX(1px) scale(0.98);
+    transform: translate3d(calc(var(--intro-travel-x) + 1px), 0, 0) scale(0.98);
   }
   100% {
-    left: 82%;
-    bottom: 8px;
     opacity: 1;
-    transform: none;
+    transform: translate3d(var(--intro-travel-x), 0, 0);
   }
 }
 
@@ -541,27 +549,19 @@ body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
 
 @keyframes jabin-intro-logo-to-navigation {
   0% {
-    left: 82%;
-    bottom: 8px;
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(var(--intro-travel-x), 0, 0) scale(1);
   }
   12% {
-    left: 82%;
-    bottom: 5px;
-    transform: translateY(2px) scale(0.98);
+    transform: translate3d(var(--intro-travel-x), 3px, 0) scale(0.98);
   }
   82% {
-    left: clamp(18px, 6vw, 92px);
-    bottom: calc(100vh - 82px);
     opacity: 1;
-    transform: translateY(-2px) scale(1.64);
+    transform: translate3d(clamp(18px, 6vw, 92px), calc(-100vh + 78px), 0) scale(1.64);
   }
   100% {
-    left: clamp(18px, 6vw, 92px);
-    bottom: calc(100vh - 80px);
     opacity: 0;
-    transform: translateY(0) scale(1.58);
+    transform: translate3d(clamp(18px, 6vw, 92px), calc(-100vh + 80px), 0) scale(1.58);
   }
 }
 
@@ -586,9 +586,9 @@ body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
   }
 }
 
-@keyframes jabin-intro-panel-exit {
+@keyframes jabin-intro-curtain-panel-exit {
   to {
-    clip-path: inset(0 0 100% 0);
+    transform: translate3d(0, -101%, 0);
   }
 }
 
@@ -674,6 +674,10 @@ body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
   }
 
   .jabin-intro--exiting {
-    animation: jabin-intro-panel-exit 180ms ease-out forwards;
+    animation: none;
+  }
+
+  .jabin-intro--exiting .jabin-intro__curtain-panel {
+    animation: jabin-intro-curtain-panel-exit 180ms ease-out forwards;
   }
 }

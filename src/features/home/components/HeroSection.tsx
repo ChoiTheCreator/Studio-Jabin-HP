@@ -80,8 +80,13 @@ export function HeroSection() {
       <div
         className={`${contentShell} flex h-full flex-col justify-end pt-28 pb-8 sm:pb-11 lg:pb-12`}
       >
-        <div className="mb-auto animate-hero-enter border-b border-white/25 pb-4 text-[12px] font-bold text-white/75 opacity-0 [animation-delay:120ms] motion-reduce:animate-none motion-reduce:opacity-100">
-          <span>FULL-CYCLE SI STUDIO</span>
+        <div className="mb-auto flex animate-hero-enter items-center justify-between gap-4 border-b border-white/25 pb-4 text-[10px] font-bold text-white/75 opacity-0 [animation-delay:120ms] motion-reduce:animate-none motion-reduce:opacity-100 sm:text-[12px]">
+          <span className="max-[480px]:hidden">FULL-CYCLE SI STUDIO</span>
+          <span className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <span>SEOUL / STUDIO</span>
+            <span aria-hidden="true">·</span>
+            <span>GWANGJU / COMPUTE</span>
+          </span>
         </div>
 
         <h1

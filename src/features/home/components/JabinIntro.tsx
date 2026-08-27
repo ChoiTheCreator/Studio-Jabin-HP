@@ -10,8 +10,22 @@ const letters = ["J", "A", "B", "I", "N"] as const;
 export function JabinIntro() {
   const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
-  const [progress, setProgress] = useState(15);
+  const [targetProgress, setTargetProgress] = useState(15);
+  const [progress, setProgress] = useState(0);
   const finishRef = useRef<(skip?: boolean) => void>(() => undefined);
+
+  useEffect(() => {
+    if (progress >= targetProgress) return;
+
+    const timer = window.setTimeout(() => {
+      setProgress((current) => {
+        const distance = targetProgress - current;
+        return Math.min(targetProgress, current + Math.max(1, Math.ceil(distance * 0.16)));
+      });
+    }, 34);
+
+    return () => window.clearTimeout(timer);
+  }, [progress, targetProgress]);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -30,17 +44,18 @@ export function JabinIntro() {
       finished = true;
 
       if (skip) {
+        setTargetProgress(100);
         setProgress(100);
         setExiting(true);
         later(() => setVisible(false), reducedMotion ? 120 : 420);
         return;
       }
 
-      setProgress(96);
-      later(() => setProgress(98), 70);
-      later(() => setProgress(100), 140);
+      setTargetProgress(96);
+      later(() => setTargetProgress(98), 70);
+      later(() => setTargetProgress(100), 140);
       later(() => setExiting(true), reducedMotion ? 100 : 260);
-      later(() => setVisible(false), reducedMotion ? 320 : 760);
+      later(() => setVisible(false), reducedMotion ? 320 : 900);
     };
 
     finishRef.current = finish;
@@ -51,29 +66,29 @@ export function JabinIntro() {
 
     void document.fonts.ready.then(() => {
       fontReady = true;
-      setProgress((current) => Math.max(current, 30));
+      setTargetProgress((current) => Math.max(current, 30));
       completeWhenReady();
     });
 
     const onHeroReady = () => {
       heroReady = true;
-      setProgress((current) => Math.max(current, 72));
+      setTargetProgress((current) => Math.max(current, 72));
       completeWhenReady();
     };
 
     window.addEventListener("jabin:hero-ready", onHeroReady);
     if (heroReady) onHeroReady();
 
-    later(() => setProgress((current) => Math.max(current, 85)), reducedMotion ? 180 : 2_150);
+    later(() => setTargetProgress((current) => Math.max(current, 85)), reducedMotion ? 180 : 1_150);
     later(
       () => {
         minimumComplete = true;
-        setProgress((current) => Math.max(current, 92));
+        setTargetProgress((current) => Math.max(current, 92));
         completeWhenReady();
       },
-      reducedMotion ? 420 : 2_900,
+      reducedMotion ? 420 : 1_500,
     );
-    later(() => finish(), reducedMotion ? 720 : 5_000);
+    later(() => finish(), reducedMotion ? 720 : 3_000);
 
     const skip = (event: KeyboardEvent) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -105,15 +120,25 @@ export function JabinIntro() {
 
   return (
     <div
-      className={`jabin-intro fixed inset-0 z-[200] cursor-pointer overflow-hidden bg-navy-night text-white ${exiting ? "jabin-intro--exiting" : ""}`}
+      className={`jabin-intro fixed inset-0 z-[200] cursor-pointer overflow-hidden text-white ${exiting ? "jabin-intro--exiting" : ""}`}
       data-testid="jabin-intro"
       data-progress={progress}
       onPointerDown={() => finishRef.current(true)}
     >
-      <div className="mx-auto grid h-full min-h-[540px] w-full max-w-[1600px] grid-rows-[auto_1fr_auto] px-5 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+      <div className="jabin-intro__curtain absolute inset-0 grid grid-cols-5" aria-hidden="true">
+        {Array.from({ length: 5 }, (_, index) => (
+          <span className="jabin-intro__curtain-panel" key={index} />
+        ))}
+      </div>
+
+      <div className="relative z-10 mx-auto grid h-full min-h-[540px] w-full max-w-[1600px] grid-rows-[auto_1fr_auto] px-5 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <div className="jabin-intro__meta flex items-center justify-between border-b border-white/15 pb-4 text-[10px] font-semibold text-white/45 sm:text-[11px]">
-          <span>FULL-CYCLE SI STUDIO</span>
-          <span>SEOUL</span>
+          <span className="max-[480px]:hidden">FULL-CYCLE SI STUDIO</span>
+          <span className="flex items-center gap-2 sm:gap-3">
+            <span>SEOUL / STUDIO</span>
+            <span aria-hidden="true">·</span>
+            <span>GWANGJU / COMPUTE</span>
+          </span>
         </div>
 
         <div className="relative grid place-items-center">
