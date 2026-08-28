@@ -12,7 +12,7 @@ export function CapabilitiesSection() {
       <div
         className={`${contentShell} grid gap-18 lg:grid-cols-[minmax(0,0.9fr)_minmax(520px,1.1fr)] lg:gap-24`}
       >
-        <div className="lg:sticky lg:top-30 lg:self-start">
+        <div>
           <Reveal>
             <p className={`${eyebrow} text-navy-primary`}>CAPABILITIES</p>
           </Reveal>

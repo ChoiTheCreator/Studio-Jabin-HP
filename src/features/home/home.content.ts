@@ -1,10 +1,9 @@
 import type { ProjectSummary } from "@/features/projects/project.types";
 
 export const navigation = [
-  { href: "#approach", label: "ABOUT" },
-  { href: "#infrastructure", label: "INFRA" },
-  { href: "#team", label: "TEAM" },
-  { href: "#process", label: "PROCESS" },
+  { href: "/", label: "HOME" },
+  { href: "/method", label: "METHOD" },
+  { href: "/why-our-service", label: "WHY JABIN" },
 ] as const;
 
 export const projects = [
