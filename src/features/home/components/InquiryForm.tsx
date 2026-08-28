@@ -2,11 +2,18 @@
 
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 import { submitInquiry, type InquiryState } from "@/app/_actions/inquiry";
 import { easeOut } from "@/components/ui/tailwind";
-import { serviceOptions, type InquiryType } from "@/config/inquiry";
+import { serviceOptions, type InquiryService, type InquiryType } from "@/config/inquiry";
+import {
+  getContactEntryPoint,
+  getProjectStatus,
+  getServiceType,
+  startContact,
+  trackEvent,
+} from "@/lib/analytics";
 
 import { InquiryPricingPanel } from "./InquiryPricingPanel";
 import { InquiryScenarioSelector } from "./InquiryScenarioSelector";
@@ -55,6 +62,9 @@ export function InquiryForm() {
   const [state, formAction, isPending] = useActionState(submitInquiry, initialState);
   const [scenario, setScenario] = useState<InquiryType | "">("");
   const [details, setDetails] = useState<InquiryDetails>(initialDetails);
+  const [selectedServices, setSelectedServices] = useState<InquiryService[]>([]);
+  const formStarted = useRef(false);
+  const leadTracked = useRef(false);
   const errors = state.fields;
   const succeeded = state.status === "success";
   const detailsOrder =
@@ -68,18 +78,52 @@ export function InquiryForm() {
     setDetails((current) => ({ ...current, [key]: value }));
   };
 
+  const selectScenario = (nextScenario: InquiryType | "") => {
+    setScenario(nextScenario);
+    if (!nextScenario) return;
+    startContact("contact_section");
+    trackEvent("project_status_select", { project_status: getProjectStatus(nextScenario) });
+  };
+
+  const selectService = (service: InquiryService, checked: boolean) => {
+    setSelectedServices((current) =>
+      checked ? [...new Set([...current, service])] : current.filter((item) => item !== service),
+    );
+    if (checked) trackEvent("service_select", { service_type: getServiceType(service) });
+  };
+
+  const startForm = () => {
+    if (formStarted.current || !scenario) return;
+    formStarted.current = true;
+    trackEvent("form_start", {
+      project_status: getProjectStatus(scenario),
+      entry_point: getContactEntryPoint(),
+    });
+  };
+
+  useEffect(() => {
+    if (state.status !== "success" || leadTracked.current || !scenario) return;
+    leadTracked.current = true;
+    trackEvent("generate_lead", {
+      project_status: getProjectStatus(scenario),
+      service_type: selectedServices.map(getServiceType).sort().join(","),
+      entry_point: getContactEntryPoint(),
+    });
+  }, [scenario, selectedServices, state.status]);
+
   return (
     <form className="grid" action={formAction}>
       <InquiryScenarioSelector
         error={errors?.inquiryType}
         selectedScenario={scenario}
-        onChange={setScenario}
+        onChange={selectScenario}
       />
 
       {scenario ? (
         <div
           className={`grid border-b border-white/25 py-12 sm:py-14 lg:py-16 ${detailsOrder}`}
           id="inquiry-details"
+          onFocusCapture={startForm}
         >
           <input name="inquiryType" type="hidden" value={scenario} />
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_760px] lg:items-start lg:gap-16">
@@ -330,6 +374,7 @@ export function InquiryForm() {
                         name="services"
                         type="checkbox"
                         value={service}
+                        onChange={(event) => selectService(service, event.target.checked)}
                       />
                       <span>{service}</span>
                     </label>

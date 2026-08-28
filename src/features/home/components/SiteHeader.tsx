@@ -93,7 +93,9 @@ export function SiteHeader({ anchorPrefix = "", initialTone = "dark" }: SiteHead
                   ? "bg-navy-primary text-white hover:-translate-y-0.5 hover:bg-navy-deep"
                   : "bg-white text-navy-deep hover:-translate-y-0.5 hover:bg-navy-tint"
               }`}
-              href={homeAnchor("#contact")}
+              href="#contact"
+              data-analytics-event="contact_start"
+              data-entry-point="header"
             >
               프로젝트 문의
             </Link>
@@ -149,7 +151,9 @@ export function SiteHeader({ anchorPrefix = "", initialTone = "dark" }: SiteHead
           ))}
           <Link
             className="mt-auto grid min-h-13 place-items-center rounded-full bg-white font-bold text-navy-deep"
-            href={homeAnchor("#contact")}
+            href="#contact"
+            data-analytics-event="contact_start"
+            data-entry-point="mobile_header"
             onClick={() => setMenuOpen(false)}
           >
             프로젝트 문의
