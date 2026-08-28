@@ -167,17 +167,6 @@ export function JabinIntro() {
                 style={{ transform: `scaleX(${progress / 100})` }}
               />
             </span>
-            <span className="jabin-intro__traveler absolute bottom-2 left-0 w-[42px] sm:w-[52px]">
-              <Image
-                className="h-auto w-full -translate-x-1/2 translate-y-[44%] brightness-0 invert"
-                src={brand.assets.logoWord}
-                alt=""
-                width={446}
-                height={233}
-                priority
-                aria-hidden="true"
-              />
-            </span>
           </div>
 
           <button
@@ -186,6 +175,15 @@ export function JabinIntro() {
             onPointerDown={(event) => event.stopPropagation()}
             onClick={() => finishRef.current(true)}
           >
+            <Image
+              className="h-auto w-[38px] brightness-0 invert sm:w-[44px]"
+              src={brand.assets.logoWord}
+              alt=""
+              width={446}
+              height={233}
+              priority
+              aria-hidden="true"
+            />
             <output className="tabular-nums" aria-label={`준비 ${progress}%`}>
               {progress.toString().padStart(2, "0")}
             </output>
