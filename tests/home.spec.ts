@@ -189,7 +189,9 @@ test("WHY JABIN 소개가 상세 페이지로 연결되고 제작 원칙보다 �
   await page.goto("/");
   await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
 
-  await page.getByRole("heading", { name: /왜 다른지, 직접 보여드리겠습니다/ }).scrollIntoViewIfNeeded();
+  await page
+    .getByRole("heading", { name: /왜 다른지, 직접 보여드리겠습니다/ })
+    .scrollIntoViewIfNeeded();
   await expect(
     page.getByRole("link", { name: /세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요/ }),
   ).toHaveAttribute("href", "/why-our-service");
@@ -200,7 +202,11 @@ test("WHY JABIN 소개가 상세 페이지로 연결되고 제작 원칙보다 �
       (element) => element.textContent === "HOW WE BUILD",
     );
 
-    return Boolean(teaser && howWeBuild && teaser.compareDocumentPosition(howWeBuild) & Node.DOCUMENT_POSITION_FOLLOWING);
+    return Boolean(
+      teaser &&
+      howWeBuild &&
+      teaser.compareDocumentPosition(howWeBuild) & Node.DOCUMENT_POSITION_FOLLOWING,
+    );
   });
   expect(sectionOrder).toBe(true);
 
@@ -212,8 +218,8 @@ test("WHY JABIN 소개가 상세 페이지로 연결되고 제작 원칙보다 �
 
     return Boolean(
       cta &&
-        howWeBuild &&
-        howWeBuild.compareDocumentPosition(cta) & Node.DOCUMENT_POSITION_FOLLOWING,
+      howWeBuild &&
+      howWeBuild.compareDocumentPosition(cta) & Node.DOCUMENT_POSITION_FOLLOWING,
     );
   });
   expect(ctaFollowsHowWeBuild).toBe(true);
@@ -431,10 +437,31 @@ test("첫 방문에서 JABIN 인트로가 재생되고 자동 종료된다", asy
 
   const intro = page.getByTestId("jabin-intro");
   await expect(intro).toBeVisible();
-  await expect(intro.getByText("Just Ask.")).toBeVisible();
-  await expect(intro.getByText("Build It Now.")).toBeVisible();
-  await expect(intro).toBeHidden({ timeout: 4_000 });
+  await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeAttached();
+  await expect(intro.locator(".jabin-intro__letter")).toHaveCount(5);
+  await expect(intro.locator(".jabin-intro__signature")).toHaveCount(0);
+  await expect(intro.getByRole("button", { name: /준비/ }).locator("img")).toHaveAttribute(
+    "src",
+    /jabin-logo-word/,
+  );
+  await expect(intro.getByRole("button", { name: /준비/ })).toBeAttached();
+  await expect
+    .poll(async () => Number(await intro.getAttribute("data-progress")))
+    .toBeGreaterThanOrEqual(92);
+  await expect(intro).toBeHidden({ timeout: 6_000 });
+  await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
+});
+
+test("JABIN 인트로는 키보드로 건너뛸 수 있다", async ({ page }) => {
+  await page.goto("/");
+
+  const intro = page.getByTestId("jabin-intro");
+  await expect(intro).toBeVisible();
+  await expect(page.locator("body")).toHaveCSS("overflow", "hidden");
+  await page.keyboard.press("Enter");
+  await expect(intro).toHaveCount(0);
+  await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
 });
 
 test("서비스 띠가 세 언어 문구를 빈 구간 없이 반복한다", async ({ page }) => {
