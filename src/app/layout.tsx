@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
+import { Analytics } from "@/components/analytics/Analytics";
 import { brand } from "@/config/brand";
 import "./globals.css";
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="ko" className="scroll-pt-[88px] scroll-smooth motion-reduce:scroll-auto">
       <body className="overflow-x-hidden bg-paper font-sans font-medium tracking-[0] text-ink antialiased selection:bg-lime selection:text-ink">
         {children}
+        <Analytics />
       </body>
     </html>
   );

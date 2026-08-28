@@ -118,6 +118,10 @@ export function WhyOurServiceCta() {
       className="group mt-20 block border-y border-navy-deep text-navy-ink transition-colors duration-300 hover:bg-navy-primary hover:text-white focus-visible:bg-navy-primary focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary"
       href="/why-our-service"
       id="why-our-service-cta"
+      data-analytics-event="cta_click"
+      data-cta-name="view_service"
+      data-section-name="why_jabin"
+      data-destination="/why-our-service"
     >
       <span className="block border-b border-navy-line px-0 py-5 transition-[padding,border-color] duration-300 group-hover:border-white/40 group-hover:px-6 group-focus-visible:border-white/40 group-focus-visible:px-6">
         <span className={`${eyebrow} text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white`}>

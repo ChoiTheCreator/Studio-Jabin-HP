@@ -303,67 +303,219 @@ details[open] .infrastructure-details__content {
 }
 
 .jabin-intro {
-  animation: jabin-intro-exit 720ms cubic-bezier(0.76, 0, 0.24, 1) 2100ms forwards;
+  contain: paint;
 }
 
-.jabin-intro__meta,
-.jabin-intro__footer {
+body:has(.jabin-intro) {
+  overflow: hidden;
+}
+
+.jabin-intro--exiting {
+  pointer-events: none;
+}
+
+.jabin-intro__curtain-panel {
+  background: var(--color-navy-night);
+  transform: translate3d(0, 0, 0);
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel {
+  animation: jabin-intro-curtain-panel-exit 500ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  will-change: transform;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(2) {
+  animation-delay: 24ms;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(3) {
+  animation-delay: 48ms;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(4) {
+  animation-delay: 72ms;
+}
+
+.jabin-intro--exiting .jabin-intro__curtain-panel:nth-child(5) {
+  animation-delay: 96ms;
+}
+
+body:has(.jabin-intro:not(.jabin-intro--exiting)) > header,
+body:has(.jabin-intro:not(.jabin-intro--exiting)) main,
+body:has(.jabin-intro:not(.jabin-intro--exiting)) main [class*="animate-hero"] {
+  animation-play-state: paused;
+}
+
+.jabin-intro__meta {
   opacity: 0;
-  animation: jabin-intro-fade 520ms ease-out 160ms forwards;
+  animation: jabin-intro-fade 420ms ease-out 180ms both;
+}
+
+.jabin-intro__word {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.18em;
+  font-size: clamp(54px, 9vw, 144px);
+  font-weight: 700;
+  line-height: 0.82;
 }
 
 .jabin-intro__letter {
+  display: inline-block;
   opacity: 0;
-  filter: blur(10px);
-  transform: translateY(112%) scale(0.94);
-  animation: jabin-intro-letter 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--intro-delay) forwards;
+  clip-path: inset(100% 0 0);
+  will-change: clip-path, transform, opacity;
 }
 
-.jabin-intro__phrase {
+.jabin-intro__letter--j {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 520ms both;
+}
+
+.jabin-intro__letter--a {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
+}
+
+.jabin-intro__letter--b {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 780ms both;
+}
+
+.jabin-intro__letter--i {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 910ms both;
+}
+
+.jabin-intro__letter--n {
+  animation: jabin-intro-letter-reveal 620ms cubic-bezier(0.16, 1, 0.3, 1) 1040ms both;
+}
+
+.jabin-intro__slogans {
+  position: absolute;
+  top: calc(50% + clamp(80px, 8vw, 125px));
+  left: 50%;
+  display: flex;
+  width: min(76%, 820px);
+  justify-content: space-between;
+  font-size: clamp(15px, 1.7vw, 24px);
+  font-weight: 600;
+  transform: translateX(-50%);
+}
+
+.jabin-intro__slogans span {
   opacity: 0;
-  transform: translateY(22px);
-  animation: jabin-intro-phrase 660ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: jabin-intro-slogan-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.jabin-intro__slogans span:first-child {
+  animation-delay: 0.72s;
+}
+
+.jabin-intro__slogans span:last-child {
+  animation-delay: 1.15s;
+}
+
+.jabin-intro__track {
+  opacity: 0;
+  animation: jabin-intro-fade 420ms ease-out 250ms both;
 }
 
 .jabin-intro__progress {
   transform: scaleX(0);
-  animation: jabin-intro-progress 1750ms cubic-bezier(0.22, 1, 0.36, 1) 360ms forwards;
+  transition: transform 480ms cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-@keyframes jabin-intro-letter {
-  to {
+.jabin-intro__enter {
+  opacity: 0;
+  animation: jabin-intro-fade 220ms ease-out 1250ms both;
+}
+
+.jabin-intro--exiting .jabin-intro__word,
+.jabin-intro--exiting .jabin-intro__meta,
+.jabin-intro--exiting .jabin-intro__enter {
+  animation: jabin-intro-content-exit 180ms ease-out forwards;
+}
+
+.jabin-intro--exiting .jabin-intro__slogans {
+  animation: jabin-intro-slogans-exit 180ms ease-out forwards;
+}
+
+.jabin-intro--exiting .jabin-intro__track {
+  animation: jabin-intro-line-exit 260ms ease-in 120ms forwards;
+}
+
+@keyframes jabin-intro-letter-reveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(100% 0 0);
+    transform: translateY(48px);
+  }
+  72% {
     opacity: 1;
-    filter: blur(0);
-    transform: translateY(0) scale(1);
+    clip-path: inset(0);
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0);
+    transform: translateY(0);
   }
 }
 
-@keyframes jabin-intro-phrase {
+@keyframes jabin-intro-slogan-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
   to {
-    opacity: 1;
+    opacity: 0.62;
     transform: translateY(0);
   }
 }
 
 @keyframes jabin-intro-fade {
+  from {
+    opacity: 0;
+  }
   to {
     opacity: 1;
   }
 }
 
-@keyframes jabin-intro-progress {
+@keyframes jabin-intro-content-exit {
   to {
-    transform: scaleX(1);
+    opacity: 0;
+    transform: translateY(-6px);
   }
 }
 
-@keyframes jabin-intro-exit {
-  0% {
-    clip-path: inset(0 0 0 0);
+@keyframes jabin-intro-slogans-exit {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -6px);
   }
-  100% {
-    clip-path: inset(0 0 100% 0);
-    visibility: hidden;
+}
+
+@keyframes jabin-intro-line-exit {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes jabin-intro-curtain-panel-exit {
+  to {
+    transform: translate3d(0, -101%, 0);
+  }
+}
+
+@media (max-width: 639px) {
+  .jabin-intro__slogans {
+    width: 88%;
+  }
+}
+
+@media (min-width: 640px) {
+  .jabin-intro__word {
+    gap: clamp(0.7em, 7vw, 1.2em);
   }
 }
 
@@ -404,6 +556,42 @@ details[open] .infrastructure-details__content {
   }
 
   .jabin-intro {
+    animation: none;
+  }
+
+  .jabin-intro__meta,
+  .jabin-intro__track,
+  .jabin-intro__enter {
+    opacity: 1;
+    animation: none;
+  }
+
+  .jabin-intro__word {
+    opacity: 1;
+    animation: none;
+  }
+
+  .jabin-intro__letter {
+    opacity: 1;
+    clip-path: inset(0);
+    transform: none;
+    animation: none;
+  }
+
+  .jabin-intro__progress {
+    transition-duration: 120ms;
+    animation: none;
+  }
+
+  .jabin-intro__slogans {
     display: none;
+  }
+
+  .jabin-intro--exiting {
+    animation: none;
+  }
+
+  .jabin-intro--exiting .jabin-intro__curtain-panel {
+    animation: jabin-intro-curtain-panel-exit 180ms ease-out forwards;
   }
 }

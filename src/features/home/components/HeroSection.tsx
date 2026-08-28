@@ -11,6 +11,16 @@ export function HeroSection() {
   const imageRef = useRef<HTMLDivElement>(null);
   const [imageReady, setImageReady] = useState(false);
 
+  const markHeroReady = () => {
+    setImageReady(true);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.documentElement.dataset.heroReady = "true";
+        window.dispatchEvent(new Event("jabin:hero-ready"));
+      });
+    });
+  };
+
   useEffect(() => {
     const finePointer = window.matchMedia("(pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -54,7 +64,15 @@ export function HeroSection() {
           fetchPriority="high"
           sizes="100vw"
           className="object-cover object-[62%_center] sm:object-center"
-          onLoad={() => setImageReady(true)}
+          onLoad={(event) => {
+            const image = event.currentTarget;
+            void image
+              .decode()
+              .catch(() => undefined)
+              .then(() => {
+                if (image.naturalWidth > 100 && image.naturalHeight > 100) markHeroReady();
+              });
+          }}
         />
       </div>
       <div className="absolute inset-0 -z-[1] bg-navy-night/70" aria-hidden="true" />
@@ -62,8 +80,13 @@ export function HeroSection() {
       <div
         className={`${contentShell} flex h-full flex-col justify-end pt-28 pb-8 sm:pb-11 lg:pb-12`}
       >
-        <div className="mb-auto animate-hero-enter border-b border-white/25 pb-4 text-[12px] font-bold text-white/75 opacity-0 [animation-delay:120ms] motion-reduce:animate-none motion-reduce:opacity-100">
-          <span>FULL-CYCLE SI STUDIO</span>
+        <div className="mb-auto flex animate-hero-enter items-center justify-between gap-4 border-b border-white/25 pb-4 text-[10px] font-bold text-white/75 opacity-0 [animation-delay:120ms] motion-reduce:animate-none motion-reduce:opacity-100 sm:text-[12px]">
+          <span className="max-[480px]:hidden">FULL-CYCLE SI STUDIO</span>
+          <span className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <span>SEOUL / STUDIO</span>
+            <span aria-hidden="true">·</span>
+            <span>GWANGJU / SERVER</span>
+          </span>
         </div>
 
         <h1
@@ -84,8 +107,8 @@ export function HeroSection() {
           </p>
 
           <p className="m-0 max-w-[440px] justify-self-end text-[14px] leading-[1.6] [word-break:keep-all] text-white/72 sm:text-[15px]">
-            복잡한 요구를 작동하는 시스템으로. 기획, UX/UI, 프론트엔드와 백엔드, 배포와 운영까지
-            한 팀이 연결합니다.
+            복잡한 요구를 작동하는 시스템으로. 기획, UX/UI, 프론트엔드와 백엔드, 배포와 운영까지 한
+            팀이 연결합니다.
           </p>
         </div>
       </div>

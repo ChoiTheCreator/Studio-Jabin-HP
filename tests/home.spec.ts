@@ -74,13 +74,16 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await page.goto("/");
 
   await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
-  const aboutLink = page.getByRole("navigation", { name: "주요 메뉴" }).getByRole("link", {
-    name: "ABOUT",
-  });
-  await expect(aboutLink).toHaveAttribute("href", "#approach");
-  await aboutLink.click();
-  await expect(page).toHaveURL(/#approach$/);
-  await expect(page.getByText("WHAT WE BELIEVE", { exact: true })).toBeInViewport();
+  const nav = page.getByRole("navigation", { name: "주요 메뉴" });
+  await expect(nav.getByRole("link", { name: "HOME" })).toHaveAttribute("href", "/");
+  await expect(nav.getByRole("link", { name: "METHOD" })).toHaveAttribute("href", "/method");
+  await expect(nav.getByRole("link", { name: "WHY JABIN" })).toHaveAttribute(
+    "href",
+    "/why-our-service",
+  );
+  const believeText = page.getByText("WHAT WE BELIEVE", { exact: true });
+  await believeText.scrollIntoViewIfNeeded();
+  await expect(believeText).toBeInViewport();
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
   await expect(
     page.getByRole("heading", {
@@ -93,19 +96,6 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await expect(
     page.getByRole("link", { name: /세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요/ }),
   ).toHaveAttribute("href", "/why-our-service");
-  await expect(
-    page.getByRole("heading", { name: /코드만 넘기고 끝내지 않습니다\. 운영까지 설계합니다/ }),
-  ).toBeAttached();
-  await expect(page.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
-  await expect(
-    page.getByRole("heading", { name: /하나의 관점으로 처음부터 끝까지/ }),
-  ).toBeAttached();
-  await expect(page.getByRole("link", { name: "최원빈 GitHub 새 창에서 열기" })).toBeAttached();
-  await expect(page.getByText("유효석", { exact: true })).toBeAttached();
-  await expect(page.getByText("임시우", { exact: true })).toBeAttached();
-  await expect(
-    page.getByRole("heading", { name: /진단부터 운영까지, 같은 기준으로 이어갑니다/ }),
-  ).toBeAttached();
   await expect(
     page.getByRole("heading", { name: /지금 가진 것부터, 함께 시작합니다/ }),
   ).toBeVisible();
@@ -151,9 +141,12 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
 
   await page.getByRole("button", { name: "메뉴 열기" }).click();
   await expect(page.getByRole("navigation", { name: "모바일 메뉴" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "01 ABOUT" })).toHaveAttribute("href", "#approach");
-  await expect(page.getByRole("link", { name: "02 INFRA" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /TEAM$/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "01 HOME" })).toHaveAttribute("href", "/");
+  await expect(page.getByRole("link", { name: "02 METHOD" })).toHaveAttribute("href", "/method");
+  await expect(page.getByRole("link", { name: /WHY JABIN$/ })).toHaveAttribute(
+    "href",
+    "/why-our-service",
+  );
   await expectNoHorizontalOverflow(page);
   await page.getByRole("button", { name: "메뉴 닫기", exact: true }).first().click();
   await expect(page.locator("#mobile-menu")).toBeHidden();
@@ -196,7 +189,9 @@ test("WHY JABIN 소개가 상세 페이지로 연결되고 제작 원칙보다 �
   await page.goto("/");
   await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
 
-  await page.getByRole("heading", { name: /왜 다른지, 직접 보여드리겠습니다/ }).scrollIntoViewIfNeeded();
+  await page
+    .getByRole("heading", { name: /왜 다른지, 직접 보여드리겠습니다/ })
+    .scrollIntoViewIfNeeded();
   await expect(
     page.getByRole("link", { name: /세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요/ }),
   ).toHaveAttribute("href", "/why-our-service");
@@ -207,7 +202,11 @@ test("WHY JABIN 소개가 상세 페이지로 연결되고 제작 원칙보다 �
       (element) => element.textContent === "HOW WE BUILD",
     );
 
-    return Boolean(teaser && howWeBuild && teaser.compareDocumentPosition(howWeBuild) & Node.DOCUMENT_POSITION_FOLLOWING);
+    return Boolean(
+      teaser &&
+      howWeBuild &&
+      teaser.compareDocumentPosition(howWeBuild) & Node.DOCUMENT_POSITION_FOLLOWING,
+    );
   });
   expect(sectionOrder).toBe(true);
 
@@ -219,8 +218,8 @@ test("WHY JABIN 소개가 상세 페이지로 연결되고 제작 원칙보다 �
 
     return Boolean(
       cta &&
-        howWeBuild &&
-        howWeBuild.compareDocumentPosition(cta) & Node.DOCUMENT_POSITION_FOLLOWING,
+      howWeBuild &&
+      howWeBuild.compareDocumentPosition(cta) & Node.DOCUMENT_POSITION_FOLLOWING,
     );
   });
   expect(ctaFollowsHowWeBuild).toBe(true);
@@ -438,10 +437,31 @@ test("첫 방문에서 JABIN 인트로가 재생되고 자동 종료된다", asy
 
   const intro = page.getByTestId("jabin-intro");
   await expect(intro).toBeVisible();
-  await expect(intro.getByText("Just Ask.")).toBeVisible();
-  await expect(intro.getByText("Build It Now.")).toBeVisible();
-  await expect(intro).toBeHidden({ timeout: 4_000 });
+  await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeAttached();
+  await expect(intro.locator(".jabin-intro__letter")).toHaveCount(5);
+  await expect(intro.locator(".jabin-intro__signature")).toHaveCount(0);
+  await expect(intro.getByRole("button", { name: /준비/ }).locator("img")).toHaveAttribute(
+    "src",
+    /jabin-logo-word/,
+  );
+  await expect(intro.getByRole("button", { name: /준비/ })).toBeAttached();
+  await expect
+    .poll(async () => Number(await intro.getAttribute("data-progress")))
+    .toBeGreaterThanOrEqual(92);
+  await expect(intro).toBeHidden({ timeout: 6_000 });
+  await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeVisible();
+});
+
+test("JABIN 인트로는 키보드로 건너뛸 수 있다", async ({ page }) => {
+  await page.goto("/");
+
+  const intro = page.getByTestId("jabin-intro");
+  await expect(intro).toBeVisible();
+  await expect(page.locator("body")).toHaveCSS("overflow", "hidden");
+  await page.keyboard.press("Enter");
+  await expect(intro).toHaveCount(0);
+  await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
 });
 
 test("서비스 띠가 세 언어 문구를 빈 구간 없이 반복한다", async ({ page }) => {
@@ -471,158 +491,6 @@ test("서비스 띠가 세 언어 문구를 빈 구간 없이 반복한다", asy
   expect(trackMetrics.firstGroupWidth).toBeGreaterThanOrEqual(trackMetrics.viewportWidth);
   expect(Math.abs(trackMetrics.firstGroupWidth - trackMetrics.secondGroupWidth)).toBeLessThan(1);
   await expectNoHorizontalOverflow(page);
-});
-
-test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공한다", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/");
-  await page.getByTestId("jabin-intro").dispatchEvent("pointerdown");
-
-  const infrastructure = page.locator("#infrastructure");
-  const overview = infrastructure.getByTestId("infrastructure-overview");
-  const intro = infrastructure.getByTestId("infrastructure-intro");
-  const locations = infrastructure.getByRole("img", {
-    name: "서울 AI 컴퓨팅과 광주 코어 컴퓨팅을 연결한 자체 인프라",
-  });
-  const gwangjuHeading = infrastructure
-    .getByRole("heading", { name: "Seoul to Gwangju" })
-    .getByText("Gwangju");
-  const infrastructureSummary = infrastructure.getByText(
-    /서울의 AI 컴퓨팅 인프라와 광주의 서비스 운영 인프라를 기반으로/,
-  );
-  const infrastructureMessage = infrastructure
-    .getByText("자체 인프라", { exact: true })
-    .locator("..");
-  const infrastructureMap = infrastructure.getByRole("img", {
-    name: "서울과 광주의 자체 인프라 거점을 연결한 대한민국 네트워크 지도",
-  });
-  const [
-    overviewBox,
-    introBox,
-    locationsBox,
-    gwangjuHeadingBox,
-    infrastructureSummaryBox,
-    infrastructureMessageBox,
-    infrastructureMapBox,
-  ] = await Promise.all([
-    overview.boundingBox(),
-    intro.boundingBox(),
-    locations.boundingBox(),
-    gwangjuHeading.boundingBox(),
-    infrastructureSummary.boundingBox(),
-    infrastructureMessage.boundingBox(),
-    infrastructureMap.boundingBox(),
-  ]);
-  expect(overviewBox).not.toBeNull();
-  expect(introBox).not.toBeNull();
-  expect(locationsBox).not.toBeNull();
-  expect(gwangjuHeadingBox).not.toBeNull();
-  expect(infrastructureSummaryBox).not.toBeNull();
-  expect(infrastructureMessageBox).not.toBeNull();
-  expect(infrastructureMapBox).not.toBeNull();
-  expect(overviewBox!.x).toBeLessThan(1);
-  expect(overviewBox!.width).toBeGreaterThanOrEqual(1439);
-  expect(Math.abs(introBox!.x - locationsBox!.x)).toBeLessThan(1);
-  expect(introBox!.width).toBeLessThan(locationsBox!.width * 0.7);
-  expect(Math.abs(gwangjuHeadingBox!.x - infrastructureSummaryBox!.x)).toBeLessThan(2);
-  expect(Math.abs(infrastructureMessageBox!.y - infrastructureSummaryBox!.y)).toBeLessThan(1);
-  expect(infrastructureMapBox!.x).toBeGreaterThanOrEqual(introBox!.x + introBox!.width);
-  await expect(infrastructureMap).toBeVisible();
-  await expect(infrastructure.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
-  await expect(infrastructure.getByText("02 REGIONS")).toBeAttached();
-  await expect(infrastructure.getByText("SEOUL", { exact: true })).toBeAttached();
-  await expect(infrastructure.getByText("GWANGJU", { exact: true })).toBeAttached();
-  await expect(infrastructure.getByText("자체 인프라", { exact: true })).toHaveCSS(
-    "background-color",
-    "rgb(201, 255, 61)",
-  );
-  await expect(
-    infrastructure.getByText(/서울 AI Compute와 광주 Core Compute의 서비스 범위/),
-  ).toBeVisible();
-  await expect(infrastructure.getByText("RTX A4500 × 2")).toBeHidden();
-
-  const details = infrastructure.getByTestId("infrastructure-details");
-  const detailsContent = details.locator(".infrastructure-details__content");
-  const detailsIndicator = infrastructure.getByTestId("infrastructure-details-indicator");
-  const detailsIndicatorVertical = infrastructure.getByTestId(
-    "infrastructure-details-indicator-vertical",
-  );
-  await expect(details).not.toHaveAttribute("open", "");
-  await expect(detailsIndicator).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-  await expect(detailsIndicatorVertical).toHaveCSS("scale", "none");
-  await infrastructure.getByText("기술 사양 자세히 보기").click();
-  await expect(details).toHaveAttribute("open", "");
-  await expect(detailsIndicator).toHaveCSS("background-color", "rgb(24, 75, 186)");
-  await expect(detailsIndicatorVertical).toHaveCSS("scale", "1 0");
-  await expect(detailsContent).toHaveCSS("animation-name", "infrastructure-details-enter");
-  await expect(
-    infrastructure.getByText(/사내 데이터 기반 RAG 및 문서 검색, OCR, 이미지·언어 처리/),
-  ).toBeVisible();
-  for (const keyword of [
-    "챗봇",
-    "업무 자동화",
-    "AI API 연동",
-    "데이터베이스 운영",
-    "CI/CD 배포",
-    "일일 백업 환경",
-  ]) {
-    const highlight = infrastructure.getByText(keyword, { exact: true });
-    await expect(highlight).toBeVisible();
-    await expect(highlight).toHaveCSS("background-color", "rgb(201, 255, 61)");
-  }
-  await expect(infrastructure.getByText("RTX A4500 × 2")).toBeVisible();
-  await expect(infrastructure.getByText("Tenstorrent p150a")).toBeVisible();
-  await expect(infrastructure.getByText("Dedicated Compute")).toBeVisible();
-  const signal = infrastructure.locator(".infrastructure-region__signal");
-  await expect(signal).toHaveCSS("animation-name", "infrastructure-region-signal");
-  await expect(signal).toHaveCSS("animation-duration", "8s");
-  await expectNoHorizontalOverflow(page);
-
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(signal).toHaveCSS("display", "none");
-  await expect(detailsContent).toHaveCSS("animation-name", "none");
-});
-
-test("인프라 지도가 화면 폭에 맞춰 안정적으로 재배치된다", async ({ page }) => {
-  await disableIntro(page);
-
-  for (const viewport of [
-    { width: 390, height: 844, maxMapWidth: 240, sideBySide: false },
-    { width: 640, height: 900, maxMapWidth: 288, sideBySide: false },
-    { width: 768, height: 1024, maxMapWidth: 240, sideBySide: true },
-    { width: 1024, height: 768, maxMapWidth: 280, sideBySide: true },
-  ]) {
-    await page.setViewportSize(viewport);
-    await page.goto("/");
-
-    const infrastructure = page.locator("#infrastructure");
-    const intro = infrastructure.getByTestId("infrastructure-intro");
-    const infrastructureMap = infrastructure.getByRole("img", {
-      name: "서울과 광주의 자체 인프라 거점을 연결한 대한민국 네트워크 지도",
-    });
-    const [introBox, infrastructureMapBox] = await Promise.all([
-      intro.boundingBox(),
-      infrastructureMap.boundingBox(),
-    ]);
-
-    expect(introBox).not.toBeNull();
-    expect(infrastructureMapBox).not.toBeNull();
-    expect(infrastructureMapBox!.width).toBeLessThanOrEqual(viewport.maxMapWidth + 1);
-
-    if (viewport.sideBySide) {
-      expect(infrastructureMapBox!.x).toBeGreaterThan(introBox!.x + introBox!.width);
-    } else {
-      expect(infrastructureMapBox!.y).toBeGreaterThanOrEqual(introBox!.y + introBox!.height);
-      expect(
-        Math.abs(
-          infrastructureMapBox!.x + infrastructureMapBox!.width - (introBox!.x + introBox!.width),
-        ),
-      ).toBeLessThan(1);
-    }
-
-    await expect(infrastructureMap).toBeVisible();
-    await expectNoHorizontalOverflow(page);
-  }
 });
 
 test("개인정보 안내 페이지가 주요 처리 기준을 제공한다", async ({ page }) => {
