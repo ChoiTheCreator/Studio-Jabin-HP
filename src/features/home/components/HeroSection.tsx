@@ -85,7 +85,7 @@ export function HeroSection() {
           <span className="flex shrink-0 items-center gap-2 sm:gap-3">
             <span>SEOUL / STUDIO</span>
             <span aria-hidden="true">·</span>
-            <span>GWANGJU / COMPUTE</span>
+            <span>GWANGJU / SERVER</span>
           </span>
         </div>
 

@@ -137,7 +137,7 @@ export function JabinIntro() {
           <span className="flex items-center gap-2 sm:gap-3">
             <span>SEOUL / STUDIO</span>
             <span aria-hidden="true">·</span>
-            <span>GWANGJU / COMPUTE</span>
+            <span>GWANGJU / SERVER</span>
           </span>
         </div>
 
@@ -185,9 +185,8 @@ export function JabinIntro() {
               aria-hidden="true"
             />
             <output className="tabular-nums" aria-label={`준비 ${progress}%`}>
-              {progress.toString().padStart(2, "0")}
+              {progress.toString().padStart(2, "0")}%
             </output>
-            ENTER <span aria-hidden="true">↵</span>
           </button>
         </div>
       </div>

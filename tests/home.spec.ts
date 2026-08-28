@@ -431,11 +431,11 @@ test("첫 방문에서 JABIN 인트로가 재생되고 자동 종료된다", asy
   await expect(page.getByRole("heading", { name: "JABIN", exact: true })).toBeAttached();
   await expect(intro.locator(".jabin-intro__letter")).toHaveCount(5);
   await expect(intro.locator(".jabin-intro__signature")).toHaveCount(0);
-  await expect(intro.getByRole("button", { name: /ENTER/ }).locator("img")).toHaveAttribute(
+  await expect(intro.getByRole("button", { name: /준비/ }).locator("img")).toHaveAttribute(
     "src",
     /jabin-logo-word/,
   );
-  await expect(intro.getByRole("button", { name: /ENTER/ })).toBeAttached();
+  await expect(intro.getByRole("button", { name: /준비/ })).toBeAttached();
   await expect
     .poll(async () => Number(await intro.getAttribute("data-progress")))
     .toBeGreaterThanOrEqual(92);
