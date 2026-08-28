@@ -165,8 +165,8 @@ const team: Team = {
     },
     {
       name: "유효석",
-      nameEn: "Hyoseok Yu",
-      image: "/images/team/hyoseok-yu.png",
+      nameEn: "Hyoseok Ryu",
+      image: "/images/team/hyoseok-ryu.png",
       role: "Planning & Design",
       responsibility:
         "서비스 기획과 디자인을 설계하고, 완성도 있는 결과물을 위한 품질 관리를 책임집니다.",
