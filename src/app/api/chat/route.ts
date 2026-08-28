@@ -1,3 +1,5 @@
+// 서버 액션이 아닌 Route Handler로 구현한 이유는 claude 응답을 토큰 단위로 실시간 스트리밍 하기 위해서임
+
 import Anthropic from "@anthropic-ai/sdk";
 import { headers } from "next/headers";
 
