@@ -93,14 +93,14 @@ export function LiveProjectSection() {
         <Reveal className="mx-auto mt-12 w-full max-w-[820px] sm:mt-14 lg:mt-16" delay={120}>
           <a
             className="group/live-project block w-full rounded-lg border border-navy-line bg-navy-surface p-6 text-left text-navy-ink transition-[border-color,transform] duration-300 ease-out focus-visible:border-navy-primary motion-reduce:transition-none sm:p-10 lg:p-12 [@media(hover:hover)]:hover:border-navy-primary motion-safe:[@media(hover:hover)]:hover:-translate-y-1"
-            href={liveProject.url}
+            href={activeProject.url}
             data-analytics-event="project_view"
             data-project-name="eternal_marketing"
             data-project-category="website"
             data-project-position="1"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${liveProject.name} 실제 웹사이트 새 탭에서 열기`}
+            aria-label={`${activeProject.name} 실제 웹사이트 새 탭에서 열기`}
           >
             <div
               className="grid overflow-hidden"
@@ -192,7 +192,7 @@ export function LiveProjectSection() {
                 aria-hidden="true"
               />
             </button>
-          </div>
+          </a>
 
           <div className="mt-6 flex justify-center" aria-label="프로젝트 선택">
             {projects.map((project, index) => {
