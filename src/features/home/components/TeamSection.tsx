@@ -143,7 +143,7 @@ const team: Team = {
     },
     {
       name: "유효석",
-      nameEn: "Hyoseok Yu",
+      nameEn: "Hyoseok Ryu",
       image: "/images/team/hyoseok-ryu.png",
       role: "Planning & Design",
       responsibility:
