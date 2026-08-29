@@ -10,9 +10,9 @@ import { ProcessSection } from "@/features/home/components/ProcessSection";
 import { contentShell } from "@/components/ui/tailwind";
 
 export const metadata: Metadata = {
-  title: "HOW JABIN | Jabin Studio",
+  title: "HOW WE WORK | Jabin Studio",
   description: "Jabin Studio의 엔지니어링 방식, 자체 인프라, 팀, 제작 프로세스를 소개합니다.",
-  alternates: { canonical: "/how-jabin" },
+  alternates: { canonical: "/how-we-work" },
 };
 
 export default function Page() {
@@ -26,7 +26,7 @@ export default function Page() {
         >
           <div className={`${contentShell} text-center`}>
             <p className="mb-7 text-[30px] leading-none font-bold text-navy-primary sm:mb-9 sm:text-[38px] lg:text-[44px]">
-              HOW JABIN
+              HOW WE WORK
             </p>
             <h1
               className="mx-auto max-w-215 text-[36px] leading-[1.08] font-bold text-navy-ink sm:text-[48px] lg:text-[58px]"

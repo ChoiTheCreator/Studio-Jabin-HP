@@ -78,7 +78,7 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await expect(nav.getByRole("link", { name: "HOME" })).toHaveAttribute("href", "/");
   await expect(nav.getByRole("link", { name: "HOW JABIN" })).toHaveAttribute(
     "href",
-    "/how-jabin",
+    "/how-we-work",
   );
   await expect(nav.getByRole("link", { name: "WHY JABIN" })).toHaveAttribute(
     "href",
@@ -147,7 +147,7 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
   await expect(page.getByRole("link", { name: "01 HOME" })).toHaveAttribute("href", "/");
   await expect(page.getByRole("link", { name: "02 HOW JABIN" })).toHaveAttribute(
     "href",
-    "/how-jabin",
+    "/how-we-work",
   );
   await expect(page.getByRole("link", { name: /WHY JABIN$/ })).toHaveAttribute(
     "href",

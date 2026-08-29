@@ -11,7 +11,7 @@ async function expectNoHorizontalOverflow(page: Page) {
 
 test("HOW JABIN 페이지의 핵심 섹션이 정상 노출된다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/how-jabin");
+  await page.goto("/how-we-work");
 
   await expect(page.getByRole("heading", { name: "Jabin Studio가 프로젝트를" })).toBeVisible();
   await expect(
@@ -38,7 +38,7 @@ test("헤더의 HOME/HOW JABIN/WHY JABIN 메뉴가 각 페이지로 연결된다
   await expect(nav.getByRole("link", { name: "HOME" })).toHaveAttribute("href", "/");
   await expect(nav.getByRole("link", { name: "HOW JABIN" })).toHaveAttribute(
     "href",
-    "/how-jabin",
+    "/how-we-work",
   );
   await expect(nav.getByRole("link", { name: "WHY JABIN" })).toHaveAttribute(
     "href",
@@ -46,13 +46,13 @@ test("헤더의 HOME/HOW JABIN/WHY JABIN 메뉴가 각 페이지로 연결된다
   );
 
   await nav.getByRole("link", { name: "HOW JABIN" }).click();
-  await expect(page).toHaveURL(/\/how-jabin$/);
+  await expect(page).toHaveURL(/\/how-we-work$/);
   await expect(page.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
 });
 
 test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공한다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/how-jabin");
+  await page.goto("/how-we-work");
 
   const infrastructure = page.locator("#infrastructure");
   const overview = infrastructure.getByTestId("infrastructure-overview");
@@ -167,7 +167,7 @@ test("인프라 지도가 화면 폭에 맞춰 안정적으로 재배치된다",
     { width: 1024, height: 768, maxMapWidth: 280, sideBySide: true },
   ]) {
     await page.setViewportSize(viewport);
-    await page.goto("/how-jabin");
+    await page.goto("/how-we-work");
 
     const infrastructure = page.locator("#infrastructure");
     const intro = infrastructure.getByTestId("infrastructure-intro");

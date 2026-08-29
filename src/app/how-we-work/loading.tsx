@@ -4,7 +4,7 @@ export default function Loading() {
   return (
     <main className="min-h-[100dvh] bg-navy-paper" aria-busy="true">
       <p className="sr-only" role="status">
-        HOW JABIN 페이지를 불러오는 중입니다.
+        HOW WE WORK 페이지를 불러오는 중입니다.
       </p>
 
       <div className="motion-safe:animate-pulse" aria-hidden="true">
