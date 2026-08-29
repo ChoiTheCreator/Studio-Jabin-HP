@@ -10,15 +10,15 @@ import { ProcessSection } from "@/features/home/components/ProcessSection";
 import { contentShell } from "@/components/ui/tailwind";
 
 export const metadata: Metadata = {
-  title: "METHOD | Jabin Studio",
+  title: "HOW JABIN | Jabin Studio",
   description: "Jabin Studio의 엔지니어링 방식, 자체 인프라, 팀, 제작 프로세스를 소개합니다.",
-  alternates: { canonical: "/method" },
+  alternates: { canonical: "/how-jabin" },
 };
 
 export default function Page() {
   return (
     <>
-      <SiteHeader anchorPrefix="/" initialTone="light" />
+      <SiteHeader initialTone="light" />
       <main className="bg-navy-paper">
         <section
           className="flex min-h-[42dvh] items-center bg-navy-paper py-14 sm:min-h-[46dvh] sm:py-16"
@@ -26,7 +26,7 @@ export default function Page() {
         >
           <div className={`${contentShell} text-center`}>
             <p className="mb-7 text-[30px] leading-none font-bold text-navy-primary sm:mb-9 sm:text-[38px] lg:text-[44px]">
-              METHOD
+              HOW JABIN
             </p>
             <h1
               className="mx-auto max-w-215 text-[36px] leading-[1.08] font-bold text-navy-ink sm:text-[48px] lg:text-[58px]"

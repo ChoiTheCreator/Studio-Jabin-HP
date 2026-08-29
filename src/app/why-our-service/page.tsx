@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <SiteHeader anchorPrefix="/" initialTone="light" />
+      <SiteHeader initialTone="light" />
       <WhyOurServicePage />
       <div className="relative z-[60]">
         <SiteFooter />

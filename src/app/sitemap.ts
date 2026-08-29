@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: brand.siteUrl, changeFrequency: "monthly", priority: 1 },
     {
-      url: `${brand.siteUrl}/method`,
+      url: `${brand.siteUrl}/how-jabin`,
       changeFrequency: "monthly",
       priority: 0.8,
     },

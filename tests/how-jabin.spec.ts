@@ -9,9 +9,9 @@ async function expectNoHorizontalOverflow(page: Page) {
   expect(dimensions.content).toBeLessThanOrEqual(dimensions.viewport);
 }
 
-test("Method 페이지의 핵심 섹션이 정상 노출된다", async ({ page }) => {
+test("HOW JABIN 페이지의 핵심 섹션이 정상 노출된다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/method");
+  await page.goto("/how-jabin");
 
   await expect(page.getByRole("heading", { name: "Jabin Studio가 프로젝트를" })).toBeVisible();
   await expect(
@@ -30,26 +30,29 @@ test("Method 페이지의 핵심 섹션이 정상 노출된다", async ({ page }
   await expectNoHorizontalOverflow(page);
 });
 
-test("헤더의 HOME/METHOD/WHY JABIN 메뉴가 각 페이지로 연결된다", async ({ page }) => {
+test("헤더의 HOME/HOW JABIN/WHY JABIN 메뉴가 각 페이지로 연결된다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
 
   const nav = page.getByRole("navigation", { name: "주요 메뉴" });
   await expect(nav.getByRole("link", { name: "HOME" })).toHaveAttribute("href", "/");
-  await expect(nav.getByRole("link", { name: "METHOD" })).toHaveAttribute("href", "/method");
+  await expect(nav.getByRole("link", { name: "HOW JABIN" })).toHaveAttribute(
+    "href",
+    "/how-jabin",
+  );
   await expect(nav.getByRole("link", { name: "WHY JABIN" })).toHaveAttribute(
     "href",
     "/why-our-service",
   );
 
-  await nav.getByRole("link", { name: "METHOD" }).click();
-  await expect(page).toHaveURL(/\/method$/);
+  await nav.getByRole("link", { name: "HOW JABIN" }).click();
+  await expect(page).toHaveURL(/\/how-jabin$/);
   await expect(page.getByRole("heading", { name: "Seoul to Gwangju" })).toBeAttached();
 });
 
 test("자체 인프라 섹션이 두 거점과 선택형 기술 사양을 제공한다", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/method");
+  await page.goto("/how-jabin");
 
   const infrastructure = page.locator("#infrastructure");
   const overview = infrastructure.getByTestId("infrastructure-overview");
@@ -164,7 +167,7 @@ test("인프라 지도가 화면 폭에 맞춰 안정적으로 재배치된다",
     { width: 1024, height: 768, maxMapWidth: 280, sideBySide: true },
   ]) {
     await page.setViewportSize(viewport);
-    await page.goto("/method");
+    await page.goto("/how-jabin");
 
     const infrastructure = page.locator("#infrastructure");
     const intro = infrastructure.getByTestId("infrastructure-intro");

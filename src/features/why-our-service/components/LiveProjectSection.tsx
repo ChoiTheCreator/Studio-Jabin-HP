@@ -17,11 +17,13 @@ const projects = [
     name: "이터널마케팅",
     url: "https://eternalmarketing.co.kr/",
     domain: "eternalmarketing.co.kr",
+    analyticsId: "eternal_marketing",
   },
   {
     name: "띵고 Thingo",
     url: "https://thingo.kr",
     domain: "thingo.kr",
+    analyticsId: "thingo",
   },
 ] as const;
 
@@ -90,17 +92,12 @@ export function LiveProjectSection() {
           </p>
         </Reveal>
 
-        <Reveal className="mx-auto mt-12 w-full max-w-[820px] sm:mt-14 lg:mt-16" delay={120}>
-          <a
-            className="group/live-project block w-full rounded-lg border border-navy-line bg-navy-surface p-6 text-left text-navy-ink transition-[border-color,transform] duration-300 ease-out focus-visible:border-navy-primary motion-reduce:transition-none sm:p-10 lg:p-12 [@media(hover:hover)]:hover:border-navy-primary motion-safe:[@media(hover:hover)]:hover:-translate-y-1"
-            href={liveProject.url}
-            data-analytics-event="project_view"
-            data-project-name="eternal_marketing"
-            data-project-category="website"
-            data-project-position="1"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${liveProject.name} 실제 웹사이트 새 탭에서 열기`}
+        <Reveal className="mt-12 sm:mt-14 lg:mt-16" delay={120}>
+          <div
+            className="relative mx-auto w-full max-w-[820px] px-7 lg:px-0"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Live Project"
           >
             <div
               className="grid overflow-hidden"
@@ -134,6 +131,10 @@ export function LiveProjectSection() {
                   <a
                     className="group/project-link mt-auto block pt-8 text-navy-ink outline-none focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-navy-primary"
                     href={activeProject.url}
+                    data-analytics-event="project_view"
+                    data-project-name={activeProject.analyticsId}
+                    data-project-category="website"
+                    data-project-position={activeIndex + 1}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${activeProject.name} 실제 웹사이트 새 탭에서 열기`}
