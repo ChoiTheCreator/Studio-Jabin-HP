@@ -22,10 +22,9 @@ export function HomePage() {
         <HeroSection />
         <ServiceMarquee />
         <StudioStatement />
-        <InquirySection />
 
         <section className="bg-white text-navy-ink" id="approach" aria-labelledby="statement-title">
-          <div className={`${contentShell} py-22 sm:py-28 lg:py-32`}>
+          <div className={`${contentShell} pb-22 sm:pb-28 lg:pb-32`}>
             <WhyJabinTeaser />
             <div className="mt-20 lg:mt-28">
               <Reveal className="border-t-2 border-navy-deep pt-5">
@@ -37,6 +36,7 @@ export function HomePage() {
             </div>
           </div>
         </section>
+        <InquirySection />
         <OwnedInfrastructureSection overviewOnly />
       </main>
       <SiteFooter />
