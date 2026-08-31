@@ -30,6 +30,8 @@ declare global {
 const productionHostnames = new Set(["jabinstudio.com", "www.jabinstudio.com"]);
 const debugEnabled = process.env.NEXT_PUBLIC_ANALYTICS_DEBUG === "true";
 
+export const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-KPW4GPCG";
+
 const projectStatusMap: Record<InquiryType, string> = {
   concept: "no_plan",
   continuation: "has_project",
@@ -51,7 +53,7 @@ export function isAnalyticsEnabled() {
   return (
     typeof window !== "undefined" &&
     process.env.NODE_ENV === "production" &&
-    Boolean(process.env.NEXT_PUBLIC_GTM_ID) &&
+    Boolean(gtmId) &&
     productionHostnames.has(window.location.hostname)
   );
 }

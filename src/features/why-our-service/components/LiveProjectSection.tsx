@@ -132,9 +132,9 @@ export function LiveProjectSection() {
                     className="group/project-link mt-auto block pt-8 text-navy-ink outline-none focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-navy-primary"
                     href={activeProject.url}
                     data-analytics-event="project_view"
-                    data-project-name={activeProject.analyticsId}
+                    data-project-name={activeProject.name}
                     data-project-category="website"
-                    data-project-position={activeIndex + 1}
+                    data-project-position={String(activeIndex + 1)}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${activeProject.name} 실제 웹사이트 새 탭에서 열기`}

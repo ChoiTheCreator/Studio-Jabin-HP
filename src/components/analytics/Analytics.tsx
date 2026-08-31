@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 import {
+  gtmId,
   isAnalyticsEnabled,
   startContact,
   trackEvent,
@@ -30,7 +31,6 @@ export function Analytics() {
   const viewedSections = useRef(new Set<string>());
 
   useEffect(() => {
-    const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
     if (!gtmId || !isAnalyticsEnabled()) return;
 
     window.dataLayer = window.dataLayer ?? [];
