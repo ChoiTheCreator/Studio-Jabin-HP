@@ -76,7 +76,10 @@ test("데스크톱 홈페이지의 핵심 섹션과 반응형 폭이 정상이�
   await expect(page.getByRole("link", { name: "Jabin 홈" }).first()).toBeVisible();
   const nav = page.getByRole("navigation", { name: "주요 메뉴" });
   await expect(nav.getByRole("link", { name: "HOME" })).toHaveAttribute("href", "/");
-  await expect(nav.getByRole("link", { name: "METHOD" })).toHaveAttribute("href", "/method");
+  await expect(nav.getByRole("link", { name: "HOW JABIN" })).toHaveAttribute(
+    "href",
+    "/how-we-work",
+  );
   await expect(nav.getByRole("link", { name: "WHY JABIN" })).toHaveAttribute(
     "href",
     "/why-our-service",
@@ -142,7 +145,10 @@ test("모바일 홈페이지와 메뉴가 화면 안에 들어온다", async ({ 
   await page.getByRole("button", { name: "메뉴 열기" }).click();
   await expect(page.getByRole("navigation", { name: "모바일 메뉴" })).toBeVisible();
   await expect(page.getByRole("link", { name: "01 HOME" })).toHaveAttribute("href", "/");
-  await expect(page.getByRole("link", { name: "02 METHOD" })).toHaveAttribute("href", "/method");
+  await expect(page.getByRole("link", { name: "02 HOW JABIN" })).toHaveAttribute(
+    "href",
+    "/how-we-work",
+  );
   await expect(page.getByRole("link", { name: /WHY JABIN$/ })).toHaveAttribute(
     "href",
     "/why-our-service",
