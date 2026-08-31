@@ -22,7 +22,6 @@ export function HomePage() {
         <HeroSection />
         <ServiceMarquee />
         <StudioStatement />
-        <InquirySection />
 
         <section className="bg-white text-navy-ink" id="approach" aria-labelledby="statement-title">
           <div className={`${contentShell} py-22 sm:py-28 lg:py-32`}>
@@ -37,6 +36,7 @@ export function HomePage() {
             </div>
           </div>
         </section>
+        <InquirySection />
         <OwnedInfrastructureSection overviewOnly />
       </main>
       <SiteFooter />
