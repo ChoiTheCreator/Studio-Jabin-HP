@@ -19,7 +19,7 @@ const bodyClass = "mt-5 mb-0 text-[15px] leading-[1.75] text-muted [word-break:k
 export default function PrivacyPage() {
   return (
     <>
-      <main className="bg-paper" id="top">
+      <main className="bg-paper">
         <header
           className={`${pageShell} flex h-24 items-center justify-between border-b border-ink/20`}
         >

@@ -40,7 +40,7 @@ export function HeroSection() {
   return (
     <section
       className="relative isolate z-[1] h-[calc(100svh-28px)] max-h-[940px] min-h-[540px] overflow-hidden bg-navy-night text-white"
-      id="top"
+      id="hero"
       aria-labelledby="hero-title"
     >
       <div

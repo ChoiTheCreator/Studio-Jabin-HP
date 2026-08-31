@@ -17,11 +17,13 @@ const projects = [
     name: "이터널마케팅",
     url: "https://eternalmarketing.co.kr/",
     domain: "eternalmarketing.co.kr",
+    analyticsId: "eternal_marketing",
   },
   {
     name: "띵고 Thingo",
     url: "https://thingo.kr",
     domain: "thingo.kr",
+    analyticsId: "thingo",
   },
 ] as const;
 

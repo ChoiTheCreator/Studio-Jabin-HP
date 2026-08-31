@@ -9,6 +9,8 @@ NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 NEXT_PUBLIC_ANALYTICS_DEBUG=false
 ```
 
+`NEXT_PUBLIC_GTM_ID`가 빌드 시 설정되지 않으면 운영 기본값 `GTM-KPW4GPCG`를 사용한다.
+
 GA4 Measurement ID는 소스 코드가 아니라 GTM의 Google Tag에 설정한다. `NEXT_PUBLIC_ANALYTICS_DEBUG=true`는 전송 여부와 무관하게 이벤트 payload를 브라우저 콘솔에 출력한다.
 
 ## GTM 설정
