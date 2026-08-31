@@ -350,7 +350,7 @@ public/images/
 │   ├── jabin-favicon.png      # 정사각형 파비콘
 │   └── jabin-social-preview.png # 링크 공유용 1200×630 대표 이미지
 ├── infrastructure/            # 자체 인프라 설명용 지도와 시각 자료
-│   └── infra-map.png           # 서울·광주 거점 네트워크 지도
+│   └── infra-map-v2.png        # 서울·광주 거점 네트워크 지도
 └── work/                      # 프로젝트와 콘셉트 이미지
     └── jabin-studio-hero.png
 ```

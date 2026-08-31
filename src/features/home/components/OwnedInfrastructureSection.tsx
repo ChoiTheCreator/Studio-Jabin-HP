@@ -26,7 +26,7 @@ function RegionServiceCopy({ segments }: { segments: readonly RegionServiceSegme
   );
 }
 
-export function OwnedInfrastructureSection() {
+export function OwnedInfrastructureSection({ overviewOnly = false }: { overviewOnly?: boolean }) {
   return (
     <section id="infrastructure" aria-labelledby="infrastructure-title">
       <div
@@ -36,7 +36,7 @@ export function OwnedInfrastructureSection() {
         <div className={contentShell}>
           <div className="md:grid md:grid-cols-[minmax(0,1fr)_240px] md:gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12 xl:grid-cols-[800px_minmax(0,1fr)] xl:gap-8">
             <div className="xl:max-w-200" data-testid="infrastructure-intro">
-              <Reveal className="border-t border-navy-line pt-5 lg:pt-6">
+              <Reveal className="border-t border-navy-line pt-5 sm:pt-3 lg:pt-6">
                 <div className="flex items-center justify-between gap-6">
                   <p className={`${eyebrow} text-navy-primary`}>OWNED INFRASTRUCTURE</p>
                   <p className="m-0 text-[12px] font-bold text-navy-muted">02 REGIONS</p>
@@ -73,17 +73,17 @@ export function OwnedInfrastructureSection() {
             <Reveal className="mt-10 ml-auto w-full max-w-60 overflow-hidden rounded-md sm:mt-14 sm:max-w-72 md:mt-0 md:max-w-none">
               <Image
                 className="h-auto w-full"
-                src="/images/infrastructure/infra-map.png"
+                src="/images/infrastructure/infra-map-v2.png"
                 alt="서울과 광주의 자체 인프라 거점을 연결한 대한민국 네트워크 지도"
-                width={464}
-                height={602}
+                width={1099}
+                height={1431}
                 sizes="(min-width: 1280px) 332px, (min-width: 1024px) 280px, (min-width: 768px) 240px, (min-width: 640px) 288px, 240px"
               />
             </Reveal>
           </div>
 
           <Reveal
-            className="mt-18 border-y border-navy-line py-7 sm:mt-24 sm:py-9 lg:mt-32"
+            className={`${overviewOnly ? "hidden" : ""} mt-18 border-y border-navy-line py-7 sm:mt-24 sm:py-9 lg:mt-32`}
             data-testid="infrastructure-locations"
           >
             <div
@@ -114,7 +114,7 @@ export function OwnedInfrastructureSection() {
             </div>
           </Reveal>
 
-          <Reveal className="mt-10 sm:mt-14">
+          <Reveal className={`${overviewOnly ? "hidden" : ""} mt-10 sm:mt-14`}>
             <details
               className="group border-b border-navy-line"
               data-testid="infrastructure-details"

@@ -3,6 +3,7 @@ import { ChatWidget } from "@/features/chat/ChatWidget";
 import { HeroSection } from "./components/HeroSection";
 import { InquirySection } from "./components/InquirySection";
 import { JabinIntro } from "./components/JabinIntro";
+import { OwnedInfrastructureSection } from "./components/OwnedInfrastructureSection";
 import { ServiceMarquee } from "./components/ServiceMarquee";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
@@ -36,6 +37,7 @@ export function HomePage() {
             </div>
           </div>
         </section>
+        <OwnedInfrastructureSection overviewOnly />
       </main>
       <SiteFooter />
       <ChatWidget />
