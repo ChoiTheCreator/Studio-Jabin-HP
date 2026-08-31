@@ -60,7 +60,7 @@ export function WhyJabinTeaser() {
 
   return (
     <div
-      className={`why-jabin mt-20 scroll-mt-28 border-t-2 border-navy-deep pt-6 sm:mt-24 lg:mt-28 ${started ? "why-jabin--started" : ""}`}
+      className={`why-jabin scroll-mt-28 border-t-2 border-navy-deep pt-6 ${started ? "why-jabin--started" : ""}`}
       id="jabin-system"
       ref={sectionRef}
     >
