@@ -13,7 +13,7 @@ import {
 } from "@/lib/analytics";
 
 const sectionNames: Record<string, string> = {
-  top: "hero",
+  hero: "hero",
   approach: "why_jabin",
   contact: "contact",
   engineering: "how_we_build",

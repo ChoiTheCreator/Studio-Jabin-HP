@@ -42,7 +42,7 @@ const sections = [
 export default function TermsPage() {
   return (
     <>
-      <main className="bg-paper" id="top">
+      <main className="bg-paper">
         <header className={`${pageShell} flex h-24 items-center justify-between border-b border-ink/20`}>
           <Link className="inline-flex min-h-11 w-[84px] items-center" href="/" aria-label={`${brand.name} 홈`}>
             <Image

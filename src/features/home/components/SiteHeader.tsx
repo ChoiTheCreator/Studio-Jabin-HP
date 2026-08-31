@@ -3,22 +3,30 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState, type MouseEvent } from "react";
 
 import { easeOut } from "@/components/ui/tailwind";
 import { brand } from "@/config/brand";
 import { navigation } from "../home.content";
 
 type SiteHeaderProps = {
-  anchorPrefix?: "" | "/";
   initialTone?: "dark" | "light";
 };
 
-export function SiteHeader({ anchorPrefix = "", initialTone = "dark" }: SiteHeaderProps = {}) {
+export function SiteHeader({ initialTone = "dark" }: SiteHeaderProps = {}) {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const usesLightTone = scrolled || (initialTone === "light" && !menuOpen);
-  const homeAnchor = (hash: string) => (hash.startsWith("/") ? hash : `${anchorPrefix}${hash}`);
+
+  // 이미 목적지 페이지에 있으면 라우팅 대신 맨 위로 스무스 스크롤한다.
+  const scrollToTopIfCurrent = (href: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    if (pathname !== href) return;
+    event.preventDefault();
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -54,7 +62,8 @@ export function SiteHeader({ anchorPrefix = "", initialTone = "dark" }: SiteHead
           }`}
         >
           <Link
-            href={homeAnchor("#top")}
+            href="/"
+            onClick={scrollToTopIfCurrent("/")}
             className="inline-flex min-h-11 w-21 items-center"
             aria-label={`${brand.name} 홈`}
           >
@@ -78,7 +87,8 @@ export function SiteHeader({ anchorPrefix = "", initialTone = "dark" }: SiteHead
             {navigation.map((item) => (
               <Link
                 key={item.href}
-                href={homeAnchor(item.href)}
+                href={item.href}
+                onClick={scrollToTopIfCurrent(item.href)}
                 className="relative py-3.5 text-[12px] font-bold after:absolute after:right-0 after:bottom-2.5 after:left-0 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 focus-visible:after:origin-left focus-visible:after:scale-x-100"
               >
                 {item.label}
@@ -141,9 +151,12 @@ export function SiteHeader({ anchorPrefix = "", initialTone = "dark" }: SiteHead
           {navigation.map((item, index) => (
             <Link
               key={item.href}
-              href={homeAnchor(item.href)}
+              href={item.href}
               className="flex min-h-14 items-center gap-4.5 border-b border-white/20 text-[24px] font-bold sm:min-h-17 sm:text-[28px]"
-              onClick={() => setMenuOpen(false)}
+              onClick={(event) => {
+                scrollToTopIfCurrent(item.href)(event);
+                setMenuOpen(false);
+              }}
             >
               <span className="text-[11px] text-navy-signal">0{index + 1}</span>
               {item.label}

@@ -2,7 +2,7 @@ import type { ProjectSummary } from "@/features/projects/project.types";
 
 export const navigation = [
   { href: "/", label: "HOME" },
-  { href: "/method", label: "METHOD" },
+  { href: "/how-we-work", label: "HOW JABIN" },
   { href: "/why-our-service", label: "WHY JABIN" },
 ] as const;
 
