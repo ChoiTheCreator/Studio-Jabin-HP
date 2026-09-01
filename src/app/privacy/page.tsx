@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: `개인정보 처리 안내 | ${brand.name}`,
   description: `${brand.name} 프로젝트 문의 과정에서 수집하는 개인정보와 처리 기준입니다.`,
   alternates: { canonical: "/privacy" },
+  robots: { index: false, follow: true },
 };
 
 const sectionClass = "border-t border-ink pt-5";
