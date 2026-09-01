@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: `이용약관 | ${brand.name}`,
   description: `${brand.name} 홈페이지의 이용 조건과 안내입니다.`,
   alternates: { canonical: "/terms" },
+  robots: { index: false, follow: true },
 };
 
 const sections = [
