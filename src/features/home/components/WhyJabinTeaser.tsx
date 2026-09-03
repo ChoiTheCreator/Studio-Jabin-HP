@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -26,7 +27,7 @@ const scenes = [
 ] as const;
 
 export function WhyJabinTeaser() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLAnchorElement>(null);
   const [activeScene, setActiveScene] = useState(0);
   const [started, setStarted] = useState(false);
 
@@ -59,23 +60,37 @@ export function WhyJabinTeaser() {
   }, [activeScene, started]);
 
   return (
-    <div
-      className={`why-jabin scroll-mt-28 border-t-2 border-navy-deep pt-6 ${started ? "why-jabin--started" : ""}`}
+    <Link
+      className={`why-jabin group block scroll-mt-28 border-y-2 border-navy-deep pt-6 pb-14 transition-colors duration-300 hover:bg-navy-surface focus-visible:bg-navy-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary sm:pb-18 ${started ? "why-jabin--started" : ""}`}
+      href="/why-our-service"
       id="jabin-system"
       ref={sectionRef}
+      data-analytics-event="cta_click"
+      data-cta-name="view_service"
+      data-section-name="why_jabin"
+      data-destination="/why-our-service"
     >
       <p className={`${eyebrow} text-navy-primary`}>WHY JABIN?</p>
 
-      <div className="mt-10 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.48fr)] lg:items-end lg:gap-16">
-        <h3 className="m-0 max-w-[820px] overflow-hidden text-[42px] leading-[1.04] font-bold [word-break:keep-all] sm:text-[58px] lg:text-[72px]">
+      <div className="mt-10 grid gap-10 px-0 transition-[padding] duration-300 group-hover:px-4 group-focus-visible:px-4 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.48fr)] lg:items-end lg:gap-16">
+        <h3 className="m-0 max-w-[820px] overflow-hidden text-[42px] leading-[1.04] font-bold [word-break:keep-all] transition-colors duration-300 group-hover:text-navy-primary group-focus-visible:text-navy-primary sm:text-[58px] lg:text-[72px]">
           <span className="why-jabin__headline-line block">왜 다른지,</span>
           <span className="why-jabin__headline-line block">직접 보여드리겠습니다.</span>
         </h3>
-        <p className="m-0 max-w-[420px] text-[16px] leading-[1.65] [word-break:keep-all] text-navy-muted sm:text-[18px]">
-          비슷해 보이는 결과물도
-          <br />
-          만드는 방식에 따라 달라집니다.
-        </p>
+        <div>
+          <p className="m-0 max-w-[420px] text-[16px] leading-[1.65] [word-break:keep-all] text-navy-muted sm:text-[18px]">
+            비슷해 보이는 결과물도
+            <br />
+            만드는 방식에 따라 달라집니다.
+          </p>
+          <span className="mt-8 inline-flex items-center gap-4 border-b border-navy-deep pb-2 text-[12px] font-bold text-navy-deep transition-colors group-hover:border-navy-primary group-hover:text-navy-primary group-focus-visible:border-navy-primary group-focus-visible:text-navy-primary">
+            JABIN SYSTEM
+            <ArrowRightIcon
+              className="size-5 stroke-[1.5] transition-transform duration-300 group-hover:translate-x-2 group-focus-visible:translate-x-2"
+              aria-hidden="true"
+            />
+          </span>
+        </div>
       </div>
 
       {/* <div
@@ -108,38 +123,6 @@ export function WhyJabinTeaser() {
           </div>
         ))}
       </div> */}
-    </div>
-  );
-}
-
-export function WhyOurServiceCta() {
-  return (
-    <Link
-      className="group mt-20 block border-y border-navy-deep text-navy-ink transition-colors duration-300 hover:bg-navy-primary hover:text-white focus-visible:bg-navy-primary focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy-primary"
-      href="/why-our-service"
-      id="why-our-service-cta"
-      data-analytics-event="cta_click"
-      data-cta-name="view_service"
-      data-section-name="why_jabin"
-      data-destination="/why-our-service"
-    >
-      <span className="block border-b border-navy-line px-0 py-5 transition-[padding,border-color] duration-300 group-hover:border-white/40 group-hover:px-6 group-focus-visible:border-white/40 group-focus-visible:px-6">
-        <span className={`${eyebrow} text-navy-primary transition-colors group-hover:text-white group-focus-visible:text-white`}>
-          WHY JABIN SYSTEM?
-        </span>
-      </span>
-
-      <span className="grid min-h-[176px] px-0 py-8 transition-[padding] duration-300 group-hover:px-6 group-focus-visible:px-6 sm:min-h-[200px] sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:py-10">
-        <span className="max-w-[920px] text-[28px] leading-[1.15] font-bold [word-break:keep-all] sm:text-[36px] lg:text-[44px]">
-          세 가지 원칙이 실제 결과로 이어지는 방식을 확인해보세요.
-        </span>
-        <span
-          aria-hidden="true"
-          className="mt-8 text-[36px] leading-none transition-transform duration-300 group-hover:translate-x-3 group-focus-visible:translate-x-3 sm:mt-0 sm:text-[48px]"
-        >
-          →
-        </span>
-      </span>
     </Link>
   );
 }
