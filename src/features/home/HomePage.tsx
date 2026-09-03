@@ -8,7 +8,7 @@ import { ServiceMarquee } from "./components/ServiceMarquee";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
 import { StudioStatement } from "./components/StudioStatement";
-import { WhyJabinTeaser, WhyOurServiceCta } from "./components/WhyJabinTeaser";
+import { WhyJabinTeaser } from "./components/WhyJabinTeaser";
 import { Reveal } from "@/components/motion/Reveal";
 import { contentShell, eyebrow } from "@/components/ui/tailwind";
 import { StudioPrinciples } from "./components/StudioPrinciples";
@@ -26,12 +26,11 @@ export function HomePage() {
         <section className="bg-white text-navy-ink" id="approach" aria-labelledby="statement-title">
           <div className={`${contentShell} pb-22 sm:pb-28 lg:pb-32`}>
             <WhyJabinTeaser />
-            <div className="mt-20 lg:mt-28">
-              <Reveal className="border-t-2 border-navy-deep pt-5">
+            <div>
+              <Reveal className="pt-5">
                 <p className={`${eyebrow} text-navy-primary`}>HOW WE BUILD</p>
               </Reveal>
               <StudioPrinciples />
-              <WhyOurServiceCta />
               {/* <OwnershipStatement /> */}
             </div>
           </div>

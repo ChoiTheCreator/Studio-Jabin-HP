@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 
 import { Reveal } from "@/components/motion/Reveal";
-import { easeOut, eyebrow } from "@/components/ui/tailwind";
+import { easeOut } from "@/components/ui/tailwind";
 import { trackEvent } from "@/lib/analytics";
 
 const principles = [
@@ -1207,17 +1207,6 @@ export function StudioPrinciples() {
                       playing={open}
                     />
                   )}
-
-                  <div className="mt-16 border-t border-navy-line pt-6 sm:mt-24">
-                    <p className={`${eyebrow} text-navy-primary`}>PART OF THE JABIN SYSTEM</p>
-                    <a
-                      className="mt-6 inline-flex min-h-12 items-center border-b border-navy-deep text-[14px] font-bold transition-colors duration-200 hover:border-navy-primary hover:text-navy-primary"
-                      href="#jabin-system"
-                      onClick={() => setOpen(false)}
-                    >
-                      Explore the Jabin System →
-                    </a>
-                  </div>
                 </div>
               </section>
             </div>,
